@@ -9,6 +9,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
+import LoginScreen from '../screens/profile/LoginScreen';
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import { HomeParamList, BottomTabParamList, ViewAssetParamList, ProfileParamList, ChartParamList, AddAssetParamList } from '../types';
@@ -73,7 +74,7 @@ function ProfileNavigator() {
     <ProfileStack.Navigator>
       <ProfileStack.Screen
         name="LoginScreen"
-        component={TabTwoScreen} // add login screen
+        component={LoginScreen}
         options={{ headerTitle: 'Login-In' }}
       />
       <ProfileStack.Screen

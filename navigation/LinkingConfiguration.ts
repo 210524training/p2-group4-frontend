@@ -19,12 +19,12 @@ export default {
           },
           ViewAssets: {
             screens: {
-              ViewAssetsScreen: 'view assets',
+              ViewAssetScreen: 'ViewAssets',
             },
           },
           AddAssets: {
             screens: {
-              AddAssetsScreen: 'add assets',
+              AddAssetScreen: 'AddAssets',
             },
           },
           Charts: {
