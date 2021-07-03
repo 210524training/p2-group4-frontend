@@ -60,11 +60,10 @@ const LoginScreen: React.FC<unknown> = () => {
                 nav.navigate('RegisterScreen');
               }}
             >
-              Don't have an account?
+              Register
             </Text>
           </View>
         </>
-      )
     </View >
   );
 }

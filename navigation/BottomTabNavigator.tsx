@@ -10,6 +10,7 @@ import * as React from 'react';
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import LoginScreen from '../screens/profile/LoginScreen';
+import RegisterScreen from '../screens/profile/RegisterScreen';
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import { HomeParamList, BottomTabParamList, ViewAssetParamList, ProfileParamList, ChartParamList, AddAssetParamList } from '../types';
@@ -79,7 +80,7 @@ function ProfileNavigator() {
       />
       <ProfileStack.Screen
         name="RegisterScreen"
-        component={TabTwoScreen} // add register screen
+        component={RegisterScreen}
         options={{ headerTitle: 'Register' }}
       />
     </ProfileStack.Navigator>
