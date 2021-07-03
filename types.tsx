@@ -9,8 +9,11 @@ export type RootStackParamList = {
 };
 
 export type BottomTabParamList = {
-  TabOne: undefined;
-  TabTwo: undefined;
+  Home: undefined;
+  ViewAsset: undefined;
+  Profile: undefined;
+  AddAsset: undefined;
+  Chart: undefined;
 };
 
 export type TabOneParamList = {
@@ -19,4 +22,25 @@ export type TabOneParamList = {
 
 export type TabTwoParamList = {
   TabTwoScreen: undefined;
+};
+
+export type ProfileParamList = {
+  LoginScreen: undefined;
+  RegisterScreen: undefined;
+};
+
+export type ChartParamList = {
+  ChartScreen: undefined;
+};
+
+export type AddAssetParamList = {
+  AddAssetScreen: undefined;
+};
+
+export type ViewAssetParamList = {
+  ViewAssetScreen: undefined;
+};
+
+export type HomeParamList = {
+  HomeScreen: undefined;
 };

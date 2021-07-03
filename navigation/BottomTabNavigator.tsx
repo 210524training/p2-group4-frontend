@@ -7,12 +7,11 @@ import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
-
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
-import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
+import { HomeParamList, BottomTabParamList, ViewAssetParamList, ProfileParamList, ChartParamList, AddAssetParamList } from '../types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -21,20 +20,41 @@ export default function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
+      initialRouteName="Home"
       tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
       <BottomTab.Screen
-        name="TabOne"
-        component={TabOneNavigator}
+        name="Home"
+        component={HomeNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
         }}
       />
       <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoNavigator}
+        name="ViewAsset"
+        component={ViewAssetNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="md-albums-sharp" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="AddAsset"
+        component={AddAssetNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="ios-duplicate-sharp" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Chart"
+        component={ChartNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="ios-bar-chart-sharp" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Profile"
+        component={ProfileNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="ios-person-circle" color={color} />,
         }}
       />
     </BottomTab.Navigator>
@@ -47,32 +67,72 @@ function TabBarIcon(props: { name: React.ComponentProps<typeof Ionicons>['name']
   return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
 }
 
-// Each tab has its own navigation stack, you can read more about this pattern here:
-// https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
-const TabOneStack = createStackNavigator<TabOneParamList>();
-
-function TabOneNavigator() {
+const ProfileStack = createStackNavigator<ProfileParamList>();
+function ProfileNavigator() {
   return (
-    <TabOneStack.Navigator>
-      <TabOneStack.Screen
-        name="TabOneScreen"
-        component={TabOneScreen}
-        options={{ headerTitle: 'Tab One Title' }}
+    <ProfileStack.Navigator>
+      <ProfileStack.Screen
+        name="LoginScreen"
+        component={TabTwoScreen} // add login screen
+        options={{ headerTitle: 'Login-In' }}
       />
-    </TabOneStack.Navigator>
+      <ProfileStack.Screen
+        name="RegisterScreen"
+        component={TabTwoScreen} // add register screen
+        options={{ headerTitle: 'Register' }}
+      />
+    </ProfileStack.Navigator>
   );
 }
 
-const TabTwoStack = createStackNavigator<TabTwoParamList>();
-
-function TabTwoNavigator() {
+const ChartStack = createStackNavigator<ChartParamList>();
+function ChartNavigator() {
   return (
-    <TabTwoStack.Navigator>
-      <TabTwoStack.Screen
-        name="TabTwoScreen"
-        component={TabTwoScreen}
-        options={{ headerTitle: 'Tab Two Title' }}
+    <ChartStack.Navigator>
+      <ChartStack.Screen
+        name="ChartScreen"
+        component={TabTwoScreen} // add chart screen
+        options={{ headerTitle: 'Chart' }}
       />
-    </TabTwoStack.Navigator>
+    </ChartStack.Navigator>
+  );
+}
+
+const HomeStack = createStackNavigator<HomeParamList>();
+function HomeNavigator() {
+  return (
+    <HomeStack.Navigator>
+      <HomeStack.Screen
+        name="HomeScreen"
+        component={TabTwoScreen} // add home screen
+        options={{ headerTitle: 'Home' }}
+      />
+    </HomeStack.Navigator>
+  );
+}
+
+const AddAssetStack = createStackNavigator<AddAssetParamList>();
+function AddAssetNavigator() {
+  return (
+    <AddAssetStack.Navigator>
+      <AddAssetStack.Screen
+        name="AddAssetScreen"
+        component={TabTwoScreen} // add asset screen
+        options={{ headerTitle: 'Add Asset' }}
+      />
+    </AddAssetStack.Navigator>
+  );
+}
+
+const ViewAssetStack = createStackNavigator<ViewAssetParamList>();
+function ViewAssetNavigator() {
+  return (
+    <ViewAssetStack.Navigator>
+      <ViewAssetStack.Screen
+        name="ViewAssetScreen"
+        component={TabTwoScreen} // add asset screen
+        options={{ headerTitle: 'View Asset' }}
+      />
+    </ViewAssetStack.Navigator>
   );
 }

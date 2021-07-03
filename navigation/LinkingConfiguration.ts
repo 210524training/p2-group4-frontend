@@ -12,14 +12,30 @@ export default {
     screens: {
       Root: {
         screens: {
-          TabOne: {
+          Home: {
             screens: {
-              TabOneScreen: 'one',
+              HomeScreen: 'home',
             },
           },
-          TabTwo: {
+          ViewAssets: {
             screens: {
-              TabTwoScreen: 'two',
+              ViewAssetsScreen: 'view assets',
+            },
+          },
+          AddAssets: {
+            screens: {
+              AddAssetsScreen: 'add assets',
+            },
+          },
+          Charts: {
+            screens: {
+              ChartScreen: 'charts',
+            },
+          },
+          Profile: {
+            screens: {
+              LoginScreen: 'login',
+              RegisterScreen: 'register'
             },
           },
         },
