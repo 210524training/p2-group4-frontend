@@ -1,69 +1,90 @@
-import * as React from 'react';
-import { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import UserContext from '../../hooks/context/UserContext';
 import { Button, StyleSheet, TextInput } from 'react-native';
 import { Text, View } from '../../components/Themed';
 import { useNavigation } from '@react-navigation/native';
+import { login, logout, UserState, selectUser } from '../../hooks/slices/userSlice';
+import User from '../../models/user';
 
 const LoginScreen: React.FC<unknown> = () => {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-
+  const { setAuthenticated, setRole, setUser, user, authenticated } = useContext(UserContext);
   const nav = useNavigation();
 
   const handleLogin = async () => {
+    // const response = axios
+    // sessionStorage.setItem('user', JSON.stringify(response));
+    // if statement to verify
+    setAuthenticated(true);
+    setRole('Technician'); // fix
+    setUser(username);
     nav.navigate('Home');
-  } // needs config
+  }
+
+  const handleLogout = async () => {
+    // const response = axios
+    sessionStorage.clear();
+    setAuthenticated(false);
+    setUser('');
+    setRole('');
+    nav.navigate('Home');
+    }
 
   return (
     <View style={styles.container}>
-        <>
-          <Text style={styles.title}>
-             If logged in:
-          </Text>
-          <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-          <Button
-            title="Logout"
-            color="blue"
-            onPress={() => console.log("login-func")} // needs logout func
-          ></Button>
-        </>
-        <>
-          <Text style={styles.title}>If not Logged in:</Text>
-          <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-
-          <View style={{ width: '100%', padding: 25, }}>
-            <TextInput
-              style={{ fontSize: 18, margin: 10 }}
-              placeholder="Username"
-              onChangeText={text => setUsername(text)}
-              defaultValue={username}
-            />
-            <TextInput
-              style={{ fontSize: 18, margin: 10 }}
-              placeholder="Password"
-              onChangeText={text => setPassword(text)}
-              defaultValue={password}
-            />
-
-            <Button
-              onPress={handleLogin}
-              title="Sign in"
-              color="blue"
-            />
-            <Text
-              style={{
-                color: 'blue',
-                padding: 10,
-                textAlign: 'right'
-              }}
-              onPress={() => {
-                nav.navigate('RegisterScreen');
-              }}
-            >
-              Register
+        
+        { authenticated &&
+            <>
+            <Text style={styles.title}>
+                Logged-In as { user }
             </Text>
-          </View>
-        </>
+            <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+            <Button
+                title="Logout"
+                color="blue"
+                onPress={ () => handleLogout() }
+            ></Button>
+            </>
+        }
+        { !authenticated &&
+            <>
+            <Text style={styles.title}>Log In:</Text>
+            <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+            <View style={{ width: '100%', padding: 25, }}>
+                <TextInput
+                style={{ fontSize: 18, margin: 10 }}
+                placeholder="Username"
+                onChangeText={text => setUsername(text)}
+                defaultValue={username}
+                />
+                <TextInput
+                style={{ fontSize: 18, margin: 10 }}
+                placeholder="Password"
+                onChangeText={text => setPassword(text)}
+                defaultValue={password}
+                />
+
+                <Button
+                onPress={handleLogin}
+                title="Sign in"
+                color="blue"
+                />
+                <Text
+                style={{
+                    color: 'blue',
+                    padding: 10,
+                    textAlign: 'right'
+                }}
+                onPress={() => {
+                    nav.navigate('RegisterScreen');
+                }}
+                >
+                Register
+                </Text>
+            </View>
+            </>
+        }
     </View >
   );
 }

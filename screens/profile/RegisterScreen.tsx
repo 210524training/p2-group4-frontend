@@ -12,14 +12,9 @@ const RegisterScreen: React.FC<unknown> = (props) => {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [phoneNumber, setPhoneNumber] = useState<string>('');
-  const [Experience, setExperiennce] = useState<number>(0);
+  const [experience, setExperience] = useState<number>(0);
   const uploadyContext = useContext(UploadyContext);
   const nav = useNavigation();
-
-  const handleLogin = async () => {
-    // handle login
-    nav.navigate('Home');
-  }
 
   const handleRegister = async () => {
     Alert.alert('handle register.');
@@ -52,25 +47,21 @@ const RegisterScreen: React.FC<unknown> = (props) => {
               style={{ fontSize: 18, margin: 10 }}
               placeholder="Username"
               onChangeText={text => setUsername(text)}
-              defaultValue={username}
             />
             <TextInput
               style={{ fontSize: 18, margin: 10 }}
               placeholder="Password"
               onChangeText={text => setPassword(text)}
-              defaultValue={password}
             />
             <TextInput
               style={{ fontSize: 18, margin: 10 }}
               placeholder="Phone Number"
               onChangeText={text => setPhoneNumber(text)}
-              defaultValue={phoneNumber}
             />
             <TextInput
               style={{ fontSize: 18, margin: 10 }}
               placeholder="Years of Experience"
-              onChangeText={text => setPhoneNumber(text)}
-              defaultValue={phoneNumber}
+              onChangeText={text => setExperience(Number(text))}
             />
             <NativeUploady    
                 grouped
@@ -80,7 +71,7 @@ const RegisterScreen: React.FC<unknown> = (props) => {
                 <Upload/>           
             </NativeUploady>
             <Button
-              onPress={handleRegister}
+              onPress={() => handleRegister()}
               title="Register"
               color="blue"
             />
@@ -92,7 +83,7 @@ const RegisterScreen: React.FC<unknown> = (props) => {
               }}
               onPress={() => nav.navigate('LoginScreen')}
             >
-              Login?
+              Login
             </Text>
           </View>
         </>
