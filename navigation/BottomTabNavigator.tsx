@@ -6,8 +6,10 @@ import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import LoginScreen from '../screens/profile/LoginScreen';
 import RegisterScreen from '../screens/profile/RegisterScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
+import ViewAssets from '../screens/Assets/ViewAssets';
 import { HomeParamList, BottomTabParamList, ViewAssetParamList, ProfileParamList, ChartParamList, AddAssetParamList } from '../types';
+import ViewAssetScreen from '../screens/Assets/ViewAssets';
+import TabTwoScreen from '../screens/TabTwoScreen';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -126,7 +128,7 @@ function ViewAssetNavigator() {
     <ViewAssetStack.Navigator>
       <ViewAssetStack.Screen
         name="ViewAssetScreen"
-        component={TabTwoScreen} // add asset screen
+        component={ViewAssetScreen} // add asset screen
         options={{ headerTitle: 'View Asset' }}
       />
     </ViewAssetStack.Navigator>
