@@ -5,8 +5,8 @@ import { Text, View } from '../../components/Themed';
 import { Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import NativeUploady, { UploadyContext } from "@rpldy/native-uploady";
-import DocumentPicker from 'react-native-document-picker';
-import { styles } from './css'
+// import DocumentPicker from 'react-native-document-picker';
+import { styles } from '../../styles';
 
 const RegisterScreen: React.FC<unknown> = (props) => {
 
@@ -24,20 +24,20 @@ const RegisterScreen: React.FC<unknown> = (props) => {
     // needs handle
   }
 
-  const Upload = () => {
-    const pickFile = useCallback(async () => {
-        const res = await DocumentPicker.pick( {
-          type: [DocumentPicker.types.pdf],
-        });
-        // @ts-ignore
-        uploadyContext.upload(res); // doesnt work
-    }, [uploadyContext]);
-      return (
-            <View style={{ margin: 10, width:'30%' }}>
-                <Button title="Upload Resume" onPress={ pickFile } />
-            </View>
-      )
-  };
+  // const Upload = () => {
+  //   const pickFile = useCallback(async () => {
+  //       const res = await DocumentPicker.pick( {
+  //         type: [DocumentPicker.types.pdf],
+  //       });
+  //       // @ts-ignore
+  //       uploadyContext.upload(res); // doesnt work
+  //   }, [uploadyContext]);
+  //     return (
+  //           <View style={{ margin: 10, width:'30%' }}>
+  //               <Button title="Upload Resume" onPress={ pickFile } />
+  //           </View>
+  //     )
+  // };
   
   return (
     <View style={styles.container}>
@@ -80,7 +80,7 @@ const RegisterScreen: React.FC<unknown> = (props) => {
                 maxGroupSize={1}
                 method="PUT"
                 destination={{url: "https://my-server", headers: {"x-custom": "123"}}}>
-                <Upload/>           
+                {/* <Upload/>            */}
             </NativeUploady>
             <View style={styles.break} />
             <Button

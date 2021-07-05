@@ -14,6 +14,7 @@ export type BottomTabParamList = {
   Profile: undefined;
   AddAsset: undefined;
   Chart: undefined;
+  NHome: undefined;
 };
 
 export type TabOneParamList = {
@@ -43,4 +44,5 @@ export type ViewAssetParamList = {
 
 export type HomeParamList = {
   HomeScreen: undefined;
+  NHomeScreen: undefined;
 };

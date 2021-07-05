@@ -5,7 +5,7 @@ import { Text, View } from '../../components/Themed';
 import { useNavigation } from '@react-navigation/native';
 import { login, logout, UserState, selectUser } from '../../hooks/slices/userSlice';
 import User from '../../models/user';
-import { styles } from './css';
+import { styles } from '../../styles';
 
 const LoginScreen: React.FC<unknown> = () => {
   const [username, setUsername] = useState<string>('');
@@ -25,7 +25,6 @@ const LoginScreen: React.FC<unknown> = () => {
 
   const handleLogout = async () => {
     // const response = axios
-    sessionStorage.clear();
     setAuthenticated(false);
     setUser('');
     setRole('');
