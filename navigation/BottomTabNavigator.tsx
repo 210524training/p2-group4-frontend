@@ -1,8 +1,9 @@
 import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import * as React from 'react';
+import React, { useContext } from 'react';
 import Colors from '../constants/Colors';
+import UserContext from '../hooks/context/UserContext';
 import useColorScheme from '../hooks/useColorScheme';
 import LoginScreen from '../screens/profile/LoginScreen';
 import RegisterScreen from '../screens/profile/RegisterScreen';
@@ -10,51 +11,76 @@ import ViewAssets from '../screens/Assets/ViewAssets';
 import { HomeParamList, BottomTabParamList, ViewAssetParamList, ProfileParamList, ChartParamList, AddAssetParamList } from '../types';
 import ViewAssetScreen from '../screens/Assets/ViewAssets';
 import TabTwoScreen from '../screens/TabTwoScreen';
+import AddAssetScreen from '../screens/asset/AddAsset';
+import NHomeScreen from '../screens/home/NotLoggedIn';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 export default function BottomTabNavigator() {
   const colorScheme = useColorScheme();
+  const { user, authenticated } = useContext(UserContext);
 
   return (
     <BottomTab.Navigator
       initialRouteName="Home"
       tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
-      <BottomTab.Screen
-        name="Home"
-        component={HomeNavigator}
-        options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
-        }}
-      />
-      <BottomTab.Screen
-        name="ViewAsset"
-        component={ViewAssetNavigator}
-        options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="md-albums-sharp" color={color} />,
-        }}
-      />
-      <BottomTab.Screen
-        name="AddAsset"
-        component={AddAssetNavigator}
-        options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-duplicate-sharp" color={color} />,
-        }}
-      />
-      <BottomTab.Screen
-        name="Chart"
-        component={ChartNavigator}
-        options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-bar-chart-sharp" color={color} />,
-        }}
-      />
-      <BottomTab.Screen
-        name="Profile"
-        component={ProfileNavigator}
-        options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-person-circle" color={color} />,
-        }}
-      />
+      { authenticated &&
+        <>
+        <BottomTab.Screen
+          name="Home"
+          component={HomeNavigator}
+          options={{
+            tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
+          }}
+        />
+        <BottomTab.Screen
+          name="ViewAsset"
+          component={ViewAssetNavigator}
+          options={{
+            tabBarIcon: ({ color }) => <TabBarIcon name="md-albums-sharp" color={color} />,
+          }}
+        />
+        <BottomTab.Screen
+          name="AddAsset"
+          component={AddAssetNavigator}
+          options={{
+            tabBarIcon: ({ color }) => <TabBarIcon name="ios-duplicate-sharp" color={color} />,
+          }}
+        />
+        <BottomTab.Screen
+          name="Chart"
+          component={ChartNavigator}
+          options={{
+            tabBarIcon: ({ color }) => <TabBarIcon name="ios-bar-chart-sharp" color={color} />,
+          }}
+        />
+        <BottomTab.Screen
+          name="Profile"
+          component={ProfileNavigator}
+          options={{
+            tabBarIcon: ({ color }) => <TabBarIcon name="ios-person-circle" color={color} />,
+          }}
+        />
+      </>
+      }
+      { !authenticated &&
+        <>
+          <BottomTab.Screen
+          name="Home"
+          component={NHomeNavigator}
+          options={{
+            tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
+          }}
+          />
+          <BottomTab.Screen
+          name="Profile"
+          component={ProfileNavigator}
+          options={{
+            tabBarIcon: ({ color }) => <TabBarIcon name="ios-person-circle" color={color} />,
+          }}
+          />
+        </>
+      }
     </BottomTab.Navigator>
   );
 }
@@ -109,13 +135,26 @@ function HomeNavigator() {
   );
 }
 
+const NHomeStack = createStackNavigator<HomeParamList>();
+function NHomeNavigator() {
+  return (
+    <NHomeStack.Navigator>
+      <NHomeStack.Screen
+        name="NHomeScreen"
+        component={NHomeScreen} 
+        options={{ headerTitle: 'Home' }}
+      />
+    </NHomeStack.Navigator>
+  );
+}
+
 const AddAssetStack = createStackNavigator<AddAssetParamList>();
 function AddAssetNavigator() {
   return (
     <AddAssetStack.Navigator>
       <AddAssetStack.Screen
         name="AddAssetScreen"
-        component={TabTwoScreen} // add asset screen
+        component={AddAssetScreen} // add asset screen
         options={{ headerTitle: 'Add Asset' }}
       />
     </AddAssetStack.Navigator>
