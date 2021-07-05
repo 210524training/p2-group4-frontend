@@ -40,6 +40,7 @@ export type AddAssetParamList = {
 
 export type ViewAssetParamList = {
   ViewAssetScreen: undefined;
+  EditDetail: undefined;
 };
 
 export type HomeParamList = {

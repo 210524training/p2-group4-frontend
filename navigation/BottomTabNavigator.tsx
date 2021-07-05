@@ -11,6 +11,8 @@ import TabTwoScreen from '../screens/TabTwoScreen';
 import NHomeScreen from '../screens/home/NotLoggedIn';
 import { HomeParamList, BottomTabParamList, ViewAssetParamList, ProfileParamList, ChartParamList, AddAssetParamList } from '../types';
 import AddAssetScreen from '../screens/asset/AddAsset';
+import AddAssetPage from '../pages/AddAssetPage';
+import EditDetailPage from '../pages/EditDetailPage';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -152,7 +154,7 @@ function AddAssetNavigator() {
     <AddAssetStack.Navigator>
       <AddAssetStack.Screen
         name="AddAssetScreen"
-        component={AddAssetScreen} // add asset screen
+        component={AddAssetPage} // add asset screen
         options={{ headerTitle: 'Add Asset' }}
       />
     </AddAssetStack.Navigator>
@@ -167,6 +169,11 @@ function ViewAssetNavigator() {
         name="ViewAssetScreen"
         component={TabTwoScreen} // add asset screen
         options={{ headerTitle: 'View Asset' }}
+      />
+      <ViewAssetStack.Screen
+        name="EditDetail"
+        component={EditDetailPage} 
+        options={{ headerTitle: 'Asset Detail' }}
       />
     </ViewAssetStack.Navigator>
   );
