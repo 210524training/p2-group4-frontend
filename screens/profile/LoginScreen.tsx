@@ -5,6 +5,7 @@ import { Text, View } from '../../components/Themed';
 import { useNavigation } from '@react-navigation/native';
 import { login, logout, UserState, selectUser } from '../../hooks/slices/userSlice';
 import User from '../../models/user';
+import { styles } from './css';
 
 const LoginScreen: React.FC<unknown> = () => {
   const [username, setUsername] = useState<string>('');
@@ -39,7 +40,7 @@ const LoginScreen: React.FC<unknown> = () => {
             <Text style={styles.title}>
                 Logged-In as { user }
             </Text>
-            <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+            <View style={styles.separator} lightColor="blue" darkColor="rgba(255,255,255,0.1)" />
             <Button
                 title="Logout"
                 color="blue"
@@ -50,21 +51,21 @@ const LoginScreen: React.FC<unknown> = () => {
         { !authenticated &&
             <>
             <Text style={styles.title}>Log In:</Text>
-            <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+            <View style={styles.separator} lightColor="blue" darkColor="rgba(255,255,255,0.1)" />
             <View style={{ width: '100%', padding: 25, }}>
                 <TextInput
-                style={{ fontSize: 18, margin: 10 }}
+                style={styles.textInput1}
                 placeholder="Username"
                 onChangeText={text => setUsername(text)}
                 defaultValue={username}
                 />
                 <TextInput
-                style={{ fontSize: 18, margin: 10 }}
+                style={styles.textInput1}
                 placeholder="Password"
                 onChangeText={text => setPassword(text)}
                 defaultValue={password}
                 />
-
+                <View style={styles.break} />
                 <Button
                 onPress={handleLogin}
                 title="Sign in"
@@ -88,22 +89,5 @@ const LoginScreen: React.FC<unknown> = () => {
     </View >
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-});
 
 export default LoginScreen;

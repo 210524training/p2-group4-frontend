@@ -5,13 +5,16 @@ import { Text, View } from '../../components/Themed';
 import { Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import NativeUploady, { UploadyContext } from "@rpldy/native-uploady";
-import DocumentPicker from "react-native-document-picker";
+import DocumentPicker from 'react-native-document-picker';
+import { styles } from './css'
 
 const RegisterScreen: React.FC<unknown> = (props) => {
 
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [phoneNumber, setPhoneNumber] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [Name, setName] = useState<string>('');
   const [experience, setExperience] = useState<number>(0);
   const uploadyContext = useContext(UploadyContext);
   const nav = useNavigation();
@@ -40,26 +43,35 @@ const RegisterScreen: React.FC<unknown> = (props) => {
     <View style={styles.container}>
         <>
           <Text style={styles.title}>Register</Text>
-          <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-
-          <View style={{ width: '100%', padding: 25, }}>
+          <View style={styles.separator} lightColor="blue" />
+          <View style={{ width: '100%', padding: 30, }}>
             <TextInput
-              style={{ fontSize: 18, margin: 10 }}
+              style={styles.textInput1}
+              placeholder="Name"
+              onChangeText={text => setName(text)}
+            />
+            <TextInput
+              style={styles.textInput1}
               placeholder="Username"
               onChangeText={text => setUsername(text)}
             />
             <TextInput
-              style={{ fontSize: 18, margin: 10 }}
+              style={styles.textInput1}
               placeholder="Password"
               onChangeText={text => setPassword(text)}
             />
             <TextInput
-              style={{ fontSize: 18, margin: 10 }}
+              style={styles.textInput1}
               placeholder="Phone Number"
               onChangeText={text => setPhoneNumber(text)}
             />
             <TextInput
-              style={{ fontSize: 18, margin: 10 }}
+              style={styles.textInput1}
+              placeholder="Email"
+              onChangeText={text => setEmail(text)}
+            />
+            <TextInput
+              style={styles.textInput1}
               placeholder="Years of Experience"
               onChangeText={text => setExperience(Number(text))}
             />
@@ -70,6 +82,7 @@ const RegisterScreen: React.FC<unknown> = (props) => {
                 destination={{url: "https://my-server", headers: {"x-custom": "123"}}}>
                 <Upload/>           
             </NativeUploady>
+            <View style={styles.break} />
             <Button
               onPress={() => handleRegister()}
               title="Register"
@@ -90,22 +103,5 @@ const RegisterScreen: React.FC<unknown> = (props) => {
     </View >
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-});
 
 export default RegisterScreen;
