@@ -6,6 +6,14 @@ export const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
+    left: {
+      textAlign: 'left',
+    },
+    row: {
+      flexDirection: "row",
+      flexWrap: "wrap",
+      justifyContent: 'flex-end',
+    },
     title: {
       fontSize: 20,
       fontWeight: 'bold',

@@ -13,6 +13,7 @@ import { HomeParamList, BottomTabParamList, ViewAssetParamList, ProfileParamList
 import AddAssetScreen from '../screens/asset/AddAsset';
 import AddAssetPage from '../pages/AddAssetPage';
 import EditDetailPage from '../pages/EditDetailPage';
+import DetailScreen from '../screens/asset/DetailScreen';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -173,6 +174,11 @@ function ViewAssetNavigator() {
       <ViewAssetStack.Screen
         name="EditDetail"
         component={EditDetailPage} 
+        options={{ headerTitle: 'Edit Detail' }}
+      />
+      <ViewAssetStack.Screen
+        name="ViewDetail"
+        component={DetailScreen} 
         options={{ headerTitle: 'Asset Detail' }}
       />
     </ViewAssetStack.Navigator>

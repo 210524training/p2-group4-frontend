@@ -21,6 +21,7 @@ export default {
             screens: {
               ViewAssetScreen: 'ViewAssets',
               EditDetail: 'EditDetail',
+              ViewDetail: 'ViewDetail',
             },
           },
           AddAssets: {

@@ -26,7 +26,6 @@ const EditAssetScreen: React.FC<unknown> = (props) => {
   const [dateRecieved, setDateRecieved] = useState(new Date(1598051730000));
   const [show, setShow] = useState(false);
   const [show1, setShow1] = useState(false);
-  const [modalVisible, setModalVisible] = useState(false);
 
   const handleEdit = async () => {
     Alert.alert('handle edit.');
@@ -53,50 +52,8 @@ const EditAssetScreen: React.FC<unknown> = (props) => {
     setShow1(true);
   };
 
-  const noDelete = () => {
-    Alert.alert("Wil not be deleted");
-    setModalVisible(false);
-  };
-
-  const yesDelete = async () => {
-    // axios request to delete
-    Alert.alert("axios message");
-    setModalVisible(false);
-  };
-
-  const handleModal = () => {
-    setModalVisible(true);
-    // needs handle
-  }
-
   return (
     <View style={styles.container}>
-      <Modal
-      animationType="slide"
-      transparent={true}
-      visible={modalVisible}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.title}>
-                Are you sure?
-            </Text>
-            <View style={styles.break} />
-            <Button
-              onPress={() => yesDelete()}
-              title="Delete"
-              color="red"
-              />
-            <View style={styles.break} />
-            <Button
-              onPress={() => noDelete()}
-              title="Don't Delete"
-              color="green"
-            />
-          </View>
-        </View>
-
-      </Modal>
       <Text style={styles.title}>
           Edit Asset
       </Text>
@@ -187,12 +144,6 @@ const EditAssetScreen: React.FC<unknown> = (props) => {
             onPress={() => handleEdit()}
             title="Edit"
             color="blue"
-          />
-          <View style={styles.break} />
-          <Button
-            onPress={handleModal}
-            title="Delete"
-            color="red"
           />
         </View>
     </View>

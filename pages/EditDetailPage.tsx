@@ -15,7 +15,6 @@ const EditDetailPage: React.FC<unknown> = () => {
       <View style={styles.break} />
       <View style={styles.separator}/>
       <View style={styles.break} />
-      <ViewLogScreen/>
       <AddLogScreen/>
     </ScrollView>
     </>
