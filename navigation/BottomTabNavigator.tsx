@@ -7,9 +7,9 @@ import UserContext from '../hooks/context/UserContext';
 import useColorScheme from '../hooks/useColorScheme';
 import LoginScreen from '../screens/profile/LoginScreen';
 import RegisterScreen from '../screens/profile/RegisterScreen';
-import ViewAssets from '../screens/Assets/ViewAssets';
+import ViewAssets from '../screens/asset/ViewAssets';
 import { HomeParamList, BottomTabParamList, ViewAssetParamList, ProfileParamList, ChartParamList, AddAssetParamList } from '../types';
-import ViewAssetScreen from '../screens/Assets/ViewAssets';
+import ViewAssetScreen from '../screens/asset/ViewAssets';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import AddAssetScreen from '../screens/asset/AddAsset';
 import NHomeScreen from '../screens/home/NotLoggedIn';
@@ -115,7 +115,7 @@ function ChartNavigator() {
     <ChartStack.Navigator>
       <ChartStack.Screen
         name="ChartScreen"
-        component={TabTwoScreen} // add chart screen
+        component={ViewAssetScreen} // add chart screen
         options={{ headerTitle: 'Chart' }}
       />
     </ChartStack.Navigator>
@@ -167,6 +167,7 @@ function ViewAssetNavigator() {
     <ViewAssetStack.Navigator>
       <ViewAssetStack.Screen
         name="ViewAssetScreen"
+        // component={ViewAssetScreen}
         component={ViewAssetScreen} // add asset screen
         options={{ headerTitle: 'View Asset' }}
       />
