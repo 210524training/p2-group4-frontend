@@ -29,7 +29,7 @@ const EditAssetScreen: React.FC<unknown> = (props) => {
 
   const handleEdit = async () => {
     Alert.alert('handle edit.');
-    // needs handle
+    // TODO: needs handle
   }
 
   const handleDateRecived = (event:any, selectedDate:Date) => {
