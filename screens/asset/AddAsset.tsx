@@ -6,6 +6,7 @@ import { Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { styles } from '../../styles';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import AddLogScreen from '../log/AddLogScreen';
 
 const AddAssetScreen: React.FC<unknown> = (props) => {
 
@@ -52,9 +53,12 @@ const AddAssetScreen: React.FC<unknown> = (props) => {
   };
 
   return (
-    <ScrollView>
     <View style={styles.container}>
         <>
+        <Text style={styles.title}>
+            Add Asset
+        </Text>
+        <View style={styles.separatorS} lightColor="blue" darkColor="rgba(255,255,255,0.1)" />
           <View style={{ width: '100%', padding: 30, }}>
             <TextInput
               style={styles.textInput1}
@@ -145,7 +149,6 @@ const AddAssetScreen: React.FC<unknown> = (props) => {
           </View>
         </>
     </View >
-    </ScrollView>
   );
 }
 
