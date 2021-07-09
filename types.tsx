@@ -48,4 +48,5 @@ export type HomeParamList = {
   HomeScreen: undefined;
   NHomeScreen: undefined;
   DirectoryScreen: undefined;
+  AddMemoScreen: undefined;
 };

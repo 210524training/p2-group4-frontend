@@ -16,6 +16,7 @@ import EditDetailPage from '../pages/EditDetailPage';
 import DetailScreen from '../screens/asset/DetailScreen';
 import DirectoryScreen from '../screens/directory/DirectoryScreen';
 import HomeScreen from '../screens/home/AfterLoggedIn';
+import AddMemoScreen from '../screens/memo/AddMemo';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -132,11 +133,16 @@ function HomeNavigator() {
         component={HomeScreen} 
         options={{ headerTitle: 'Home' }}
       />
-    <HomeStack.Screen
-      name="DirectoryScreen"
-      component={DirectoryScreen} 
-      options={{ headerTitle: 'Directory' }}
-    />
+      <HomeStack.Screen
+        name="DirectoryScreen"
+        component={DirectoryScreen} 
+        options={{ headerTitle: 'Directory' }}
+      />
+      <HomeStack.Screen
+        name="AddMemoScreen"
+        component={AddMemoScreen} 
+        options={{ headerTitle: 'Post Memo' }}
+      />
     </HomeStack.Navigator>
   );
 }
