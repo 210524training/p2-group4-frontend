@@ -13,12 +13,13 @@ export default function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const [user, setUser] = useState('');
   const [role, setRole] = useState('');
+  const [asset, setAsset] = useState({});
 
   if (!isLoadingComplete) {
     return null;
   } else {
     return (
-      <UserContext.Provider value={{ authenticated, setAuthenticated, user, setUser, role, setRole }}>
+      <UserContext.Provider value={{ asset, setAsset, authenticated, setAuthenticated, user, setUser, role, setRole }}>
         <SafeAreaProvider>
           <Navigation colorScheme={colorScheme} />
           <StatusBar />
