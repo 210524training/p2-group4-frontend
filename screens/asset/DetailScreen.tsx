@@ -77,17 +77,19 @@ const DetailScreen: React.FC<unknown> = () => {
                   Are you sure?
               </Text>
               <View style={styles.break} />
-              <Button
-                onPress={() => yesDelete()}
-                title="Delete"
-                color="red"
+              <View style={styles.row}>
+                <Button
+                  onPress={() => yesDelete()}
+                  title="Delete"
+                  color="red"
+                  />
+                <View style={styles.break} />
+                <Button
+                  onPress={() => noDelete()}
+                  title="Cancel"
+                  color="green"
                 />
-              <View style={styles.break} />
-              <Button
-                onPress={() => noDelete()}
-                title="Don't Delete"
-                color="green"
-              />
+              </View>
             </View>
           </View>
         </Modal>
@@ -102,7 +104,8 @@ const DetailScreen: React.FC<unknown> = () => {
             </SafeAreaView>
             <View style={styles.break} />
             <View style={styles.row}>
-                <Button onPress={editDetail} title="Edit" />
+                <Button onPress={editDetail} title="  Edit  " />
+                <View style={styles.break} />
                 <Button
                 onPress={handleModal}
                 title="Delete"

@@ -15,6 +15,8 @@ export default {
           Home: {
             screens: {
               HomeScreen: 'home',
+              DirectoryScreen: 'Directory',
+              AddMemoScreen: 'Memo',
             },
           },
           ViewAssets: {

@@ -1,12 +1,19 @@
+import { useNavigation } from '@react-navigation/native';
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
+import { Button, StyleSheet } from 'react-native';
 import { Text, View } from '../../components/Themed';
 
 export default function NHomeScreen() {
+  const nav = useNavigation();
+
+  const viewDirectory = () => {
+    nav.navigate('DirectoryScreen');
+  }
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Welcome to blank</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+      <Button onPress={viewDirectory} title="Directory" />
     </View>
   );
 }

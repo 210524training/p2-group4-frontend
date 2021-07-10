@@ -16,6 +16,9 @@ import NHomeScreen from '../screens/home/NotLoggedIn';
 import AddAssetPage from '../pages/AddAssetPage';
 import EditDetailPage from '../pages/EditDetailPage';
 import DetailScreen from '../screens/asset/DetailScreen';
+import DirectoryScreen from '../screens/directory/DirectoryScreen';
+import HomeScreen from '../screens/home/AfterLoggedIn';
+import AddMemoScreen from '../screens/memo/AddMemo';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -88,8 +91,6 @@ export default function BottomTabNavigator() {
   );
 }
 
-// You can explore the built-in icon families and icons on the web at:
-// https://icons.expo.fyi/
 function TabBarIcon(props: { name: React.ComponentProps<typeof Ionicons>['name']; color: string }) {
   return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
 }
@@ -118,7 +119,7 @@ function ChartNavigator() {
     <ChartStack.Navigator>
       <ChartStack.Screen
         name="ChartScreen"
-        component={ViewAssets} // add chart screen
+        component={TabTwoScreen} // TODO: add chart screen
         options={{ headerTitle: 'Chart' }}
       />
     </ChartStack.Navigator>
@@ -131,8 +132,18 @@ function HomeNavigator() {
     <HomeStack.Navigator>
       <HomeStack.Screen
         name="HomeScreen"
-        component={TabTwoScreen} // add home screen
+        component={HomeScreen} 
         options={{ headerTitle: 'Home' }}
+      />
+      <HomeStack.Screen
+        name="DirectoryScreen"
+        component={DirectoryScreen} 
+        options={{ headerTitle: 'Directory' }}
+      />
+      <HomeStack.Screen
+        name="AddMemoScreen"
+        component={AddMemoScreen} 
+        options={{ headerTitle: 'Post Memo' }}
       />
     </HomeStack.Navigator>
   );
@@ -147,6 +158,11 @@ function NHomeNavigator() {
         component={NHomeScreen} 
         options={{ headerTitle: 'Home' }}
       />
+      <NHomeStack.Screen
+        name="DirectoryScreen"
+        component={DirectoryScreen} 
+        options={{ headerTitle: 'Directory' }}
+      />
     </NHomeStack.Navigator>
   );
 }
@@ -157,7 +173,7 @@ function AddAssetNavigator() {
     <AddAssetStack.Navigator>
       <AddAssetStack.Screen
         name="AddAssetScreen"
-        component={AddAssetPage} // add asset screen
+        component={AddAssetPage} // TODO: add asset screen
         options={{ headerTitle: 'Add Asset' }}
       />
     </AddAssetStack.Navigator>
