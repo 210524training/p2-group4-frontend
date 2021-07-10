@@ -7,7 +7,6 @@ import UserContext from '../hooks/context/UserContext';
 import useColorScheme from '../hooks/useColorScheme';
 import LoginScreen from '../screens/profile/LoginScreen';
 import RegisterScreen from '../screens/profile/RegisterScreen';
-import ViewAssets from '../screens/asset/ViewAssets';
 import { HomeParamList, BottomTabParamList, ViewAssetParamList, ProfileParamList, ChartParamList, AddAssetParamList } from '../types';
 import {ViewAssetScreen} from '../screens/asset/ViewAssets';
 import TabTwoScreen from '../screens/TabTwoScreen';
