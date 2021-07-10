@@ -9,7 +9,7 @@ import LoginScreen from '../screens/profile/LoginScreen';
 import RegisterScreen from '../screens/profile/RegisterScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import NHomeScreen from '../screens/home/NotLoggedIn';
-import { HomeParamList, BottomTabParamList, ViewAssetParamList, ProfileParamList, ChartParamList, AddAssetParamList } from '../types';
+import { HomeParamList, BottomTabParamList, ViewAssetParamList, ProfileParamList, ChartParamList, AddAssetParamList, TicketParamList } from '../types';
 import AddAssetScreen from '../screens/asset/AddAsset';
 import AddAssetPage from '../pages/AddAssetPage';
 import EditDetailPage from '../pages/EditDetailPage';
@@ -17,18 +17,20 @@ import DetailScreen from '../screens/asset/DetailScreen';
 import DirectoryScreen from '../screens/directory/DirectoryScreen';
 import HomeScreen from '../screens/home/AfterLoggedIn';
 import AddMemoScreen from '../screens/memo/AddMemo';
+import AddTicketScreen from '../screens/ticket/AddTicketScreen';
+import ViewTicketScreen from '../screens/ticket/ViewTicketScreen';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 export default function BottomTabNavigator() {
   const colorScheme = useColorScheme();
-  const { user, authenticated } = useContext(UserContext);
+  const { user, authenticated, role } = useContext(UserContext);
 
   return (
     <BottomTab.Navigator
       initialRouteName="Home"
       tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
-      { authenticated &&
+      { (authenticated && role=='tech') &&
         <>
         <BottomTab.Screen
           name="Home"
@@ -66,6 +68,37 @@ export default function BottomTabNavigator() {
           }}
         />
       </>
+      }
+      { (authenticated && role=='user') &&
+        <>
+          <BottomTab.Screen
+          name="Home"
+          component={NHomeNavigator}
+          options={{
+            tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
+          }}
+          />
+          <BottomTab.Screen
+          name="AddTicket"
+          component={TicketNavigator}
+          options={{
+            tabBarIcon: ({ color }) => <TabBarIcon name="ios-duplicate-sharp" color={color} />,
+          }}
+          />
+          <BottomTab.Screen
+          name="Profile"
+          component={ProfileNavigator}
+          options={{
+            tabBarIcon: ({ color }) => <TabBarIcon name="ios-person-circle" color={color} />,
+          }}
+        />
+
+        </>
+      }
+      { (authenticated && role=='admin') &&
+        <>
+
+        </>
       }
       { !authenticated &&
         <>
@@ -111,6 +144,19 @@ function ProfileNavigator() {
   );
 }
 
+const TicketStack = createStackNavigator<TicketParamList>();
+function TicketNavigator() {
+  return (
+    <TicketStack.Navigator>
+      <TicketStack.Screen
+        name="AddTicketScreen"
+        component={AddTicketScreen}
+        options={{ headerTitle: 'Submit Ticket' }}
+      />
+    </TicketStack.Navigator>
+  );
+}
+
 const ChartStack = createStackNavigator<ChartParamList>();
 function ChartNavigator() {
   return (
@@ -142,6 +188,11 @@ function HomeNavigator() {
         name="AddMemoScreen"
         component={AddMemoScreen} 
         options={{ headerTitle: 'Post Memo' }}
+      />
+      <HomeStack.Screen
+        name="ViewTicketScreen"
+        component={ViewTicketScreen} 
+        options={{ headerTitle: 'Tickets' }}
       />
     </HomeStack.Navigator>
   );

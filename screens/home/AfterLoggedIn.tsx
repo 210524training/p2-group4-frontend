@@ -18,6 +18,9 @@ export default function HomeScreen() {
     nav.navigate('AddMemoScreen');
   }
 
+  const viewTickets = () => {
+    nav.navigate('ViewTicketScreen');
+  }
   return (
     <View style={styles.container}>
       <View style={styles.break}></View>
@@ -27,6 +30,8 @@ export default function HomeScreen() {
         <Button onPress={viewDirectory} title="Directory" />
         <View style={styles.break}></View>
         <Button onPress={viewAddMemo} title="Add Memo" />
+        <View style={styles.break}></View>
+        <Button onPress={viewTickets} title=" Tickets " />
       </View>
       <ViewMemoScreen/>
     </View>

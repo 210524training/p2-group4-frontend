@@ -18,7 +18,6 @@ const LoginScreen: React.FC<unknown> = () => {
     // sessionStorage.setItem('user', JSON.stringify(response));
     // if statement to verify
     setAuthenticated(true);
-    setRole('Technician'); // fix
     setUser(username);
     nav.navigate('Home');
   }
@@ -63,6 +62,11 @@ const LoginScreen: React.FC<unknown> = () => {
                 placeholder="Password"
                 onChangeText={text => setPassword(text)}
                 defaultValue={password}
+                />
+                <TextInput
+                style={styles.textInput1}
+                placeholder="role"
+                onChangeText={text => setRole(text)}
                 />
                 <View style={styles.break} />
                 <Button
