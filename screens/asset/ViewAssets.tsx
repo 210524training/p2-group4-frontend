@@ -26,7 +26,17 @@ export const ViewAssetScreen: React.FC<unknown> = () => {
     // const getItem = (data) => ({
     //   assetname:'Bobby-CM',asset_tag:'1516549',deviceGroup:'Computing Device',model:'Dell', assignee:'Larry', date_issued:''
     // });
-      const DATA = [{assetname:'Bobby-CM',asset_tag:'1516549',deviceGroup:'Computing Device',model:'Dell', assignee:'Larry', date_issued:''},];
+
+      const DATA = [
+        {assetname:'Bobby-CM',asset_tag:'1516549',deviceGroup:'Computing Device',model:'Dell', assignee:'Larry', date_issued:''},
+        {assetname:'Bobby-CM',asset_tag:'1516549',deviceGroup:'Computing Device',model:'Dell', assignee:'Larry', date_issued:''},
+        {assetname:'Bobby-CM',asset_tag:'1516549',deviceGroup:'Computing Device',model:'Dell', assignee:'Larry', date_issued:''},
+        {assetname:'Bobby-CM',asset_tag:'1516549',deviceGroup:'Computing Device',model:'Dell', assignee:'Larry', date_issued:''},
+        {assetname:'Bobby-CM',asset_tag:'1516549',deviceGroup:'Computing Device',model:'Dell', assignee:'Larry', date_issued:''},
+        {assetname:'Bobby-CM',asset_tag:'1516549',deviceGroup:'Computing Device',model:'Dell', assignee:'Larry', date_issued:''},
+        {assetname:'Bobby-CM',asset_tag:'1516549',deviceGroup:'Computing Device',model:'Dell', assignee:'Larry', date_issued:''},
+        {assetname:'Bobby-CM',asset_tag:'1516549',deviceGroup:'Computing Device',model:'Dell', assignee:'Larry', date_issued:''}
+    ];
 
       const data:Asset[] = [asset1,asset2];
       
@@ -37,7 +47,7 @@ export const ViewAssetScreen: React.FC<unknown> = () => {
         </>
       );
     const Item = ({asset}:{asset:any}) => (
-        <View style={styles2.item}>
+        <View style={styles2.asset}>
             <Text style={styles2.title}>{asset.assetname}</Text>
             <Text style={styles2.txt}>-[Tech]:   {asset.asset_tag}</Text>
             <Text style={styles2.txt}>-[Problem Type]:   {asset.problemType}</Text>
@@ -47,12 +57,12 @@ export const ViewAssetScreen: React.FC<unknown> = () => {
 
         return (
           <SafeAreaView style={styles.container}>
-            <FlatList 
+            <FlatList
               data={DATA}
               initialNumToRender={4}
               renderItem={renderItem}
               keyExtractor={item => item.asset_tag}
-
+              // style={styles.container}
             />
           </SafeAreaView>
         );
@@ -93,4 +103,12 @@ export  const styles2 = StyleSheet.create({
         textAlign: 'left',
         marginLeft: 5,
     },
+    asset:{
+      backgroundColor: 'white',
+      padding: 6,
+      marginVertical: 5,
+      marginHorizontal: 5,
+      width:400,
+      
+    }
   });
