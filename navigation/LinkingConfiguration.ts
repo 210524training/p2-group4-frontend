@@ -17,6 +17,7 @@ export default {
               HomeScreen: 'home',
               DirectoryScreen: 'Directory',
               AddMemoScreen: 'Memo',
+              ViewTicketScreen: 'ticket',
             },
           },
           ViewAssets: {
@@ -39,7 +40,12 @@ export default {
           Profile: {
             screens: {
               LoginScreen: 'login',
-              RegisterScreen: 'register'
+              RegisterScreen: 'register',
+            },
+          },
+          Ticket: {
+            screens: {
+              AddTicketScreen: 'AddTicket',
             },
           },
         },
