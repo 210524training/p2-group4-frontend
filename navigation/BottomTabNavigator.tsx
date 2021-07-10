@@ -11,7 +11,6 @@ import TabTwoScreen from '../screens/TabTwoScreen';
 import NHomeScreen from '../screens/home/NotLoggedIn';
 import { HomeParamList, BottomTabParamList, ViewAssetParamList, ProfileParamList, ChartParamList, AddAssetParamList, TicketParamList } from '../types';
 import AddAssetScreen from '../screens/asset/AddAsset';
-import NHomeScreen from '../screens/home/NotLoggedIn';
 import AddAssetPage from '../pages/AddAssetPage';
 import EditDetailPage from '../pages/EditDetailPage';
 import DetailScreen from '../screens/asset/DetailScreen';
@@ -20,6 +19,7 @@ import HomeScreen from '../screens/home/AfterLoggedIn';
 import AddMemoScreen from '../screens/memo/AddMemo';
 import AddTicketScreen from '../screens/ticket/AddTicketScreen';
 import ViewTicketScreen from '../screens/ticket/ViewTicketScreen';
+import { ViewAssetScreen } from '../screens/asset/ViewAssets';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 

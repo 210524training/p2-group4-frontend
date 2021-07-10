@@ -18,6 +18,9 @@ export const ViewAssetScreen: React.FC<unknown> = () => {
     const [password, setPassword] = useState<string>('');
     const { setAuthenticated, setRole, setUser, user, authenticated } = useContext(UserContext);
     const nav = useNavigation();
+    const viewDetail = () => {
+      nav.navigate('ViewDetail');
+  }
         //  const Item =  (assetname:string) =>  {
                   
         //     <Text style={styles.text} >{assetname}</Text>
@@ -52,6 +55,7 @@ export const ViewAssetScreen: React.FC<unknown> = () => {
             <Text style={styles2.txt}>-[Tech]:   {asset.asset_tag}</Text>
             <Text style={styles2.txt}>-[Problem Type]:   {asset.problemType}</Text>
             <Text style={styles2.txt}>-[Description]:   {asset.description}</Text>
+            <Button onPress={viewDetail} title="View Detail" />
         </View>
     )
 
