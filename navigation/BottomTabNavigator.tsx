@@ -9,7 +9,7 @@ import LoginScreen from '../screens/profile/LoginScreen';
 import RegisterScreen from '../screens/profile/RegisterScreen';
 import ViewAssets from '../screens/asset/ViewAssets';
 import { HomeParamList, BottomTabParamList, ViewAssetParamList, ProfileParamList, ChartParamList, AddAssetParamList } from '../types';
-import ViewAssetScreen from '../screens/asset/ViewAssets';
+import {ViewAssetScreen} from '../screens/asset/ViewAssets';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import AddAssetScreen from '../screens/asset/AddAsset';
 import NHomeScreen from '../screens/home/NotLoggedIn';
@@ -118,7 +118,7 @@ function ChartNavigator() {
     <ChartStack.Navigator>
       <ChartStack.Screen
         name="ChartScreen"
-        component={ViewAssetScreen} // add chart screen
+        component={ViewAssets} // add chart screen
         options={{ headerTitle: 'Chart' }}
       />
     </ChartStack.Navigator>

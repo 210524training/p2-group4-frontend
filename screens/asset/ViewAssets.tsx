@@ -26,47 +26,71 @@ export const ViewAssetScreen: React.FC<unknown> = () => {
     // const getItem = (data) => ({
     //   assetname:'Bobby-CM',asset_tag:'1516549',deviceGroup:'Computing Device',model:'Dell', assignee:'Larry', date_issued:''
     // });
-      const DATA = [{assetname:'Bobby-CM',asset_tag:'1516549',deviceGroup:'Computing Device',model:'Dell', assignee:'Larry', date_issued:''}];
+      const DATA = [{assetname:'Bobby-CM',asset_tag:'1516549',deviceGroup:'Computing Device',model:'Dell', assignee:'Larry', date_issued:''},];
 
-      const getItem = (data, index) => ({
-        assetname:'Bobby-CM',asset_tag:'1516549',deviceGroup:'Computing Device',model:'Dell', assignee:'Larry', date_issued:''
-      });
+      const data:Asset[] = [asset1,asset2];
       
-      const getItemCount = (data) => 50;
-      
-      const Item = ({ title }) => (
-        <View style={styles.item}>
-          <Text style={styles.title}>{title}</Text>
-        </View>
+
+      const renderItem = ({item}:{item:any}) => (
+        <>
+            <Item asset={item} />
+        </>
       );
-      
-      const App = () => {
+    const Item = ({asset}:{asset:any}) => (
+        <View style={styles2.item}>
+            <Text style={styles2.title}>{asset.assetname}</Text>
+            <Text style={styles2.txt}>-[Tech]:   {asset.asset_tag}</Text>
+            <Text style={styles2.txt}>-[Problem Type]:   {asset.problemType}</Text>
+            <Text style={styles2.txt}>-[Description]:   {asset.description}</Text>
+        </View>
+    )
+
         return (
           <SafeAreaView style={styles.container}>
-            <VirtualizedList
+            <FlatList 
               data={DATA}
               initialNumToRender={4}
-              renderItem={({ item }) => <Item title={item.asset_tag} />}
+              renderItem={renderItem}
               keyExtractor={item => item.asset_tag}
-              getItemCount={getItemCount}
-              getItem={getItem}
+
             />
           </SafeAreaView>
         );
     
         }
-      }
-export const styles = StyleSheet.create({
+      
+// export const styles = StyleSheet.create({
+//     container: {
+//       flex: 1,
+//       paddingTop: StatusBar.currentHeight,
+//     },
+//     scrollView: {
+//       backgroundColor: 'pink',
+//       marginHorizontal: 20,
+//     },
+//     text: {
+//       fontSize: 42,
+//     },
+//   });
+  
+export  const styles2 = StyleSheet.create({
     container: {
       flex: 1,
-      paddingTop: StatusBar.currentHeight,
     },
-    scrollView: {
-      backgroundColor: 'pink',
-      marginHorizontal: 20,
+    item: {
+      backgroundColor: '#D3D3D3',
+      padding: 5,
+      marginVertical: 5,
+      marginHorizontal: 5,
     },
-    text: {
-      fontSize: 42,
+    title: {
+      fontSize: 15,
+      fontWeight: 'bold',
+      textAlign: 'center',
+    },
+    txt: {
+        fontSize: 15,
+        textAlign: 'left',
+        marginLeft: 5,
     },
   });
-  
