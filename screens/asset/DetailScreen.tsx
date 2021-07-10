@@ -6,20 +6,11 @@ import { Text, View } from '../../components/Themed';
 import ViewLogScreen from '../../screens/log/ViewLogScreen';
 import { Alert, Button, FlatList, Modal, SafeAreaView, ScrollView, StatusBar,  StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import UserContext from '../../hooks/context/UserContext';
 
-const DATA =
-{
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    assetName: 'First Item',
-    model: 'pro',
-    make: 'apple',
-    DateRecieved: '11/1/2020',
-    room: '100',
-    department: 'tech',
-    serial: '123123',
-};
 
 const DetailScreen: React.FC<unknown> = () => {
+  const { setAuthenticated, setRole, setUser, user, authenticated, asset, setAsset } = useContext(UserContext);
     const [onLoadText, setText] = useState("");
     const nav = useNavigation();
     const [modalVisible, setModalVisible] = useState(false);
@@ -55,12 +46,12 @@ const DetailScreen: React.FC<unknown> = () => {
 
     const Item = ({data}:{data:any}) => (
         <View style={styles2.item}>
-            <Text style={styles2.title}>[Serial number]:  {data.serial}</Text>
+            <Text style={styles2.title}>[AssetTag]:  {data.AssetTag}</Text>
             <Text style={styles2.txt}>[Asset Name]:  {data.assetName}</Text>
-            <Text style={styles2.txt}>[Make]:  {data.make}</Text>
+            <Text style={styles2.txt}>[Device Group]:  {data.deviceGroup}</Text>
             <Text style={styles2.txt}>[Model]:  {data.model}</Text>
-            <Text style={styles2.txt}>[Date Recieved]:  {data.DateRecieved}</Text>
-            <Text style={styles2.txt}>[Department]:  {data.department}</Text>
+            <Text style={styles2.txt}>[Date Recieved]:  {data.date_issued}</Text>
+            <Text style={styles2.txt}>[Assignee]:  {data.assignee}</Text>
         </View>
     );
       
@@ -100,7 +91,7 @@ const DetailScreen: React.FC<unknown> = () => {
         </Text>
         <View style={styles.separatorS} lightColor="blue" darkColor="rgba(255,255,255,0.1)" />
             <SafeAreaView style={styles.container}>
-                <Item data={DATA}/>
+                <Item data={asset}/>
             </SafeAreaView>
             <View style={styles.break} />
             <View style={styles.row}>

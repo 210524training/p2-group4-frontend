@@ -16,9 +16,12 @@ export const ViewAssetScreen: React.FC<unknown> = () => {
 
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
-    const { setAuthenticated, setRole, setUser, user, authenticated } = useContext(UserContext);
+    const { setAuthenticated, setRole, setUser, user, authenticated, asset, setAsset } = useContext(UserContext);
+
     const nav = useNavigation();
-    const viewDetail = () => {
+    const viewDetail = (asset:any, index:number) => {
+      setAsset(asset);
+      console.log(asset, index);
       nav.navigate('ViewDetail');
   }
         //  const Item =  (assetname:string) =>  {
@@ -31,14 +34,14 @@ export const ViewAssetScreen: React.FC<unknown> = () => {
     // });
 
       const DATA = [
-        {assetname:'Bobby-CM',asset_tag:'1516549',deviceGroup:'Computing Device',model:'Dell', assignee:'Larry', date_issued:''},
-        {assetname:'Bobby-CM',asset_tag:'1516549',deviceGroup:'Computing Device',model:'Dell', assignee:'Larry', date_issued:''},
-        {assetname:'Bobby-CM',asset_tag:'1516549',deviceGroup:'Computing Device',model:'Dell', assignee:'Larry', date_issued:''},
-        {assetname:'Bobby-CM',asset_tag:'1516549',deviceGroup:'Computing Device',model:'Dell', assignee:'Larry', date_issued:''},
-        {assetname:'Bobby-CM',asset_tag:'1516549',deviceGroup:'Computing Device',model:'Dell', assignee:'Larry', date_issued:''},
-        {assetname:'Bobby-CM',asset_tag:'1516549',deviceGroup:'Computing Device',model:'Dell', assignee:'Larry', date_issued:''},
-        {assetname:'Bobby-CM',asset_tag:'1516549',deviceGroup:'Computing Device',model:'Dell', assignee:'Larry', date_issued:''},
-        {assetname:'Bobby-CM',asset_tag:'1516549',deviceGroup:'Computing Device',model:'Dell', assignee:'Larry', date_issued:''}
+        {assetName:'Bobby-CM',assetTag:'1516541',deviceGroup:'Computing Device',model:'Dell', assignee:'Larry', date_issued:''},
+        {assetName:'Bobby-CM',assetTag:'1516542',deviceGroup:'Computing Device',model:'Dell', assignee:'Larry', date_issued:''},
+        {assetName:'Bobby-CM',assetTag:'1516543',deviceGroup:'Computing Device',model:'Dell', assignee:'Larry', date_issued:''},
+        {assetName:'Bobby-CM',assetTag:'1516544',deviceGroup:'Computing Device',model:'Dell', assignee:'Larry', date_issued:''},
+        {assetName:'Bobby-CM',assetTag:'1516545',deviceGroup:'Computing Device',model:'Dell', assignee:'Larry', date_issued:''},
+        {assetName:'Bobby-CM',assetTag:'1516546',deviceGroup:'Computing Device',model:'Dell', assignee:'Larry', date_issued:''},
+        {assetName:'Bobby-CM',assetTag:'1516547',deviceGroup:'Computing Device',model:'Dell', assignee:'Larry', date_issued:''},
+        {assetName:'Bobby-CM',assetTag:'1516548',deviceGroup:'Computing Device',model:'Dell', assignee:'Larry', date_issued:''}
     ];
 
       const data:Asset[] = [asset1,asset2];
@@ -49,13 +52,13 @@ export const ViewAssetScreen: React.FC<unknown> = () => {
             <Item asset={item} />
         </>
       );
-    const Item = ({asset}:{asset:any}) => (
+    const Item = ({asset}:{asset:any}, index:number) => (
         <View style={styles2.asset}>
-            <Text style={styles2.title}>{asset.assetname}</Text>
-            <Text style={styles2.txt}>-[Tech]:   {asset.asset_tag}</Text>
-            <Text style={styles2.txt}>-[Problem Type]:   {asset.problemType}</Text>
-            <Text style={styles2.txt}>-[Description]:   {asset.description}</Text>
-            <Button onPress={viewDetail} title="View Detail" />
+            <Text style={styles2.title}>{asset.assetName}</Text>
+            <Text style={styles2.txt}>-[Asset Tag]:   {asset.assetTag}</Text>
+            <Text style={styles2.txt}>-[Asset Name]:   {asset.assetName}</Text>
+            <Text style={styles2.txt}>-[Modeln]:   {asset.model}</Text>
+            <Button onPress={()=>viewDetail(asset, index)} title="View Detail" />
         </View>
     )
 
@@ -65,7 +68,7 @@ export const ViewAssetScreen: React.FC<unknown> = () => {
               data={DATA}
               initialNumToRender={4}
               renderItem={renderItem}
-              keyExtractor={item => item.asset_tag}
+              keyExtractor={item => item.assetTag}
               // style={styles.container}
             />
           </SafeAreaView>

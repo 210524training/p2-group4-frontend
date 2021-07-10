@@ -7,6 +7,8 @@ const UserContext = React.createContext({
     setRole: (r:string) => {},
     authenticated: false,
     setAuthenticated: (auth:boolean) => {},
+    asset: {},
+    setAsset: (r:object) => {},
   });
 
   export default UserContext;
