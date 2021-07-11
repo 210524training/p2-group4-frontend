@@ -6,6 +6,7 @@ import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 import UserContext from "./hooks/context/UserContext";
+import Tickets from './models/tickets';
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -14,12 +15,13 @@ export default function App() {
   const [user, setUser] = useState('');
   const [role, setRole] = useState('');
   const [asset, setAsset] = useState({});
+  const [tickets, setTickets] = useState<Tickets[] | null>(null);
 
   if (!isLoadingComplete) {
     return null;
   } else {
     return (
-      <UserContext.Provider value={{ asset, setAsset, authenticated, setAuthenticated, user, setUser, role, setRole }}>
+      <UserContext.Provider value={{ tickets, setTickets, asset, setAsset, authenticated, setAuthenticated, user, setUser, role, setRole }}>
         <SafeAreaProvider>
           <Navigation colorScheme={colorScheme} />
           <StatusBar />

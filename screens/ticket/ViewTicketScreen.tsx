@@ -1,57 +1,75 @@
-import React, { useState, Component, useEffect } from 'react';
-import { Text, StyleSheet, SafeAreaView, FlatList, Modal, Button, Alert } from 'react-native';
+import React, { useState, Component, useEffect, useContext } from 'react';
+import { Text, StyleSheet, SafeAreaView, FlatList, Modal, Button, Alert, TimePickerAndroidTimeSetAction } from 'react-native';
 import { View } from '../../components/Themed';
+import UserContext from '../../hooks/context/UserContext';
 import { styles } from '../../styles';
-import LoginScreen from '../profile/LoginScreen';
+import Tickets from '../../models/tickets';
 
-const DATA = [
+const DATA3:Array<Tickets> = [
     {
-        Date: '11/22/2021',
-        AssetID: 'Apple-1001',
-        Issue: 'There is an issue with this computer',
-        Room: 'D100',
-        Status: 'waiting',
-        Technician: 'na',
+        id: '67456345',
+        date: '11/22/2021',
+        asset_tag: 'Apple-1001',
+        issue: 'There is an issue with this computer',
+        room: 'D100',
+        status: 'waiting',
+        technician: 'na',
     },
     {
-        Date: '11/21/2021',
-        AssetID: 'Windown-1001',
-        Issue: 'There is an issue with keyboard',
-        Room: 'C200',
-        Status: 'waiting',
-        Technician: 'na',
+        id: '3412133',
+        date: '11/21/2021',
+        asset_tag: 'Windown-1001',
+        issue: 'There is an issue with keyboard',
+        room: 'C200',
+        status: 'waiting',
+        technician: 'na',
     },
     {
-        Date: '11/23/2021',
-        AssetID: 'Apple-1001',
-        Issue: 'There is an issue with screen',
-        Room: 'F1122',
-        Status: 'waiting',
-        Technician: 'na',
+        id: '3345243',
+        date: '11/23/2021',
+        asset_tag: 'Apple-1001',
+        issue: 'There is an issue with screen',
+        room: 'F1122',
+        status: 'waiting',
+        technician: 'na',
     },
 ];
 
 export default function ViewMemoScreen() {
 
     const [onLoadText, setText] = useState("");
+		const [ticket, setTicket] = useState<Tickets | null>(null);
     const [modalVisible, setModalVisible] = useState(false);
-    const [logs, setLog] = useState(DATA);
-    
-    const keyExtractor = (log:any, index:number) => log.Status;
-    const onValueChanged = (log:any) => 
-    {    
-        var items = logs;
-        var index = items.indexOf(log);
-        items[index].Status = 'fixing';
-        setLog(items);
-    };
+    const { tickets, setTickets } = useContext(UserContext);
+    setTickets(DATA3);
+
     const fixed= () => {
-        Alert.alert("Status updated to fixed!");
-        setModalVisible(false);
+			const log = ticket;
+			// TODO: axios request to update status
+			if(ticket) {
+				for (let i=0; i<DATA3.length; i++) {
+					if(DATA3[i].id === ticket.id) {
+						DATA3[i].status = 'resolved';
+						setTickets(DATA3);
+						break;
+					}
+				}
+			}
+			Alert.alert("Status updated to fixed!");
+			setModalVisible(false);
     };
 
     const working = async () => {
         // TODO: axios request to update status
+				if(ticket) {
+					for (let i=0; i<DATA3.length; i++) {
+						if(DATA3[i].id === ticket.id) {
+							DATA3[i].status = 'fixing';
+							setTickets(DATA3);
+							break;
+						}
+					}
+				}
         Alert.alert("Status updated to be maintaining!");
         setModalVisible(false);
     };
@@ -60,9 +78,9 @@ export default function ViewMemoScreen() {
         setModalVisible(false);
     };
 
-    const handleModal = (log:any) => {
-        log
-        setModalVisible(true);
+    const handleModal = (log:Tickets) => {
+			setTicket(log);
+      setModalVisible(true);
         // TODO: needs handle
     }
 
@@ -74,73 +92,73 @@ export default function ViewMemoScreen() {
         onScreenLoad();
     }, [])
 
-    const renderItem = ({item}:{item:any}) => (
+    const renderItem = ({item}:{item:Tickets}) => (
         <>
             <Item log={item} />
         </>
       );
-    const Item = ({log}:{log:any}, index:number) => (
+    const Item = ({log}:{log:Tickets}) => (
         <View style={styles2.item}>
-            <Text style={styles2.title}>{log.Date}</Text>
-            <Text style={styles2.txt}>[AssetID]:   {log.AssetID}</Text>
-            <Text style={styles2.txt}>[Issue]:   {log.Issue}</Text>
-            <Text style={styles2.txt}>[Room]:   {log.Room}</Text>
-            <Text onPress={()=>onValueChanged(log)} style={styles2.txt}>[Status]:   {log.Status}</Text>
-            <Text style={styles2.txt}>[Technician]:   {log.Technician}</Text>
-            <Button onPress={ () => handleModal({log, index}) } title="Edit" color="blue"/>
+					<Text style={styles2.title}>{log.date}</Text>
+					<Text style={styles2.txt}>[AssetID]:   {log.asset_tag}</Text>
+					<Text style={styles2.txt}>[Issue]:   {log.issue}</Text>
+					<Text style={styles2.txt}>[Room]:   {log.room}</Text>
+					<Text style={styles2.txt}>[Status]:   {log.status}</Text>
+					<Text style={styles2.txt}>[Technician]:   {log.technician}</Text>
+					<Button onPress={ () => handleModal(log) } title="Edit" color="blue"/>
         </View>
     );
 
     return (
-        <View style={styles.container}>
-            <Modal
-                animationType="slide"
-                transparent={true}
-                visible={modalVisible}
-                >
-                    <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
-                        <Text style={styles.title}>
-                            Status update?
-                        </Text>
-                        <View style={styles.break} />
-                        <View style={styles.row}>
-                        <Button
-                            onPress={() => fixed()}
-                            title="Fixed"
-                            color="green"
-                            />
-                        <View style={styles.break} />
-                        <Button
-                            onPress={() => working()}
-                            title="Accept"
-                            color="blue"
-                        />
-                        <View style={styles.break} />
-                        <Button
-                            onPress={() => cancel()}
-                            title="Cancel"
-                            color="red"
-                        />
-                        </View>
-                    </View>
-                    </View>
-                </Modal>
-        <View style={styles.break}></View>
-        <View style={styles.break}></View>
-        <Text style={styles.title}>
-            Tickets
-        </Text>
-        <View style={styles.separatorS} lightColor="blue" darkColor="rgba(255,255,255,0.1)" />
-        <SafeAreaView style={styles.container}>
-            <FlatList
-                data={logs}
-                renderItem={renderItem}
-                keyExtractor={keyExtractor}
-            />
-        </SafeAreaView>
-        <View style={styles.break}/>
-        </View>
+			<View style={styles.container}>
+				<Modal
+						animationType="slide"
+						transparent={true}
+						visible={modalVisible}
+						>
+					<View style={styles.centeredView}>
+					<View style={styles.modalView}>
+							<Text style={styles.title}>
+								Status update?
+							</Text>
+							<View style={styles.break} />
+							<View style={styles.row}>
+							<Button
+								onPress={() => fixed()}
+								title=" Fixed "
+								color="green"
+							/>
+							<View style={styles.break} />
+							<Button
+								onPress={() => working()}
+								title="Accept"
+								color="blue"
+							/>
+							<View style={styles.break} />
+							<Button
+								onPress={() => cancel()}
+								title="Cancel"
+								color="red"
+							/>
+							</View>
+						</View>
+					</View>
+				</Modal>
+				<View style={styles.break}></View>
+				<View style={styles.break}></View>
+				<Text style={styles.title}>
+						Tickets
+				</Text>
+				<View style={styles.separatorS} lightColor="blue" darkColor="rgba(255,255,255,0.1)" />
+				<SafeAreaView style={styles.container}>
+						<FlatList
+								data={tickets}
+								renderItem={renderItem}
+								keyExtractor={item => item.id}
+						/>
+				</SafeAreaView>
+				<View style={styles.break}/>
+			</View>
     );
 }
 

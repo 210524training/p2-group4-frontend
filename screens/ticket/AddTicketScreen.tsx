@@ -10,7 +10,7 @@ const AddTicketScreen: React.FC<unknown> = () => {
   const [assetID, setAssetID] = useState<string>('');
   const [room, setRoom] = useState<string>('');
   const [issue, setIssue] = useState<string>('');
-  const { setAuthenticated, setRole, setUser, user, authenticated } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const nav = useNavigation();
 
   const handleAddTicket = async () => {

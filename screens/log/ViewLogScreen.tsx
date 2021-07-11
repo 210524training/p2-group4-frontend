@@ -2,8 +2,9 @@ import React, { useState, Component, useEffect } from 'react';
 import { Text, StyleSheet, SafeAreaView, FlatList } from 'react-native';
 import { View } from '../../components/Themed';
 import { styles } from '../../styles';
+import Log from '../../models/log';
 
-const DATA = [
+const DATA:Array<Log> = [
     {
         id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
         tech: 'First Item',
@@ -39,12 +40,12 @@ export default function ViewLogScreen() {
         onScreenLoad();
     }, [])
 
-    const renderItem = ({item}:{item:any}) => (
+    const renderItem = ({item}:{item:Log}) => (
         <>
             <Item log={item} />
         </>
       );
-    const Item = ({log}:{log:any}) => (
+    const Item = ({log}:{log:Log}) => (
         <View style={styles2.item}>
             <Text style={styles2.title}>{log.date}</Text>
             <Text style={styles2.txt}>-[Tech]:   {log.tech}</Text>

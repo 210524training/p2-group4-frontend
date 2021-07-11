@@ -2,22 +2,26 @@ import React, { useState, Component, useEffect } from 'react';
 import { Text, StyleSheet, SafeAreaView, FlatList } from 'react-native';
 import { View } from '../../components/Themed';
 import { styles } from '../../styles';
+import Memo from '../../models/memo'
 
-const DATA = [
+const DATA:Array<Memo> = [
     {
-        Date: '11/22/2021',
-        User: 'Daniel Kim',
-        Message: 'There is an issue with this computer',
+        id: '123',
+        date: '11/22/2021',
+        user: 'Daniel Kim',
+        message: 'There is an issue with this computer',
     },
     {
-        Date: '11/21/2021',
-        User: 'Ben Smith',
-        Message: 'We are in short of supply of this.',
+        id: '123123',
+        date: '11/21/2021',
+        user: 'Ben Smith',
+        message: 'We are in short of supply of this.',
     },
     {
-        Date: '11/20/2021',
-        User: 'Lisa Lee',
-        Message: 'Need help with something.',
+        id: '12341234',
+        date: '11/20/2021',
+        user: 'Lisa Lee',
+        message: 'Need help with something.',
     },
 ];
 
@@ -33,16 +37,16 @@ export default function ViewMemoScreen() {
         onScreenLoad();
     }, [])
 
-    const renderItem = ({item}:{item:any}) => (
+    const renderItem = ({item}:{item:Memo}) => (
         <>
             <Item log={item} />
         </>
       );
-    const Item = ({log}:{log:any}) => (
+    const Item = ({log}:{log:Memo}) => (
         <View style={styles2.item}>
-            <Text style={styles2.title}>{log.Date}</Text>
-            <Text style={styles2.txt}>[User]:   {log.User}</Text>
-            <Text style={styles2.txt}>[Message]:   {log.Message}</Text>
+            <Text style={styles2.title}>{log.date}</Text>
+            <Text style={styles2.txt}>[User]:   {log.user}</Text>
+            <Text style={styles2.txt}>[Message]:   {log.message}</Text>
         </View>
     );
 
@@ -58,6 +62,7 @@ export default function ViewMemoScreen() {
             <FlatList
                 data={DATA}
                 renderItem={renderItem}
+                keyExtractor={item => item.id}
             />
         </SafeAreaView>
         <View style={styles.break}/>
