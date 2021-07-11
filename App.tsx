@@ -7,7 +7,20 @@ import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 import UserContext from "./hooks/context/UserContext";
 import Tickets from './models/tickets';
+import React, { useState, useContext } from 'react';
+import Amplify, {Auth} from 'aws-amplify';
+import { withAuthenticator } from 'aws-amplify-react-native';
+import config from './src/aws-exports'
 
+
+Amplify.configure({
+  ...config,
+  Analytics: {
+    disabled: true,
+  },
+});
+
+//export default withAuthenticator(App)
 export default function App() {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
