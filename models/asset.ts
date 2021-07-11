@@ -1,5 +1,16 @@
 class Asset{
-    constructor(public assetName:string,public asset_tag:string, public deviceGroup: deviceGroup, public  model: string,public assignee:string,public date_issued:string,public date_decomission:string,public department:string,public typeOS:typeOS,public roomumber:string){}
+  constructor(
+    public assetName:string,
+    public asset_tag:string, 
+    public deviceGroup: deviceGroup, 
+    public  model: string,
+    public assignee:string,
+    public date_issued:string,
+    public date_decomission:string,
+    public department:string,
+    public typeOS:typeOS,
+    public roomumber:string
+    ) {}
 }
 
 export type deviceGroup = 'Computing Device' | 'IO Device';
