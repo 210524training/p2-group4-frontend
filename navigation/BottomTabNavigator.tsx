@@ -9,7 +9,7 @@ import LoginScreen from '../screens/profile/LoginScreen';
 import RegisterScreen from '../screens/profile/RegisterScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import NHomeScreen from '../screens/home/NotLoggedIn';
-import { HomeParamList, BottomTabParamList, ViewAssetParamList, ProfileParamList, ChartParamList, AddAssetParamList, TicketParamList } from '../types';
+import { HomeParamList, BottomTabParamList, ViewAssetParamList, ProfileParamList, ChartParamList, AddAssetParamList, TicketParamList, RegistersParamList } from '../types';
 import AddAssetScreen from '../screens/asset/AddAsset';
 import AddAssetPage from '../pages/AddAssetPage';
 import EditDetailPage from '../pages/EditDetailPage';
@@ -20,6 +20,7 @@ import AddMemoScreen from '../screens/memo/AddMemo';
 import AddTicketScreen from '../screens/ticket/AddTicketScreen';
 import ViewTicketScreen from '../screens/ticket/ViewTicketScreen';
 import { ViewAssetScreen } from '../screens/asset/ViewAssets';
+import ViewRegisters from '../screens/register/ViewRegisters';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -98,7 +99,27 @@ export default function BottomTabNavigator() {
       }
       { (authenticated && role=='admin') &&
         <>
-
+          <BottomTab.Screen
+          name="Home"
+          component={HomeNavigator}
+          options={{
+            tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
+          }}
+          />
+          <BottomTab.Screen
+          name="Admin"
+          component={AdminNavigator}
+          options={{
+            tabBarIcon: ({ color }) => <TabBarIcon name="ios-duplicate-sharp" color={color} />,
+          }}
+          />
+          <BottomTab.Screen
+          name="Profile"
+          component={ProfileNavigator}
+          options={{
+            tabBarIcon: ({ color }) => <TabBarIcon name="ios-person-circle" color={color} />,
+          }}
+          />
         </>
       }
       { !authenticated &&
@@ -214,6 +235,19 @@ function NHomeNavigator() {
         options={{ headerTitle: 'Directory' }}
       />
     </NHomeStack.Navigator>
+  );
+}
+
+const AdminStack = createStackNavigator<RegistersParamList>();
+function AdminNavigator() {
+  return (
+    <AdminStack.Navigator>
+      <AdminStack.Screen
+        name="ViewRegisters"
+        component={ViewRegisters} 
+        options={{ headerTitle: 'Pending Registers' }}
+      />
+    </AdminStack.Navigator>
   );
 }
 

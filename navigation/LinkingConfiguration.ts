@@ -48,6 +48,11 @@ export default {
               AddTicketScreen: 'AddTicket',
             },
           },
+          Admin: {
+            screens: {
+              ViewRegisters: 'registers',
+            },
+          },
         },
       },
       NotFound: '*',
