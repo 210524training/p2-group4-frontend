@@ -41,7 +41,6 @@ export default function ViewMemoScreen() {
 		const [ticket, setTicket] = useState<Tickets | null>(null);
     const [modalVisible, setModalVisible] = useState(false);
     const { tickets, setTickets } = useContext(UserContext);
-    setTickets(DATA3);
 
     const fixed= () => {
 			const log = ticket;
@@ -89,6 +88,7 @@ export default function ViewMemoScreen() {
         // TODO: axios request
     }
     useEffect(() => {
+        setTickets(DATA3);
         onScreenLoad();
     }, [])
 

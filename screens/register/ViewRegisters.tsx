@@ -32,10 +32,9 @@ const DATA3:Array<Register> = [
 export default function ViewMemoScreen() {
 
     const [onLoadText, setText] = useState("");
-	const [register, setRegister] = useState<Register | null>(null);
+	  const [register, setRegister] = useState<Register | null>(null);
     const [modalVisible, setModalVisible] = useState(false);
     const { registers, setRegisters } = useContext(UserContext);
-    setRegisters(DATA3);
 
     const approve = () => {
 			const log = register;
@@ -69,7 +68,7 @@ export default function ViewMemoScreen() {
     };
 
     const cancel = async () => {
-        setModalVisible(false);
+      setModalVisible(false);
     };
 
     const handleModal = (log:Register) => {
@@ -79,18 +78,19 @@ export default function ViewMemoScreen() {
     }
 
     const onScreenLoad = () => {
-        setText("List of Tickets...");
+      setText("List of Tickets...");
         // TODO: axios request
     }
 
     useEffect(() => {
-        onScreenLoad();
+      setRegisters(DATA3);
+      onScreenLoad();
     }, [])
 
     const renderItem = ({item}:{item:Register}) => (
-        <>
-          <Item log={item} />
-        </>
+      <>
+        <Item log={item} />
+      </>
       );
     const Item = ({log}:{log:Register}) => (
       <View style={styles2.item}>
