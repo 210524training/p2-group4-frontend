@@ -9,16 +9,16 @@ import Tickets from './models/tickets';
 import React, { useState, useContext } from 'react';
 import Amplify, {Auth} from 'aws-amplify';
 import Register from './models/register';
-import { withAuthenticator } from 'aws-amplify-react-native';
-import config from './src/aws-exports'
+// import { withAuthenticator } from 'aws-amplify-react-native';
+// import config from './src/aws-exports'
 
 
-Amplify.configure({
-  ...config,
-  Analytics: {
-    disabled: true,
-  },
-});
+// Amplify.configure({
+//   ...config,
+//   Analytics: {
+//     disabled: true,
+//   },
+// });
 
 //export default withAuthenticator(App)
 export default function App() {
