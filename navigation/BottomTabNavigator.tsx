@@ -21,6 +21,7 @@ import AddTicketScreen from '../screens/ticket/AddTicketScreen';
 import ViewTicketScreen from '../screens/ticket/ViewTicketScreen';
 import { ViewAssetScreen } from '../screens/asset/ViewAssets';
 import ViewRegisters from '../screens/register/ViewRegisters';
+import  {ChartScreen} from '../screens/asset/Charting';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -185,7 +186,7 @@ function ChartNavigator() {
     <ChartStack.Navigator>
       <ChartStack.Screen
         name="ChartScreen"
-        component={TabTwoScreen} // TODO: add chart screen
+        component={ChartScreen} // TODO: add chart screen
         options={{ headerTitle: 'Chart' }}
       />
     </ChartStack.Navigator>
