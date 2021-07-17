@@ -29,7 +29,7 @@ const AddAssetScreen: React.FC<unknown> = (props) => {
 
   const handleSubmit = async () => {
     Alert.alert('handle register.');
-    // needs handle
+    // needs axios handle
   }
 
   const handleDateRecived = (event:any, selectedDate:Date) => {

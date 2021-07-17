@@ -3,35 +3,37 @@ import { Text, StyleSheet, SafeAreaView, FlatList } from 'react-native';
 import { View } from '../../components/Themed';
 import { styles } from '../../styles';
 import Memo from '../../models/memo'
+import { getMemo } from '../../remote/backend.api';
 
-const DATA:Array<Memo> = [
-    {
-        id: '123',
-        date: '11/22/2021',
-        user: 'Daniel Kim',
-        message: 'There is an issue with this computer',
-    },
-    {
-        id: '123123',
-        date: '11/21/2021',
-        user: 'Ben Smith',
-        message: 'We are in short of supply of this.',
-    },
-    {
-        id: '12341234',
-        date: '11/20/2021',
-        user: 'Lisa Lee',
-        message: 'Need help with something.',
-    },
-];
+// const DATA:Array<Memo> = [
+//     {
+//         id: '123',
+//         date: '11/22/2021',
+//         user: 'Daniel Kim',
+//         message: 'There is an issue with this computer',
+//     },
+//     {
+//         id: '123123',
+//         date: '11/21/2021',
+//         user: 'Ben Smith',
+//         message: 'We are in short of supply of this.',
+//     },
+//     {
+//         id: '12341234',
+//         date: '11/20/2021',
+//         user: 'Lisa Lee',
+//         message: 'Need help with something.',
+//     },
+// ];
 
 export default function ViewMemoScreen() {
 
-    const [onLoadText, setText] = useState("");
+    const [DATA5, setDATA5] = useState<Memo[] | null>(null);
 
-    const onScreenLoad = () => {
-        setText("List of logs...");
-        // fetch logs axios call
+    const onScreenLoad = async () => {
+        const rest = await getMemo();
+        setDATA5(rest);
+        console.log(rest);
     }
     useEffect(() => {
         onScreenLoad();
@@ -60,7 +62,7 @@ export default function ViewMemoScreen() {
         <View style={styles.separatorS} lightColor="blue" darkColor="rgba(255,255,255,0.1)" />
         <SafeAreaView style={styles.container}>
             <FlatList
-                data={DATA}
+                data={DATA5}
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
             />

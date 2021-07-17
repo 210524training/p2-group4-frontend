@@ -7,13 +7,14 @@ import ViewLogScreen from '../../screens/log/ViewLogScreen';
 import { Alert, Button, FlatList, Modal, SafeAreaView, ScrollView, StatusBar,  StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import UserContext from '../../hooks/context/UserContext';
+import Asset from '../../models/asset';
 
 
 const DetailScreen: React.FC<unknown> = () => {
-  const { setAuthenticated, setRole, setUser, user, authenticated, asset, setAsset } = useContext(UserContext);
-    const [onLoadText, setText] = useState("");
-    const nav = useNavigation();
-    const [modalVisible, setModalVisible] = useState(false);
+  const { asset, setAsset } = useContext(UserContext);
+  const [onLoadText, setText] = useState("");
+  const nav = useNavigation();
+  const [modalVisible, setModalVisible] = useState(false);
 
     const noDelete = () => {
         Alert.alert("Wil not be deleted");
@@ -46,7 +47,7 @@ const DetailScreen: React.FC<unknown> = () => {
 
     const Item = ({data}:{data:any}) => (
         <View style={styles2.item}>
-            <Text style={styles2.title}>[AssetTag]:  {data.AssetTag}</Text>
+            <Text style={styles2.title}>[AssetTag]:  {data.asset_tag}</Text>
             <Text style={styles2.txt}>[Asset Name]:  {data.assetName}</Text>
             <Text style={styles2.txt}>[Device Group]:  {data.deviceGroup}</Text>
             <Text style={styles2.txt}>[Model]:  {data.model}</Text>

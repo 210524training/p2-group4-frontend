@@ -1,4 +1,5 @@
 import React from 'react';
+import Asset from '../../models/asset';
 import Register from '../../models/register';
 import Tickets from '../../models/tickets';
 
@@ -10,7 +11,9 @@ const UserContext = React.createContext({
     authenticated: false,
     setAuthenticated: (auth:boolean) => {},
     asset: {},
-    setAsset: (r:object) => {},
+    setAsset: (r:Asset) => {},
+    tag: '',
+    setTag: (r:string) => {},
     tickets: [] as Tickets[] | null,
     setTickets: (value:Array<Tickets> | null) => {},
     registers: [] as Register[] | null,

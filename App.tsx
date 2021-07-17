@@ -30,6 +30,7 @@ export default function App() {
   const [asset, setAsset] = useState({});
   const [tickets, setTickets] = useState<Tickets[] | null>(null);
   const [registers, setRegisters] = useState<Register[] | null>(null);
+  const [tag, setTag] = useState<string>('');
 
   if (!isLoadingComplete) {
     return null;
@@ -42,7 +43,9 @@ export default function App() {
               authenticated, 
               setAuthenticated, 
               user, 
-              setUser, 
+              setUser,
+              tag,
+              setTag, 
               role, 
               setRole,
               registers,

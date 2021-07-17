@@ -4,48 +4,21 @@ import { View } from '../../components/Themed';
 import UserContext from '../../hooks/context/UserContext';
 import { styles } from '../../styles';
 import Tickets from '../../models/tickets';
+import { getTicket, update } from '../../remote/backend.api';
 
-const DATA3:Array<Tickets> = [
-    {
-        id: '67456345',
-        date: '11/22/2021',
-        asset_tag: 'Apple-1001',
-        issue: 'There is an issue with this computer',
-        room: 'D100',
-        status: 'waiting',
-        technician: 'na',
-    },
-    {
-        id: '3412133',
-        date: '11/21/2021',
-        asset_tag: 'Windown-1001',
-        issue: 'There is an issue with keyboard',
-        room: 'C200',
-        status: 'waiting',
-        technician: 'na',
-    },
-    {
-        id: '3345243',
-        date: '11/23/2021',
-        asset_tag: 'Apple-1001',
-        issue: 'There is an issue with screen',
-        room: 'F1122',
-        status: 'waiting',
-        technician: 'na',
-    },
-];
 
 export default function ViewMemoScreen() {
 
-    const [onLoadText, setText] = useState("");
+    const [DATA3, setDATA3] = useState<Tickets[] | null>(null);
 		const [ticket, setTicket] = useState<Tickets | null>(null);
     const [modalVisible, setModalVisible] = useState(false);
     const { tickets, setTickets } = useContext(UserContext);
 
-    const fixed= () => {
+    const fixed= async () => {
 			const log = ticket;
-			// TODO: axios request to update status
-			if(ticket) {
+			if(ticket && DATA3) {
+        const res = await update('/ticket', ticket.id, 'status', 'resolved');
+        console.log('update is: ', res);
 				for (let i=0; i<DATA3.length; i++) {
 					if(DATA3[i].id === ticket.id) {
 						DATA3[i].status = 'resolved';
@@ -59,8 +32,9 @@ export default function ViewMemoScreen() {
     };
 
     const working = async () => {
-        // TODO: axios request to update status
-				if(ticket) {
+				if(ticket && DATA3) {
+          const res = await update('/ticket', ticket.id, 'status', 'fixing');
+          console.log('update is: ', res);
 					for (let i=0; i<DATA3.length; i++) {
 						if(DATA3[i].id === ticket.id) {
 							DATA3[i].status = 'fixing';
@@ -83,39 +57,42 @@ export default function ViewMemoScreen() {
         // TODO: needs handle
     }
 
-    const onScreenLoad = () => {
-        setText("List of Tickets...");
-        // TODO: axios request
+    const onScreenLoad = async () => {
+      const res = await getTicket();
+      console.log(res);
+      setDATA3(res);
+      setTickets(res);
+      console.log("dafadf, ", DATA3)
     }
+
     useEffect(() => {
-        setTickets(DATA3);
-        onScreenLoad();
+      onScreenLoad();
     }, [])
 
     const renderItem = ({item}:{item:Tickets}) => (
-        <>
-            <Item log={item} />
-        </>
+      <>
+        <Item log={item} />
+      </>
       );
     const Item = ({log}:{log:Tickets}) => (
-        <View style={styles2.item}>
-					<Text style={styles2.title}>{log.date}</Text>
-					<Text style={styles2.txt}>[AssetID]:   {log.asset_tag}</Text>
-					<Text style={styles2.txt}>[Issue]:   {log.issue}</Text>
-					<Text style={styles2.txt}>[Room]:   {log.room}</Text>
-					<Text style={styles2.txt}>[Status]:   {log.status}</Text>
-					<Text style={styles2.txt}>[Technician]:   {log.technician}</Text>
-					<Button onPress={ () => handleModal(log) } title="Edit" color="blue"/>
-        </View>
+      <View style={styles2.item}>
+        <Text style={styles2.title}>{log.date}</Text>
+        <Text style={styles2.txt}>[AssetID]:   {log.asset_tag}</Text>
+        <Text style={styles2.txt}>[Issue]:   {log.issue}</Text>
+        <Text style={styles2.txt}>[Room]:   {log.room}</Text>
+        <Text style={styles2.txt}>[Status]:   {log.status}</Text>
+        <Text style={styles2.txt}>[Technician]:   {log.technician}</Text>
+        <Button onPress={ () => handleModal(log) } title="Edit" color="blue"/>
+      </View>
     );
 
     return (
 			<View style={styles.container}>
 				<Modal
-						animationType="slide"
-						transparent={true}
-						visible={modalVisible}
-						>
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          >
 					<View style={styles.centeredView}>
 					<View style={styles.modalView}>
 							<Text style={styles.title}>

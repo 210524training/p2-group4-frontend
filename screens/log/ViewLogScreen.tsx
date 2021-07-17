@@ -1,43 +1,50 @@
-import React, { useState, Component, useEffect } from 'react';
+import React, { useState, Component, useEffect, useContext } from 'react';
 import { Text, StyleSheet, SafeAreaView, FlatList } from 'react-native';
 import { View } from '../../components/Themed';
 import { styles } from '../../styles';
 import Log from '../../models/log';
+import { getLog } from '../../remote/backend.api';
+import UserContext from '../../hooks/context/UserContext';
 
-const DATA:Array<Log> = [
-    {
-        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-        asset_tag: 'mac-33',
-        tech: 'First Item',
-        date: '9/30/2020',
-        description: 'something wrong with the screen',
-        problemType: 'software',
-    },
-    {
-        id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-        asset_tag: 'mac-33',
-        tech: 'Second Item',
-        date: '1/9/2020',
-        description: 'everything is good',
-        problemType: 'hardware',
-    },
-    {
-        id: '58694a0f-3da1-471f-bd96-145571e29d72',
-        asset_tag: 'mac-33',
-        tech: 'Third Item',
-        date: '11/12/2020',
-        description: 'fixed mouse',
-        problemType: 'hardware',
-    },
-];
+// const DATA:Array<Log> = [
+//     {
+//         id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+//         asset_tag: 'mac-33',
+//         tech: 'First Item',
+//         date: '9/30/2020',
+//         description: 'something wrong with the screen',
+//         problemType: 'software',
+//         category:'df',
+//     },
+//     {
+//         id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+//         asset_tag: 'mac-33',
+//         tech: 'Second Item',
+//         date: '1/9/2020',
+//         description: 'everything is good',
+//         problemType: 'hardware',
+//         category:'df',
+//     },
+//     {
+//         id: '58694a0f-3da1-471f-bd96-145571e29d72',
+//         asset_tag: 'mac-33',
+//         tech: 'Third Item',
+//         date: '11/12/2020',
+//         description: 'fixed mouse',
+//         problemType: 'hardware',
+//         category:'df',
+//     },
+// ];
 
 export default function ViewLogScreen() {
 
-    const [onLoadText, setText] = useState("");
+    const [DATA, setDATA] = useState<Log[] | null>(null);
+    const {tag, setTag } = useContext(UserContext);
 
-    const onScreenLoad = () => {
-        setText("List of logs...");
+    const onScreenLoad = async () => {
+        const res = await getLog(tag);
         // fetch logs axios call
+        setDATA(res);
     }
     useEffect(() => {
         onScreenLoad();

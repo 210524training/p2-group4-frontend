@@ -4,42 +4,45 @@ import { View } from '../../components/Themed';
 import UserContext from '../../hooks/context/UserContext';
 import { styles } from '../../styles';
 import Register from '../../models/register';
+import { getRegister, update } from '../../remote/backend.api';
 
-const DATA3:Array<Register> = [
-    {
-        id: 'dksd',
-        name: 'Ben Smith',
-        role: 'Technician',
-        status: 'pending',
-        password: '123',
-    },
-    {
-        id: 'aaa',
-        name: 'Jason Lee',
-        role: 'User',
-        status: 'pending',
-        password: '123',
-    },
-    {
-        id: 'bbb',
-        name: 'Liza',
-        role: 'User',
-        status: 'pending',
-        password: '123',
-    },
-];
+// const DATA3:Array<Register> = [
+//     {
+//         id: 'dksd',
+//         name: 'Ben Smith',
+//         role: 'Technician',
+//         status: 'pending',
+//         password: '123',
+//     },
+//     {
+//         id: 'aaa',
+//         name: 'Jason Lee',
+//         role: 'User',
+//         status: 'pending',
+//         password: '123',
+//     },
+//     {
+//         id: 'bbb',
+//         name: 'Liza',
+//         role: 'User',
+//         status: 'pending',
+//         password: '123',
+//     },
+// ];
 
 export default function ViewMemoScreen() {
 
-    const [onLoadText, setText] = useState("");
 	  const [register, setRegister] = useState<Register | null>(null);
     const [modalVisible, setModalVisible] = useState(false);
     const { registers, setRegisters } = useContext(UserContext);
+    const [DATA3, setDATA3] = useState<Register[] | null>(null);
 
-    const approve = () => {
+    const approve = async () => {
 			const log = register;
 			// TODO: axios request to update status
-			if(register) {
+			if(register && DATA3) {
+        const res = await update('/register', register.id, 'status', 'approved');
+        console.log('update is: ', res);
 				for (let i=0; i<DATA3.length; i++) {
 					if(DATA3[i].id === register.id) {
 						DATA3[i].status = 'approved';
@@ -54,7 +57,9 @@ export default function ViewMemoScreen() {
 
     const reject = async () => {
         // TODO: axios request to update status
-				if(register) {
+				if(register && DATA3) {
+          const res = await update('/register', register.id, 'status', 'rejected');
+          console.log('update is: ', res);
 					for (let i=0; i<DATA3.length; i++) {
 						if(DATA3[i].id === register.id) {
 							DATA3[i].status = 'rejected';
@@ -77,13 +82,16 @@ export default function ViewMemoScreen() {
         // TODO: needs handle
     }
 
-    const onScreenLoad = () => {
-      setText("List of Tickets...");
+    const onScreenLoad = async () => {
+      const res = await getRegister();
+      console.log(res);
+      setDATA3(res);
+      setRegisters(res);
+      console.log("dafadf, ", DATA3)
         // TODO: axios request
     }
 
     useEffect(() => {
-      setRegisters(DATA3);
       onScreenLoad();
     }, [])
 

@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-const backendClient = axios.create({
-  baseURL: 'http://someAddress',
+const backClient = axios.create({
+  baseURL: 'https://1u0w2v288k.execute-api.us-east-1.amazonaws.com/dev',
   headers: {
     'Content-Type': 'application/json',
   },
-  withCredentials: true,
+  withCredentials: false,
 });
 
-export default backendClient;
+export default backClient;
