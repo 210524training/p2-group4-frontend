@@ -15,7 +15,7 @@ FROM node:lts-slim AS runner
 
 WORKDIR /app
 
-COPY --from=builder /app/assetManger.js assetManger.js
+COPY --from=builder /app/assetManger.js assetmanger.js
 COPY --from=builder /app/logconfig.json logconfig.json
 EXPOSE 4000
 
