@@ -21,6 +21,7 @@
     "@react-navigation/stack": "~5.12.8",
     "@reduxjs/toolkit": "^1.6.0",
     "@rpldy/native-uploady": "^0.13.2",
+    "amazon-cognito-identity-js": "^5.0.4",
     "aws-amplify": "^4.1.3",
     "aws-amplify-react-native": "^5.0.3",
     "axios": "^0.21.1",
