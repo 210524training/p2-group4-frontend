@@ -10,7 +10,7 @@ const UserContext = React.createContext({
     setRole: (r:string) => {},
     authenticated: false,
     setAuthenticated: (auth:boolean) => {},
-    asset: {},
+    asset: {id:""},
     setAsset: (r:Asset) => {},
     tag: '',
     setTag: (r:string) => {},

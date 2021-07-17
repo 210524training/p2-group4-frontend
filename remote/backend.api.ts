@@ -53,3 +53,9 @@ export const update = async (path:string, id:string, what:string, change:string)
   const response = await backClient.patch(path, {id, what, change});
   return response;
 }
+
+export const deleteStuff = async (path:string) => {
+  const response = await backClient.delete(path);
+  return response;
+}
+

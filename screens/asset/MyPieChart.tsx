@@ -8,7 +8,6 @@ type Props = {
 }
 export const MyPieChart: React.FC = (props) => {
   const [category,setCategory] = useState<string>();
-  const []
   const chartConfig =   {
     backgroundGradientFrom: "#1E2923",
     backgroundGradientFromOpacity: 0,

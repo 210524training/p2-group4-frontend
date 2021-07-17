@@ -27,7 +27,7 @@ export default function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const [user, setUser] = useState('');
   const [role, setRole] = useState('');
-  const [asset, setAsset] = useState({});
+  const [asset, setAsset] = useState({id: ''});
   const [tickets, setTickets] = useState<Tickets[] | null>(null);
   const [registers, setRegisters] = useState<Register[] | null>(null);
   const [tag, setTag] = useState<string>('');

@@ -8,6 +8,7 @@ import { Alert, Button, FlatList, Modal, SafeAreaView, ScrollView, StatusBar,  S
 import { useNavigation } from '@react-navigation/native';
 import UserContext from '../../hooks/context/UserContext';
 import Asset from '../../models/asset';
+import { deleteStuff } from '../../remote/backend.api';
 
 
 const DetailScreen: React.FC<unknown> = () => {
@@ -22,9 +23,10 @@ const DetailScreen: React.FC<unknown> = () => {
     };
 
     const yesDelete = async () => {
-    // axios request to delete
-    Alert.alert("axios message");
-    setModalVisible(false);
+      const res = await deleteStuff(`/asset/${asset.id}`);
+      Alert.alert('deleted');
+      setModalVisible(false);
+      nav.navigate('ViewAsset');
     };
 
     const handleModal = () => {
@@ -45,7 +47,7 @@ const DetailScreen: React.FC<unknown> = () => {
         onScreenLoad();
     }, [])
 
-    const Item = ({data}:{data:any}) => (
+    const Item = ({data}:{data:Asset}) => (
         <View style={styles2.item}>
             <Text style={styles2.title}>[AssetTag]:  {data.asset_tag}</Text>
             <Text style={styles2.txt}>[Asset Name]:  {data.assetName}</Text>
@@ -92,7 +94,7 @@ const DetailScreen: React.FC<unknown> = () => {
         </Text>
         <View style={styles.separatorS} lightColor="blue" darkColor="rgba(255,255,255,0.1)" />
             <SafeAreaView style={styles.container}>
-                <Item data={asset}/>
+                <Item data={asset as Asset}/>
             </SafeAreaView>
             <View style={styles.break} />
             <View style={styles.row}>
