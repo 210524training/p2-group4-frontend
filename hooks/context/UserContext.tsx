@@ -1,5 +1,7 @@
 import React from 'react';
 import Asset from '../../models/asset';
+import Log from '../../models/log';
+import Memo from '../../models/memo';
 import Register from '../../models/register';
 import Tickets from '../../models/tickets';
 
@@ -13,9 +15,11 @@ const UserContext = React.createContext({
     asset: {} as Asset,
     setAsset: (r:Asset) => {},
     assets: [] as Asset[] | null,
+    setLogs: (r:Array<Log>) => {},
+    logs: [] as Log[] | null,
+    setMemos: (r:Array<Memo>) => {},
+    memos: [] as Memo[] | null,
     setAssets: (value:Array<Asset> | null) => {},
-    tag: '',
-    setTag: (r:string) => {},
     tickets: [] as Tickets[] | null,
     setTickets: (value:Array<Tickets> | null) => {},
     registers: [] as Register[] | null,

@@ -7,29 +7,34 @@ import { useNavigation } from '@react-navigation/native';
 import { styles } from '../../styles';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import AddLogScreen from '../log/AddLogScreen';
+import uuid from 'react-native-uuid';
+import Asset from '../../models/asset';
+import { addAsset, getAsset } from '../../remote/backend.api';
+import UserContext from '../../hooks/context/UserContext';
 
 const AddAssetScreen: React.FC<unknown> = (props) => {
 
-  const [make, setMake] = useState<string>('');
   const [model, setModel] = useState<string>('');
   const [facultyStaff, setFacultyStaff] = useState<string>('');
   const [department, setDepartment] = useState<string>('');
-  const [building, setBuilding] = useState<string>('');
   const [room, setRoom] = useState<string>('');
   const [dateDecomissioned, setDateDecomissioned] = useState(new Date(1598051730000));
-  const [OSType, setOSType] = useState<string>('');
-  const [serialNumber, setSerialNumber] = useState<number>(0);
+  const [OSType, setOSType] = useState<string>('iOS');
   const [AssetTag, setAssetTag] = useState<string>('');
   const [assetName, setAssetName] = useState<string>('');
-  const [groupName, setGroupName] = useState<string>('');
+  const [groupName, setGroupName] = useState<string>('Computing Device');
   const nav = useNavigation();
   const [dateRecieved, setDateRecieved] = useState(new Date(1598051730000));
   const [show, setShow] = useState(false);
   const [show1, setShow1] = useState(false);
+  const { setAssets } = useContext(UserContext);
 
   const handleSubmit = async () => {
-    Alert.alert('handle register.');
-    // needs axios handle
+    const as = new Asset('asset', String(uuid.v4()), assetName, AssetTag, groupName, model, facultyStaff, String(dateRecieved), String(dateDecomissioned), department, OSType, room);
+    const res = await addAsset(as);
+    const res2 = await getAsset();
+    setAssets(res2);
+    Alert.alert('asset submitted');
   }
 
   const handleDateRecived = (event:any, selectedDate:Date) => {
@@ -77,23 +82,8 @@ const AddAssetScreen: React.FC<unknown> = (props) => {
             />
             <TextInput
               style={styles.textInput1}
-              placeholder="Serial Number"
-              onChangeText={text => setSerialNumber(Number(text))}
-            />
-            <TextInput
-              style={styles.textInput1}
               placeholder="Type of OS"
               onChangeText={text => setOSType(text)}
-            />
-            <TextInput
-              style={styles.textInput1}
-              placeholder="Make"
-              onChangeText={text => setMake(text)}
-            />
-            <TextInput
-              style={styles.textInput1}
-              placeholder="Make"
-              onChangeText={text => setMake(text)}
             />
             <TextInput
               style={styles.textInput1}
@@ -112,8 +102,8 @@ const AddAssetScreen: React.FC<unknown> = (props) => {
             />
             <TextInput
               style={styles.textInput1}
-              placeholder="Building"
-              onChangeText={text => setBuilding(text)}
+              placeholder="Room"
+              onChangeText={text => setRoom(text)}
             />
             <View>
                 <Button onPress={showMode} title="Date Recieved" />

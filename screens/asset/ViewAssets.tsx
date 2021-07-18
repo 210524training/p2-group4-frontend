@@ -9,12 +9,11 @@ import { styles } from '../../styles';
 import { getAsset } from '../../remote/backend.api';
 export const ViewAssetScreen: React.FC<unknown> = () => {
 
-    const { setAsset, setTag, setAssets, assets } = useContext(UserContext);
+    const { setAsset, setAssets, assets } = useContext(UserContext);
     const nav = useNavigation();
 
     const viewDetail = (asset1:Asset) => {
       setAsset(asset1);
-      setTag(asset1.asset_tag);
       console.log(asset1);
       nav.navigate('ViewDetail');
   }

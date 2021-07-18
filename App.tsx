@@ -10,6 +10,8 @@ import React, { useState, useContext } from 'react';
 import Amplify, {Auth} from 'aws-amplify';
 import Register from './models/register';
 import Asset from './models/asset';
+import Memo from './models/memo';
+import Log from './models/log';
 // import { withAuthenticator } from 'aws-amplify-react-native';
 // import config from './src/aws-exports'
 
@@ -32,8 +34,9 @@ export default function App() {
   const [asset, setAsset] = useState(as);
   const [tickets, setTickets] = useState<Tickets[] | null>(null);
   const [registers, setRegisters] = useState<Register[] | null>(null);
-  const [tag, setTag] = useState<string>('');
   const [assets, setAssets] = useState<Asset[] | null>(null);
+  const [memos, setMemos] = useState<Memo[] | null>(null);
+  const [logs, setLogs] = useState<Log[] | null>(null);
 
   if (!isLoadingComplete) {
     return null;
@@ -47,8 +50,10 @@ export default function App() {
               setAuthenticated, 
               user, 
               setUser,
-              tag,
-              setTag,
+              memos,
+              setMemos, 
+              logs,
+              setLogs,
               assets,
               setAssets, 
               role, 

@@ -76,3 +76,18 @@ export const deleteStuff = async (path:string, id:string) => {
   const response = await backClient.post(path, {id});
   return response;
 }
+
+export const addAsset = async (as:Asset) => {
+  const response = await backClient.post('/asset', {as});
+  return response;
+}
+
+export const addLog = async (as:Log) => {
+  const response = await backClient.post('/log', {as});
+  return response;
+}
+
+export const addMemo = async (as:Memo) => {
+  const response = await backClient.post('/memo', {as});
+  return response;
+}

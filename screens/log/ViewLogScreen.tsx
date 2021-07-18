@@ -6,45 +6,14 @@ import Log from '../../models/log';
 import { getLog } from '../../remote/backend.api';
 import UserContext from '../../hooks/context/UserContext';
 
-// const DATA:Array<Log> = [
-//     {
-//         id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-//         asset_tag: 'mac-33',
-//         tech: 'First Item',
-//         date: '9/30/2020',
-//         description: 'something wrong with the screen',
-//         problemType: 'software',
-//         category:'df',
-//     },
-//     {
-//         id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-//         asset_tag: 'mac-33',
-//         tech: 'Second Item',
-//         date: '1/9/2020',
-//         description: 'everything is good',
-//         problemType: 'hardware',
-//         category:'df',
-//     },
-//     {
-//         id: '58694a0f-3da1-471f-bd96-145571e29d72',
-//         asset_tag: 'mac-33',
-//         tech: 'Third Item',
-//         date: '11/12/2020',
-//         description: 'fixed mouse',
-//         problemType: 'hardware',
-//         category:'df',
-//     },
-// ];
-
 export default function ViewLogScreen() {
 
-    const [DATA, setDATA] = useState<Log[] | null>(null);
-    const {tag, setTag } = useContext(UserContext);
+    const { asset, logs, setLogs } = useContext(UserContext);
 
     const onScreenLoad = async () => {
-        const res = await getLog(tag);
+        const res = await getLog(asset.asset_tag);
         // fetch logs axios call
-        setDATA(res);
+        setLogs(res);
     }
     useEffect(() => {
         onScreenLoad();
@@ -74,7 +43,7 @@ export default function ViewLogScreen() {
         <View style={styles.separatorS} lightColor="blue" darkColor="rgba(255,255,255,0.1)" />
         <SafeAreaView style={styles.container}>
             <FlatList
-                data={DATA}
+                data={logs}
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
             />
