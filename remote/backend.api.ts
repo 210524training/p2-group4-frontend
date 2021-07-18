@@ -5,16 +5,34 @@ import Tickets from '../models/tickets';
 import Memo from '../models/memo';
 import Asset from '../models/asset';
 import Register from "../models/register";
+import { Auth } from "aws-amplify";
 
 interface Error {
   message: string;
 }
-export const login = async (username: string, password: string): Promise<User> => {
+
+export const sendLogin = async (username: string, password: string): Promise<User> => {
+  console.log(username, password);
+
+  const session = await Auth.currentSession();
+
   const { data: user } = await backClient.post<User>('/login', {
     username,
     password,
+  }, {
+    headers: {
+      Authorization: `Bearer ${session.getIdToken().getJwtToken()}`,
+    }
   });
+
+  console.log(user);
   return user;
+}
+
+export const getAllUsers = async (): Promise<User[]> => {
+  const { data: users } = await backClient.get<User[]>('/api/v1/users');
+  return users;
+
 }
 
 export const register = async (): Promise<String> => {
@@ -58,4 +76,3 @@ export const deleteStuff = async (path:string) => {
   const response = await backClient.delete(path);
   return response;
 }
-
