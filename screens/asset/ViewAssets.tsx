@@ -1,21 +1,15 @@
-import React, { useCallback, useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useState } from 'react';
-import { Button, FlatList, SafeAreaView, ScrollView, StatusBar, StyleSheet, TextInput, TouchableOpacity, VirtualizedList } from 'react-native';
+import { Button, FlatList, SafeAreaView, StyleSheet } from 'react-native';
 import { Text, View } from '../../components/Themed';
-import { Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import NativeUploady, { UploadyContext } from "@rpldy/native-uploady";
-import DocumentPicker from 'react-native-document-picker';
 import UserContext from '../../hooks/context/UserContext';
 import Asset from '../../models/asset';
 import { styles } from '../../styles';
 import { getAsset } from '../../remote/backend.api';
 export const ViewAssetScreen: React.FC<unknown> = () => {
 
-    const [username, setUsername] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
-    const { setAsset, setTag } = useContext(UserContext);
-    const [DATA, setDATA] = useState<Asset[] | null>(null);
+    const { setAsset, setTag, setAssets, assets } = useContext(UserContext);
     const nav = useNavigation();
 
     const viewDetail = (asset1:Asset) => {
@@ -27,9 +21,8 @@ export const ViewAssetScreen: React.FC<unknown> = () => {
 
       const onScreenLoad = async () => {
         const res = await getAsset();
+        setAssets(res);
         console.log(res);
-        setDATA(res);
-        console.log("dafadf, ", DATA)
       }
   
       useEffect(() => {
@@ -54,7 +47,7 @@ export const ViewAssetScreen: React.FC<unknown> = () => {
         return (
           <SafeAreaView style={styles.container}>
             <FlatList
-              data={DATA}
+              data={assets}
               initialNumToRender={4}
               renderItem={renderItem}
               keyExtractor={item => item.id}
@@ -65,20 +58,6 @@ export const ViewAssetScreen: React.FC<unknown> = () => {
     
         }
       
-// export const styles = StyleSheet.create({
-//     container: {
-//       flex: 1,
-//       paddingTop: StatusBar.currentHeight,
-//     },
-//     scrollView: {
-//       backgroundColor: 'pink',
-//       marginHorizontal: 20,
-//     },
-//     text: {
-//       fontSize: 42,
-//     },
-//   });
-  
 export  const styles2 = StyleSheet.create({
     container: {
       flex: 1,

@@ -1,18 +1,16 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { styles } from '../../styles';
-import AddAssetScreen from '../../screens/asset/AddAsset';
-import AddLogScreen from '../../screens/log/AddLogScreen';
 import { Text, View } from '../../components/Themed';
 import ViewLogScreen from '../../screens/log/ViewLogScreen';
 import { Alert, Button, FlatList, Modal, SafeAreaView, ScrollView, StatusBar,  StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import UserContext from '../../hooks/context/UserContext';
 import Asset from '../../models/asset';
-import { deleteStuff } from '../../remote/backend.api';
+import { deleteStuff, getAsset } from '../../remote/backend.api';
 
 
 const DetailScreen: React.FC<unknown> = () => {
-  const { asset, setAsset } = useContext(UserContext);
+  const { asset, setAssets } = useContext(UserContext);
   const [onLoadText, setText] = useState("");
   const nav = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
@@ -23,10 +21,11 @@ const DetailScreen: React.FC<unknown> = () => {
     };
 
     const yesDelete = async () => {
-      const res = await deleteStuff(`/asset/${asset.id}`);
+      const res = await deleteStuff('/dasset', asset.id);
+      const res2 = await getAsset();
+      setAssets(res2);
       Alert.alert('deleted');
       setModalVisible(false);
-      nav.navigate('ViewAsset');
     };
 
     const handleModal = () => {

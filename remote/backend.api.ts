@@ -72,7 +72,7 @@ export const update = async (path:string, id:string, what:string, change:string)
   return response;
 }
 
-export const deleteStuff = async (path:string) => {
-  const response = await backClient.delete(path);
+export const deleteStuff = async (path:string, id:string) => {
+  const response = await backClient.post(path, {id});
   return response;
 }

@@ -12,7 +12,7 @@ export default class Asset {
       public date_decomission: string,
       public department: string,
       public typeOS: typeOS,
-      public roomumber: string,
+      public roomNumber: string,
   ) {}
 }
 

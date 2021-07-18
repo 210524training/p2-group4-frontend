@@ -39,7 +39,6 @@ export default function ViewMemoScreen() {
 
     const approve = async () => {
 			const log = register;
-			// TODO: axios request to update status
 			if(register && DATA3) {
         const res = await update('/register', register.id, 'status', 'approved');
         console.log('update is: ', res);
@@ -56,7 +55,6 @@ export default function ViewMemoScreen() {
     };
 
     const reject = async () => {
-        // TODO: axios request to update status
 				if(register && DATA3) {
           const res = await update('/register', register.id, 'status', 'rejected');
           console.log('update is: ', res);

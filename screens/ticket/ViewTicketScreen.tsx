@@ -1,5 +1,5 @@
 import React, { useState, Component, useEffect, useContext } from 'react';
-import { Text, StyleSheet, SafeAreaView, FlatList, Modal, Button, Alert, TimePickerAndroidTimeSetAction } from 'react-native';
+import { Text, StyleSheet, SafeAreaView, FlatList, Modal, Button, Alert } from 'react-native';
 import { View } from '../../components/Themed';
 import UserContext from '../../hooks/context/UserContext';
 import { styles } from '../../styles';
@@ -145,9 +145,11 @@ const styles2 = StyleSheet.create({
     },
     item: {
       backgroundColor: '#D3D3D3',
-      padding: 5,
       marginVertical: 5,
       marginHorizontal: 5,
+      padding:10,
+      paddingRight:50,
+      paddingLeft:50,
     },
     title: {
       fontSize: 15,

@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import { styles } from '../../styles';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import AddLogScreen from '../log/AddLogScreen';
+import UserContext from '../../hooks/context/UserContext';
 
 const EditAssetScreen: React.FC<unknown> = (props) => {
 
@@ -26,6 +27,7 @@ const EditAssetScreen: React.FC<unknown> = (props) => {
   const [dateRecieved, setDateRecieved] = useState(new Date(1598051730000));
   const [show, setShow] = useState(false);
   const [show1, setShow1] = useState(false);
+  const { setAsset, asset, setTag, setAssets, assets } = useContext(UserContext);
 
   const handleEdit = async () => {
     Alert.alert('handle edit.');
@@ -62,58 +64,43 @@ const EditAssetScreen: React.FC<unknown> = (props) => {
         <View style={{ width: '100%', padding: 30, }}>
           <TextInput
             style={styles.textInput1}
-            placeholder="Asset Name"
+            placeholder={asset.assetName}
             onChangeText={text => setAssetName(text)}
           />
           <TextInput
             style={styles.textInput1}
-            placeholder="Group Name"
+            placeholder={asset.deviceGroup}
             onChangeText={text => setGroupName(text)}
           />
           <TextInput
             style={styles.textInput1}
-            placeholder="Asset Tag"
+            placeholder={asset.asset_tag}
             onChangeText={text => setAssetTag(text)}
           />
           <TextInput
             style={styles.textInput1}
-            placeholder="Serial Number"
-            onChangeText={text => setSerialNumber(Number(text))}
-          />
-          <TextInput
-            style={styles.textInput1}
-            placeholder="Type of OS"
+            placeholder={asset.typeOS}
             onChangeText={text => setOSType(text)}
           />
           <TextInput
             style={styles.textInput1}
-            placeholder="Make"
-            onChangeText={text => setMake(text)}
-          />
-          <TextInput
-            style={styles.textInput1}
-            placeholder="Make"
-            onChangeText={text => setMake(text)}
-          />
-          <TextInput
-            style={styles.textInput1}
-            placeholder="Model"
+            placeholder={asset.model}
             onChangeText={text => setModel(text)}
           />
           <TextInput
             style={styles.textInput1}
-            placeholder="Faculty Name"
+            placeholder={asset.assignee}
             onChangeText={text => setFacultyStaff(text)}
           />
           <TextInput
             style={styles.textInput1}
-            placeholder="Department"
+            placeholder={asset.department}
             onChangeText={text => setDepartment(text)}
           />
           <TextInput
             style={styles.textInput1}
-            placeholder="Building"
-            onChangeText={text => setBuilding(text)}
+            placeholder={asset.roomNumber}
+            onChangeText={text => setRoom(text)}
           />
           <View>
               <Button onPress={showMode} title="Date Recieved" />
