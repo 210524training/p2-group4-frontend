@@ -22,8 +22,6 @@ export const loginAsync = createAsyncThunk<UserState, LoginCredentials>(
   async ({username, password}, thunkAPI) => {
 
     try {
-      // We did not need to specify the custom:role here at all
-      // We can just keep it nice and simple
       const user: UserState = await Auth.signIn(username, password);
 
       console.log(user);

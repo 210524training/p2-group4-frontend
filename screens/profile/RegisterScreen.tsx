@@ -7,6 +7,8 @@ import { useNavigation } from '@react-navigation/native';
 import NativeUploady, { UploadyContext } from "@rpldy/native-uploady";
 // import DocumentPicker from 'react-native-document-picker';
 import { styles } from '../../styles';
+import UserPool from '../../cognito/attributes/UserPool';
+import { CognitoUserAttribute } from "amazon-cognito-identity-js";
 
 const RegisterScreen: React.FC<unknown> = (props) => {
 
@@ -14,15 +16,30 @@ const RegisterScreen: React.FC<unknown> = (props) => {
   const [password, setPassword] = useState<string>('');
   const [phoneNumber, setPhoneNumber] = useState<string>('');
   const [email, setEmail] = useState<string>('');
+  const [role, setRole] = useState<string>('');
   const [Name, setName] = useState<string>('');
   const [experience, setExperience] = useState<number>(0);
   const uploadyContext = useContext(UploadyContext);
   const nav = useNavigation();
 
+  let attributeList: CognitoUserAttribute[] = [];
+
+  let userRole = {
+    Name: 'custom:role',
+    Value: role
+  };
+
+  let roleAttribute = new CognitoUserAttribute(userRole);
+  attributeList.push(roleAttribute);
+
   const handleRegister = async () => {
     Alert.alert('handle register.');
     // needs handle
-  }
+    UserPool.signUp(username, password, attributeList, null, (err, data) => {
+      if(err) console.log(err);
+      console.log(data)
+    });
+  };
 
   // const Upload = () => {
   //   const pickFile = useCallback(async () => {
@@ -74,6 +91,11 @@ const RegisterScreen: React.FC<unknown> = (props) => {
               style={styles.textInput1}
               placeholder="Years of Experience"
               onChangeText={text => setExperience(Number(text))}
+            />
+            <TextInput
+              style={styles.textInput1}
+              placeholder="Role"
+              onChangeText={text => setRole(text)}
             />
             <NativeUploady    
                 grouped

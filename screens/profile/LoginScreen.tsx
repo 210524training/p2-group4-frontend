@@ -6,21 +6,37 @@ import { useNavigation } from '@react-navigation/native';
 import { login, logout, UserState, selectUser } from '../../hooks/slices/userSlice';
 import User from '../../models/user';
 import { styles } from '../../styles';
+import { CognitoUserAttribute } from 'amazon-cognito-identity-js';
+import { AccountContext } from '../../cognito/attributes/components/Accounts';
+import { useEffect } from 'react';
+
 
 const LoginScreen: React.FC<unknown> = () => {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+
+  const { authenticate } = useContext(AccountContext);
+  
   const { setAuthenticated, setRole, setUser, user, authenticated } = useContext(UserContext);
   const nav = useNavigation();
+
+// const url = "https://1u0w2v288k.execute-api.us-east-1.amazonaws.com/dev/user"
 
   const handleLogin = async () => {
     // const response = axios
     // sessionStorage.setItem('user', JSON.stringify(response));
     // if statement to verify
-    setAuthenticated(true);
-    setUser(username);
-    nav.navigate('Home');
-  }
+    // setAuthenticated(true);
+    // setUser(username);
+    // nav.navigate('Home');
+    authenticate(username, password)
+      .then(data => {
+        console.log('Logged in', data);
+      })
+      .catch(err => {
+        console.error('Failed to Login', err)
+      })
+  };
 
   const handleLogout = async () => {
     // const response = axios
