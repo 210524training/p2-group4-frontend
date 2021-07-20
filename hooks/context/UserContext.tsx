@@ -4,6 +4,7 @@ import Log from '../../models/log';
 import Memo from '../../models/memo';
 import Register from '../../models/register';
 import Tickets from '../../models/tickets';
+import { getAsset } from '../../remote/backend.api';
 
 const UserContext = React.createContext({
     user: '',
