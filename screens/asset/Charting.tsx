@@ -26,7 +26,11 @@ export const ChartScreen: React.FC<unknown>= () => {
 // ];
   const [data, setData] = useState<Asset[]>();
   const handle = async() =>  {
+<<<<<<< HEAD
      
+=======
+     setData(await getAsset() as Asset[]);
+>>>>>>> 1f90d5e (Implementing axios into charting)
   }
 
 // const screenwidth = ;
@@ -39,9 +43,15 @@ return (
     <ScrollView>
       <View>
       
+<<<<<<< HEAD
       <MyPieChart  category='deviceGroup'/>
       <MyPieChart  category='make'/>
       <MyPieChart  category='typeOS'/>
+=======
+      <MyPieChart assets={data as Asset[]} category='devicegroup'/>
+      <MyPieChart assets={data as Asset[]} category='make'/>
+      <MyPieChart assets={data as Asset[]} category='typeOS'/>
+>>>>>>> 1f90d5e (Implementing axios into charting)
       </View>
     </ScrollView>
     </>  
