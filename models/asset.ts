@@ -13,6 +13,7 @@ export default class Asset {
       public department: string,
       public typeOS: string,
       public roomNumber: string,
+      public make:make,
   ) {}
 }
 
