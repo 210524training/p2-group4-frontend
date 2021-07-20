@@ -1,5 +1,5 @@
 import React, { useState, Component, useEffect } from 'react';
-import { Text, StyleSheet, SafeAreaView, FlatList } from 'react-native';
+import { Text, StyleSheet, SafeAreaView, FlatList, ImageBackground } from 'react-native';
 import { View } from '../../components/Themed';
 import { styles } from '../../styles';
 
@@ -63,31 +63,36 @@ export default function DirectoryScreen() {
     );
 
     return (
-        <View style={styles.container}>
-        <View style={styles.break}></View>
-        <View style={styles.break}></View>
-        <Text style={styles.title}>
-           Directory
-        </Text>
-        <View style={styles.separatorS} lightColor="blue" darkColor="rgba(255,255,255,0.1)" />
-        <SafeAreaView style={styles.container}>
-            <FlatList
-                data={DATA}
-                renderItem={renderItem}
-                keyExtractor={item => item.Name}
-            />
-        </SafeAreaView>
-        <View style={styles.break}/>
-        </View>
+        <ImageBackground source={require('../../assets/images/pic5.jpg')} style={styles2.image}>
+            <View style={styles2.container}>
+                <View style={styles.break}></View>
+                <View style={styles.break}></View>
+                <Text style={styles.title}>
+                Directory
+                </Text>
+                <View style={styles.separatorS} lightColor="blue" darkColor="rgba(255,255,255,0.1)" />
+                <SafeAreaView style={styles.container}>
+                    <FlatList
+                        data={DATA}
+                        renderItem={renderItem}
+                        keyExtractor={item => item.Name}
+                    />
+                </SafeAreaView>
+                <View style={styles.break}/>
+            </View>
+        </ImageBackground>
     );
 }
 
 const styles2 = StyleSheet.create({
     container: {
       flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: 'transparent',
     },
     item: {
-      backgroundColor: '#D3D3D3',
+      backgroundColor: 'white',
       padding: 5,
       marginVertical: 5,
       marginHorizontal: 5,
@@ -102,4 +107,9 @@ const styles2 = StyleSheet.create({
         textAlign: 'left',
         marginLeft: 5,
     },
+    image: {
+        flex: 1,
+        resizeMode: 'cover',
+        justifyContent: 'center',
+      },
   });

@@ -27,9 +27,9 @@ export default function ViewLogScreen() {
     const Item = ({log}:{log:Log}) => (
         <View style={styles2.item}>
             <Text style={styles2.title}>{log.date}</Text>
-            <Text style={styles2.txt}>-[Tech]:   {log.tech}</Text>
-            <Text style={styles2.txt}>-[Problem Type]:   {log.problemType}</Text>
-            <Text style={styles2.txt}>-[Description]:   {log.description}</Text>
+            <Text style={styles2.txt}>[Tech]:   {log.tech}</Text>
+            <Text style={styles2.txt}>[Problem Type]:   {log.problemType}</Text>
+            <Text style={styles2.txt}>[Description]:   {log.description}</Text>
         </View>
     );
 

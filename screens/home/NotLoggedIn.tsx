@@ -1,20 +1,21 @@
 import { useNavigation } from '@react-navigation/native';
 import * as React from 'react';
-import { Button, StyleSheet } from 'react-native';
+import { Button, StyleSheet, ImageBackground } from 'react-native';
 import { Text, View } from '../../components/Themed';
 
 export default function NHomeScreen() {
   const nav = useNavigation();
-
   const viewDirectory = () => {
     nav.navigate('DirectoryScreen');
   }
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Welcome to blank</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <Button onPress={viewDirectory} title="Directory" />
-    </View>
+    <ImageBackground source={require('../../assets/images/pic5.jpg')} style={styles.image}>
+      <View style={styles.container}>
+        <Text style={styles.title}>Inventory System</Text>
+        <View style={styles.separator} lightColor="blue" darkColor="rgba(255,255,255,0.1)" />
+        <Button onPress={viewDirectory} title="Directory" />
+      </View>
+    </ImageBackground>
   );
 }
 
@@ -23,6 +24,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: 'transparent',
   },
   title: {
     fontSize: 20,
@@ -32,5 +34,10 @@ const styles = StyleSheet.create({
     marginVertical: 30,
     height: 1,
     width: '80%',
+  },
+  image: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
   },
 });

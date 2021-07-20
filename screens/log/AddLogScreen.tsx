@@ -27,9 +27,12 @@ const AddLogScreen: React.FC<unknown> = (props) => {
     setLogs(res2);
     Alert.alert('Added Log');
   }
-  
+
   return (
     <View style={styles.container}>
+      <View style={styles.break} />
+      <View style={styles.break} />
+      <View style={styles.break} />
       <Text style={styles.title}>
           Add Repair Log
       </Text>

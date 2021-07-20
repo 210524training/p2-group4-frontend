@@ -1,96 +1,96 @@
-import React,{ createContext, useContext } from "react";
-import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
-import Pool from "../UserPool";
-import UserContext from "../../../hooks/context/UserContext";
+// import React,{ createContext, useContext } from "react";
+// import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
+// import Pool from "../UserPool";
+// import UserContext from "../../../hooks/context/UserContext";
 
-//create context
-// const AccountContext = useContext(UserContext);
+// //create context
+// // const AccountContext = useContext(UserContext);
 
-const Account = (props) => {
-  const getSession = async () =>
-    await new Promise((resolve, reject) => {
-      const user = Pool.getCurrentUser();
-      if (user) {
-        user.getSession(async (err, session) => {
-          if (err) {
-            reject();
-          } else {
-            const attributes = await new Promise((resolve, reject) => {
-              user.getUserAttributes((err, attributes) => {
-                if (err) {
-                  reject(err);
-                } else {
-                  const results = {};
+// const Account = (props) => {
+//   const getSession = async () =>
+//     await new Promise((resolve, reject) => {
+//       const user = Pool.getCurrentUser();
+//       if (user) {
+//         user.getSession(async (err, session) => {
+//           if (err) {
+//             reject();
+//           } else {
+//             const attributes = await new Promise((resolve, reject) => {
+//               user.getUserAttributes((err, attributes) => {
+//                 if (err) {
+//                   reject(err);
+//                 } else {
+//                   const results = {};
 
-                  for (let attribute of attributes) {
-                    const { Name, Value } = attribute;
-                    results[Name] = Value;
-                  }
+//                   for (let attribute of attributes) {
+//                     const { Name, Value } = attribute;
+//                     results[Name] = Value;
+//                   }
 
-                  resolve(results);
-                }
-              });
-            });
+//                   resolve(results);
+//                 }
+//               });
+//             });
 
-            const token = session.getIdToken().getJwtToken();
+//             const token = session.getIdToken().getJwtToken();
 
-            resolve({
-              user,
-              headers: {
-                  Authorization: token,
-              },
-              ...session,
-              ...attributes
-            });
-          }
-        });
-      } else {
-        reject();
-      }
-    });
+//             resolve({
+//               user,
+//               headers: {
+//                   Authorization: token,
+//               },
+//               ...session,
+//               ...attributes
+//             });
+//           }
+//         });
+//       } else {
+//         reject();
+//       }
+//     });
 
-  const authenticate = async (Username: string, Password: string) =>
-    await new Promise((resolve, reject) => {
-      const user = new CognitoUser({ Username, Pool });
-      const authDetails = new AuthenticationDetails({ Username, Password });
+//   const authenticate = async (Username: string, Password: string) =>
+//     await new Promise((resolve, reject) => {
+//       const user = new CognitoUser({ Username, Pool });
+//       const authDetails = new AuthenticationDetails({ Username, Password });
 
-      user.authenticateUser(authDetails, {
-        onSuccess: (data) => {
-          console.log("onSuccess:", data);
-          resolve(data);
-        },
+//       user.authenticateUser(authDetails, {
+//         onSuccess: (data) => {
+//           console.log("onSuccess:", data);
+//           resolve(data);
+//         },
 
-        onFailure: err => {
-          console.error("onFailure:", err);
-          reject(err);
-        },
+//         onFailure: err => {
+//           console.error("onFailure:", err);
+//           reject(err);
+//         },
 
-        newPasswordRequired: data => {
-          console.log("newPasswordRequired:", data);
-          resolve(data);
-        }
-      });
-    });
+//         newPasswordRequired: data => {
+//           console.log("newPasswordRequired:", data);
+//           resolve(data);
+//         }
+//       });
+//     });
 
-  const logout = () => {
-    const user = Pool.getCurrentUser();
-    if (user) {
-      user.signOut();
-    }
-  };
+//   const logout = () => {
+//     const user = Pool.getCurrentUser();
+//     if (user) {
+//       user.signOut();
+//     }
+//   };
 
-  return(
-      <AccountContext.Provider
-        value={{ 
-            authenticate,
-            getSession,
-            logout,
-        }}
-        >{props.children}
-        </AccountContext.Provider>
-  )
-};
+//   return(
+//       <AccountContext.Provider
+//         value={{ 
+//             authenticate,
+//             getSession,
+//             logout,
+//         }}
+//         >{props.children}
+//         </AccountContext.Provider>
+//   )
+// };
 
-export { Account, AccountContext };
+// export { Account, AccountContext };
 
 

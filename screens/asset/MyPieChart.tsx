@@ -8,8 +8,10 @@ import React, { useContext, useEffect } from "react";
 import UserContext from "../../hooks/context/UserContext";
 import {deviceGroup} from "../../models/asset"
 import { getAsset } from "../../remote/backend.api";
+
 interface Props {
-  category:string
+  category:string,
+  assets: Asset[],
 };
 export type chartType =  
 {  
@@ -75,7 +77,7 @@ const chartConfig =  {
             map.set(list[i].deviceGroup,map.get(list[i].typeOS)+1);
             break;
           case 'make':
-            map.set(list[i].make,map.get(list[i].make)+1);
+            map.set(list[i].model,map.get(list[i].model)+1);
             break;      
     }
   }

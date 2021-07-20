@@ -1,13 +1,13 @@
 import React, { useState, useContext } from 'react';
 import UserContext from '../../hooks/context/UserContext';
-import { Button, StyleSheet, TextInput } from 'react-native';
+import { Button, ImageBackground, StyleSheet, TextInput } from 'react-native';
 import { Text, View } from '../../components/Themed';
 import { useNavigation } from '@react-navigation/native';
 import { login, logout, UserState, selectUser } from '../../hooks/slices/userSlice';
 import User from '../../models/user';
 import { styles } from '../../styles';
 import { CognitoUserAttribute } from 'amazon-cognito-identity-js';
-import { AccountContext } from '../../cognito/attributes/components/Accounts';
+// import { AccountContext } from '../../cognito/attributes/components/Accounts';
 import { useEffect } from 'react';
 
 
@@ -15,7 +15,7 @@ const LoginScreen: React.FC<unknown> = () => {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
-  const { authenticate } = useContext(AccountContext);
+  // const { authenticate } = useContext(AccountContext);
   
   const { setAuthenticated, setRole, setUser, user, authenticated } = useContext(UserContext);
   const nav = useNavigation();
@@ -26,16 +26,16 @@ const LoginScreen: React.FC<unknown> = () => {
     // const response = axios
     // sessionStorage.setItem('user', JSON.stringify(response));
     // if statement to verify
-    // setAuthenticated(true);
-    // setUser(username);
-    // nav.navigate('Home');
-    authenticate(username, password)
-      .then(data => {
-        console.log('Logged in', data);
-      })
-      .catch(err => {
-        console.error('Failed to Login', err)
-      })
+    setAuthenticated(true);
+    setUser(username);
+    nav.navigate('Home');
+    // authenticate(username, password)
+    //   .then(data => {
+    //     console.log('Logged in', data);
+    //   })
+    //   .catch(err => {
+    //     console.error('Failed to Login', err)
+    //   })
   };
 
   const handleLogout = async () => {
@@ -47,7 +47,8 @@ const LoginScreen: React.FC<unknown> = () => {
     }
 
   return (
-    <View style={styles.container}>
+    <ImageBackground source={require('../../assets/images/pic7.jpg')} style={styles1.image}>
+    <View style={styles1.container}>
         
         { authenticated &&
             <>
@@ -66,7 +67,7 @@ const LoginScreen: React.FC<unknown> = () => {
             <>
             <Text style={styles.title}>Log In:</Text>
             <View style={styles.separator} lightColor="blue" darkColor="rgba(255,255,255,0.1)" />
-            <View style={{ width: '100%', padding: 25, }}>
+            <View style={{ width: '100%', padding: 25, backgroundColor: 'transparent',}}>
                 <TextInput
                 style={styles.textInput1}
                 placeholder="Username"
@@ -106,7 +107,33 @@ const LoginScreen: React.FC<unknown> = () => {
             </>
         }
     </View >
+    </ImageBackground>
   );
 }
+
+
+const styles1 = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'transparent',
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  separator: {
+    marginVertical: 30,
+    height: 1,
+    width: '80%',
+  },
+  image: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
+  },
+});
+
 
 export default LoginScreen;

@@ -48,7 +48,7 @@ export default function ViewMemoScreen() {
         <View style={styles.break}></View>
         <View style={styles.break}></View>
         <Text style={styles.title}>
-            Memos
+            Threads
         </Text>
         <View style={styles.separatorS} lightColor="blue" darkColor="rgba(255,255,255,0.1)" />
         <SafeAreaView style={styles.container}>
