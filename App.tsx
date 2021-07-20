@@ -36,6 +36,8 @@ export default function App() {
   const [registers, setRegisters] = useState<Register[] | null>(null);
   const [assets, setAssets] = useState<Asset[] | null>(null);
   const [memos, setMemos] = useState<Memo[] | null>(null);
+  const me = new Memo('memo', '', '', '', '');
+  const [memo, setMemo] = useState<Memo>(me);
   const [logs, setLogs] = useState<Log[] | null>(null);
 
   if (!isLoadingComplete) {
@@ -52,6 +54,8 @@ export default function App() {
               setUser,
               memos,
               setMemos, 
+              memo,
+              setMemo,
               logs,
               setLogs,
               assets,

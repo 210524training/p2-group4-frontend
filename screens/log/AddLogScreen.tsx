@@ -15,28 +15,19 @@ const AddLogScreen: React.FC<unknown> = (props) => {
   const [tech, setTech] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [problemType, setProblemType] = useState<string>('');
-  const [date, setDate] = useState(new Date(1598051730000));
   const [show, setShow] = useState(false);
   const { asset, setLogs } = useContext(UserContext);
 
   const handleSubmitLog = async () => {
-    const logg = new Log('log', String(uuid.v4()), asset.asset_tag, String(date), tech, description, problemType);
+    const timeElapsed = Date.now();
+    const today = new Date(timeElapsed);
+    const logg = new Log('log', String(uuid.v4()), asset.asset_tag, today.toLocaleDateString(), tech, description, problemType);
     const res = await addLog(logg);
     const res2 = await getLog(asset.asset_tag);
     setLogs(res2);
     Alert.alert('Added Log');
   }
-
-  const handleDate = (event:any, selectedDate:Date) => {
-    const currentDate = selectedDate || date;
-    setShow(Platform.OS === 'ios');
-    setDate(currentDate);
-  };
-
-  const showMode = () => {
-    setShow(true);
-  };
-
+  
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
@@ -59,18 +50,6 @@ const AddLogScreen: React.FC<unknown> = (props) => {
             placeholder="Description"
             onChangeText={text => setDescription(text)}
         />
-        <View>
-            <Button onPress={showMode} title="Date" />
-        </View>
-        {show && (
-            <DateTimePicker
-            testID="dateTimePicker"
-            value={date}
-            is24Hour={true}
-            display="default"
-            onChange={() => handleDate} 
-            />
-        )}
         <View style={styles.break} />
         <Button
             onPress={() => handleSubmitLog()}

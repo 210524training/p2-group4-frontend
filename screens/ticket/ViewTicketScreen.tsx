@@ -13,6 +13,7 @@ export default function ViewMemoScreen() {
 		const [ticket, setTicket] = useState<Tickets | null>(null);
     const [modalVisible, setModalVisible] = useState(false);
     const { tickets, setTickets } = useContext(UserContext);
+    const [filtered, setFiltered] = useState<Tickets[] | null>(null);
 
     const fixed= async () => {
 			const log = ticket;
@@ -62,7 +63,19 @@ export default function ViewMemoScreen() {
       console.log(res);
       setDATA3(res);
       setTickets(res);
-      console.log("dafadf, ", DATA3)
+      setFiltered(res);
+    }
+
+    const filterE = (status:string) => {
+      let arr = [];
+      if(tickets) {
+        for(let i=0; i<tickets.length; i++) {
+          if(tickets[i].status === status) {
+            arr.push(tickets[i]);
+          }
+        }
+      }
+      setFiltered(arr);
     }
 
     useEffect(() => {
@@ -102,13 +115,13 @@ export default function ViewMemoScreen() {
 							<View style={styles.row}>
 							<Button
 								onPress={() => fixed()}
-								title=" Fixed "
+								title="Resolved"
 								color="green"
 							/>
 							<View style={styles.break} />
 							<Button
 								onPress={() => working()}
-								title="Accept"
+								title="Fixing"
 								color="blue"
 							/>
 							<View style={styles.break} />
@@ -127,9 +140,30 @@ export default function ViewMemoScreen() {
 						Tickets
 				</Text>
 				<View style={styles.separatorS} lightColor="blue" darkColor="rgba(255,255,255,0.1)" />
+        <View style={styles.break} />
+        <View style={styles.row}>
+          <Button
+          onPress={() => filterE('waiting')}
+          title="Waiting"
+          color="green"
+          />
+          <View style={styles.break} />
+          <Button
+            onPress={() => filterE('fixing')}
+            title="Fixing"
+            color="blue"
+          />
+          <View style={styles.break} />
+          <Button
+            onPress={() => filterE('resolved')}
+            title="Resolved"
+            color="red"
+          />
+        </View>
+        <View style={styles.break} />
 				<SafeAreaView style={styles.container}>
 						<FlatList
-								data={tickets}
+								data={filtered}
 								renderItem={renderItem}
 								keyExtractor={item => item.id}
 						/>

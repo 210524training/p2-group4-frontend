@@ -22,6 +22,8 @@ import ViewTicketScreen from '../screens/ticket/ViewTicketScreen';
 import { ViewAssetScreen } from '../screens/asset/ViewAssets';
 import ViewRegisters from '../screens/register/ViewRegisters';
 import  {ChartScreen} from '../screens/asset/Charting';
+import ViewMemo from '../screens/memo/ViewMemo';
+import DetailMemo from '../screens/memo/DetailMemo';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -216,6 +218,11 @@ function HomeNavigator() {
         name="ViewTicketScreen"
         component={ViewTicketScreen} 
         options={{ headerTitle: 'Tickets' }}
+      />
+      <HomeStack.Screen
+        name="ViewMemo"
+        component={DetailMemo} 
+        options={{ headerTitle: 'Memo Thread' }}
       />
     </HomeStack.Navigator>
   );

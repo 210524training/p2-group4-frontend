@@ -46,7 +46,7 @@ export const ViewAssetScreen: React.FC<unknown> = () => {
         return (
           <SafeAreaView style={styles.container}>
             <FlatList
-              data={assets}
+              data={assets} // change this to filtered asset array
               initialNumToRender={4}
               renderItem={renderItem}
               keyExtractor={item => item.id}

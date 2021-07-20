@@ -18,6 +18,7 @@ export default {
               DirectoryScreen: 'Directory',
               AddMemoScreen: 'Memo',
               ViewTicketScreen: 'ticket',
+              ViewMemo: 'ViewMemo',
             },
           },
           ViewAssets: {

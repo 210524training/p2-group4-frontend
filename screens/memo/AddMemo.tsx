@@ -6,16 +6,21 @@ import { useNavigation } from '@react-navigation/native';
 import { styles } from '../../styles';
 import uuid from 'react-native-uuid';
 import Memo from '../../models/memo';
-import { addMemo } from '../../remote/backend.api';
+import { addMemo, getMemo } from '../../remote/backend.api';
+import { Alert } from 'react-native';
 
 const AddMemoScreen: React.FC<unknown> = () => {
   const [message, setMessage] = useState<string>('');
-  const { user } = useContext(UserContext);
+  const { user, setMemos } = useContext(UserContext);
   const nav = useNavigation();
   const handleSubmitMemo = async () => {
-    const m = new Memo('memo', String(uuid.v4()), String(new Date()), user, message);
+    const timeElapsed = Date.now();
+    const today = new Date(timeElapsed);
+    const m = new Memo('memo', String(uuid.v4()), today.toLocaleDateString(), user, message);
     const res = await addMemo(m);
-    nav.navigate('Home');
+    const rest = await getMemo();
+    setMemos(rest);
+    Alert.alert('Memo submitted');
   }
 
   return (

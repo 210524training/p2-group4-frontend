@@ -5,7 +5,9 @@ import Tickets from '../models/tickets';
 import Memo from '../models/memo';
 import Asset from '../models/asset';
 import Register from "../models/register";
+import Commentx from "../models/comments";
 import { Auth } from "aws-amplify";
+
 
 interface Error {
   message: string;
@@ -47,6 +49,13 @@ export const getLog = async (tag:string): Promise<Log[]> => {
   return filter;
 }
 
+export const getComments = async (id:string): Promise<Commentx[]> => {
+  const { data: response } = await backClient.get('/comment');
+  let filter = response.data as Commentx[];
+  filter = filter.filter(comment => comment.memo_id == id);
+  return filter;
+}
+
 export const getTicket = async () => {
   const { data: response } = await backClient.get('/ticket');
   return response.data as Tickets[];
@@ -78,16 +87,31 @@ export const deleteStuff = async (path:string, id:string) => {
 }
 
 export const addAsset = async (as:Asset) => {
-  const response = await backClient.post('/asset', {as});
+  const response = await backClient.put('/asset', {...as});
   return response;
 }
 
 export const addLog = async (as:Log) => {
-  const response = await backClient.post('/log', {as});
+  const response = await backClient.put('/log', {...as});
   return response;
 }
 
 export const addMemo = async (as:Memo) => {
-  const response = await backClient.post('/memo', {as});
+  const response = await backClient.put('/memo', {...as});
+  return response;
+}
+
+export const addTicket = async (as:Tickets) => {
+  const response = await backClient.put('/ticket', {...as});
+  return response;
+}
+
+export const addRegister = async (as:Register) => {
+  const response = await backClient.put('/register', {...as});
+  return response;
+}
+
+export const addComment = async (as:Commentx) => {
+  const response = await backClient.put('/comment', {...as});
   return response;
 }

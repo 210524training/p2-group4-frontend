@@ -6,16 +6,25 @@ import Memo from '../../models/memo'
 import { getMemo } from '../../remote/backend.api';
 import { useContext } from 'react';
 import UserContext from '../../hooks/context/UserContext';
+import { Button } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 export default function ViewMemoScreen() {
 
-    const { memos, setMemos } = useContext(UserContext);
+    const { memos, setMemos, memo, setMemo } = useContext(UserContext);
+    const nav = useNavigation();
 
     const onScreenLoad = async () => {
         const rest = await getMemo();
         setMemos(rest);
         console.log(rest);
     }
+
+    const viewDetail = (me:Memo) => {
+        setMemo(me);
+        nav.navigate('ViewMemo');
+    }
+
     useEffect(() => {
         onScreenLoad();
     }, [])
@@ -30,6 +39,7 @@ export default function ViewMemoScreen() {
             <Text style={styles2.title}>{log.date}</Text>
             <Text style={styles2.txt}>[User]:   {log.user}</Text>
             <Text style={styles2.txt}>[Message]:   {log.message}</Text>
+            <Button onPress={()=>viewDetail(log)} title="View" />
         </View>
     );
 

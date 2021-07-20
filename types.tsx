@@ -17,6 +17,7 @@ export type BottomTabParamList = {
   NHome: undefined;
   AddTicket: undefined;
   Admin: undefined;
+  ViewMemo: undefined;
 };
 
 export type TabOneParamList = {
@@ -52,6 +53,7 @@ export type HomeParamList = {
   DirectoryScreen: undefined;
   AddMemoScreen: undefined;
   ViewTicketScreen: undefined;
+  ViewMemo: undefined;
 };
 
 export type TicketParamList = {

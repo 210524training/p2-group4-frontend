@@ -4,19 +4,25 @@ import { Alert, Button, StyleSheet, TextInput } from 'react-native';
 import { Text, View } from '../../components/Themed';
 import { useNavigation } from '@react-navigation/native';
 import { styles } from '../../styles';
+import Tickets from '../../models/tickets';
+import uuid from 'react-native-uuid';
+import { addTicket, getTicket } from '../../remote/backend.api';
 
 const AddTicketScreen: React.FC<unknown> = () => {
-  const [serial, setSerial] = useState<string>('');
-  const [assetID, setAssetID] = useState<string>('');
+
+  const [assetTag, setAssetTag] = useState<string>('');
   const [room, setRoom] = useState<string>('');
   const [issue, setIssue] = useState<string>('');
-  const { user } = useContext(UserContext);
+  const { user, setTickets } = useContext(UserContext);
   const nav = useNavigation();
 
   const handleAddTicket = async () => {
-    // const response = axios
-    // sessionStorage.setItem('user', JSON.stringify(response));
-    // if statement to verify
+    const timeElapsed = Date.now();
+    const today = new Date(timeElapsed);
+    const t = new Tickets('ticket', String(uuid.v4()), today.toLocaleDateString(), assetTag, issue, room, user, 'waiting');
+    const res = await addTicket(t);
+    const res2 = await getTicket();
+    setTickets(res2);
     Alert.alert("Thanks for the submission!")
     nav.navigate('Home');
   }
@@ -28,23 +34,18 @@ const AddTicketScreen: React.FC<unknown> = () => {
       <View style={{ width: '100%', padding: 25, }}>
           <TextInput
           style={styles.textInput1}
-          placeholder="Asset ID"
-          onChangeText={text => setAssetID(text)}
-          />
-          <TextInput
-          style={styles.textInput1}
-          placeholder="Serial Number"
-          onChangeText={text => setSerial(text)}
-          />
-          <TextInput
-          style={styles.textInput1}
-          placeholder="Room Number"
-          onChangeText={text => setRoom(text)}
+          placeholder="Asset Tag"
+          onChangeText={text => setAssetTag(text)}
           />
           <TextInput
           style={styles.textInput1}
           placeholder="Issue"
           onChangeText={text => setIssue(text)}
+          />
+          <TextInput
+          style={styles.textInput1}
+          placeholder="Room Number"
+          onChangeText={text => setRoom(text)}
           />
           <View style={styles.break} />
           <Button

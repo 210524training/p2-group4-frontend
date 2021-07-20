@@ -27,7 +27,7 @@ const EditAssetScreen: React.FC<unknown> = (props) => {
   const [dateRecieved, setDateRecieved] = useState(new Date(1598051730000));
   const [show, setShow] = useState(false);
   const [show1, setShow1] = useState(false);
-  const { setAsset, asset, setTag, setAssets, assets } = useContext(UserContext);
+  const { setAsset, asset, setAssets, assets } = useContext(UserContext);
 
   const handleEdit = async () => {
     Alert.alert('handle edit.');

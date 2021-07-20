@@ -15,6 +15,8 @@ const UserContext = React.createContext({
     setAuthenticated: (auth:boolean) => {},
     asset: {} as Asset,
     setAsset: (r:Asset) => {},
+    memo: {} as Memo,
+    setMemo: (r:Memo) => {},
     assets: [] as Asset[] | null,
     setLogs: (r:Array<Log>) => {},
     logs: [] as Log[] | null,
