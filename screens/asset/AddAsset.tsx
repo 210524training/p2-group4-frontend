@@ -6,15 +6,16 @@ import { Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { styles } from '../../styles';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import AddLogScreen from '../log/AddLogScreen';
 import uuid from 'react-native-uuid';
 import Asset from '../../models/asset';
 import { addAsset, getAsset } from '../../remote/backend.api';
 import UserContext from '../../hooks/context/UserContext';
+import {Picker} from '@react-native-community/picker';
 
 const AddAssetScreen: React.FC<unknown> = (props) => {
 
   const [model, setModel] = useState<string>('');
+  const [make, setMake] = useState<string>('');
   const [facultyStaff, setFacultyStaff] = useState<string>('');
   const [department, setDepartment] = useState<string>('');
   const [room, setRoom] = useState<string>('');
@@ -30,7 +31,7 @@ const AddAssetScreen: React.FC<unknown> = (props) => {
   const { setAssets } = useContext(UserContext);
 
   const handleSubmit = async () => {
-    const as = new Asset('asset', String(uuid.v4()), assetName, AssetTag, groupName, model, facultyStaff, String(dateRecieved), String(dateDecomissioned), department, OSType, room);
+    const as = new Asset('asset', String(uuid.v4()), assetName, AssetTag, groupName, model, facultyStaff, String(dateRecieved), String(dateDecomissioned), department, OSType, room, make);
     const res = await addAsset(as);
     const res2 = await getAsset();
     setAssets(res2);
@@ -69,18 +70,8 @@ const AddAssetScreen: React.FC<unknown> = (props) => {
             />
             <TextInput
               style={styles.textInput1}
-              placeholder="Group Name"
-              onChangeText={text => setGroupName(text)}
-            />
-            <TextInput
-              style={styles.textInput1}
               placeholder="Asset Tag"
               onChangeText={text => setAssetTag(text)}
-            />
-            <TextInput
-              style={styles.textInput1}
-              placeholder="Type of OS"
-              onChangeText={text => setOSType(text)}
             />
             <TextInput
               style={styles.textInput1}
@@ -102,6 +93,38 @@ const AddAssetScreen: React.FC<unknown> = (props) => {
               placeholder="Room"
               onChangeText={text => setRoom(text)}
             />
+
+            <Picker
+            selectedValue={groupName}
+            style={{ height: 30, width: '100%', margin:5 }}
+            onValueChange={(itemValue) => setGroupName(itemValue as string)}
+            >
+              <Picker.Item label="Computing Device" value="Computing Device" />
+              <Picker.Item label="IO Device" value="IO Device" />
+            </Picker>
+
+            <Picker
+            selectedValue={make}
+            style={{ height: 30, width:'100%', margin:5 }}
+            onValueChange={(itemValue) => setMake(itemValue as string)}
+            >
+              <Picker.Item label="Acer" value="Acer" />
+              <Picker.Item label="HP" value="HP" />
+              <Picker.Item label="Dell" value="Dell" />
+            </Picker>
+
+            <Picker
+            selectedValue={OSType}
+            style={{ height: 30, width: '100%', margin:5 }}
+            onValueChange={(itemValue) => setOSType(itemValue as string)}
+            >
+              <Picker.Item label="iOS" value="Computing Device" />
+              <Picker.Item label="Linux" value="IO Device" />
+              <Picker.Item label="Windows 7" value="Windows 7" />
+              <Picker.Item label="Windows 8" value="Windows 8" />
+              <Picker.Item label="Windows 10" value="Windows 10" />
+            </Picker>
+
             <View>
                 <Button onPress={showMode} title="Date Recieved" />
             </View>

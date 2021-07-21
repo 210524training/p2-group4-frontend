@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { useState } from 'react';
-import { Button, FlatList, SafeAreaView, StyleSheet } from 'react-native';
+import { Button, FlatList, SafeAreaView, StyleSheet, TextInput } from 'react-native';
 import { Text, View } from '../../components/Themed';
 import { useNavigation } from '@react-navigation/native';
 import UserContext from '../../hooks/context/UserContext';
@@ -10,43 +10,103 @@ import { getAsset } from '../../remote/backend.api';
 export const ViewAssetScreen: React.FC<unknown> = () => {
 
     const { setAsset, setAssets, assets } = useContext(UserContext);
+    const [filter, setFilter] = useState('');
     const nav = useNavigation();
+    const [arr, setArr] = useState<Asset[] | null>(assets);
 
     const viewDetail = (asset1:Asset) => {
       setAsset(asset1);
       console.log(asset1);
       nav.navigate('ViewDetail');
-  }
+    }
 
-      const onScreenLoad = async () => {
-        const res = await getAsset();
-        setAssets(res);
-        console.log(res);
+    const onScreenLoad = async () => {
+      const res = await getAsset();
+      setAssets(res);
+      setArr(res);
+      console.log(res);
+    }
+
+    const filterSearch = async () => {
+      let arrr = [];
+      if('all' == filter) {
+        // const res = await getAsset();
+        setArr(assets);
+        return;
       }
-  
-      useEffect(() => {
-        onScreenLoad();
-      }, [])
+      if(assets){
+        for(let i=0; i<assets.length; i++) {
 
-      const renderItem = ({item}:{item:any}) => (
-        <>
-            <Item asset={item} />
-        </>
-      );
+          if(assets[i].asset_tag === filter) {
+            arrr.push(assets[i]);
+          }
+          if(assets[i].make === filter) {
+            arrr.push(assets[i]);
+          }
+          if(assets[i].model === filter) {
+            arrr.push(assets[i]);
+          }
+          if(assets[i].assetName === filter) {
+            arrr.push(assets[i]);
+          }
+          if(assets[i].deviceGroup === filter) {
+            arrr.push(assets[i]);
+          }
+          if(assets[i].assignee === filter) {
+            arrr.push(assets[i]);
+          }
+          if(assets[i].typeOS === filter) {
+            arrr.push(assets[i]);
+          }
+          if(assets[i].roomNumber === filter) {
+            arrr.push(assets[i]);
+          }
+          if(assets[i].department === filter) {
+            arrr.push(assets[i]);
+          }
+        }
+        setArr(arrr);
+      }
+    }
+
+    useEffect(() => {
+      onScreenLoad();
+    }, [])
+
+    const renderItem = ({item}:{item:any}) => (
+      <>
+        <Item asset={item} />
+      </>
+    );
     const Item = ({asset}:{asset:Asset}) => (
         <View style={styles2.asset}>
             <Text style={styles2.title}>{asset.assetName}</Text>
-            <Text style={styles2.txt}>-[Asset Tag]:   {asset.asset_tag}</Text>
-            <Text style={styles2.txt}>-[Asset Name]:   {asset.assetName}</Text>
-            <Text style={styles2.txt}>-[Modeln]:   {asset.model}</Text>
+            <Text style={styles2.txt}>[Asset Tag]:   {asset.asset_tag}</Text>
+            <Text style={styles2.txt}>[Asset Name]:   {asset.assetName}</Text>
+            <Text style={styles2.txt}>[Modeln]:   {asset.model}</Text>
             <Button onPress={()=>viewDetail(asset)} title="View Detail" />
         </View>
     )
 
         return (
           <SafeAreaView style={styles.container}>
+            <View style={styles.break} />
+            <View style={styles.row}>
+            <View style={styles.break} />
+              <TextInput
+                style={styles.textInput2}
+                placeholder="Search Function"
+                onChangeText={text => setFilter(text)}
+              />
+              <Button
+                onPress={()=>filterSearch()}
+                title="Submit"
+                color="blue"
+              />
+            </View>
+            <View style={styles.break} />
             <FlatList
-              data={assets} // change this to filtered asset array
+              data={arr}
               initialNumToRender={4}
               renderItem={renderItem}
               keyExtractor={item => item.id}

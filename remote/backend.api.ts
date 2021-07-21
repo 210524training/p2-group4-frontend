@@ -32,9 +32,13 @@ export const sendLogin = async (username: string, password: string): Promise<Use
 }
 
 export const getAllUsers = async (): Promise<User[]> => {
-  const { data: users } = await backClient.get<User[]>('/api/v1/users');
+  const { data: users } = await backClient.get<User[]>('/users');
   return users;
+}
 
+export const geUser = async (): Promise<User> => {
+  const { data: user } = await backClient.get<User>('/user');
+  return user;
 }
 
 export const register = async (): Promise<String> => {

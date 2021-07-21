@@ -1,39 +1,54 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useContext } from 'react';
 import { useState } from 'react';
-import { Button, StyleSheet, TextInput, Platform, ScrollView, Modal } from 'react-native';
+import { Button, StyleSheet, TextInput, Platform } from 'react-native';
 import { Text, View } from '../../components/Themed';
 import { Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { styles } from '../../styles';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import AddLogScreen from '../log/AddLogScreen';
 import UserContext from '../../hooks/context/UserContext';
+import Asset from '../../models/asset';
+import { addAsset, deleteStuff } from '../../remote/backend.api';
 
 const EditAssetScreen: React.FC<unknown> = (props) => {
 
-  const [make, setMake] = useState<string>('');
-  const [model, setModel] = useState<string>('');
-  const [facultyStaff, setFacultyStaff] = useState<string>('');
-  const [department, setDepartment] = useState<string>('');
-  const [building, setBuilding] = useState<string>('');
-  const [room, setRoom] = useState<string>('');
+  const { asset } = useContext(UserContext);
+  const [make, setMake] = useState<string>(asset.make);
+  const [model, setModel] = useState<string>(asset.model);
+  const [facultyStaff, setFacultyStaff] = useState<string>(asset.assignee);
+  const [department, setDepartment] = useState<string>(asset.department);
+  const [room, setRoom] = useState<string>(asset.roomNumber);
   const [dateDecomissioned, setDateDecomissioned] = useState(new Date(1598051730000));
-  const [OSType, setOSType] = useState<string>('');
-  const [serialNumber, setSerialNumber] = useState<number>(0);
-  const [AssetTag, setAssetTag] = useState<string>('');
-  const [assetName, setAssetName] = useState<string>('');
-  const [groupName, setGroupName] = useState<string>('');
+  const [OSType, setOSType] = useState<string>(asset.typeOS);
+  const [AssetTag, setAssetTag] = useState<string>(asset.asset_tag);
+  const [assetName, setAssetName] = useState<string>(asset.assetName);
+  const [groupName, setGroupName] = useState<string>(asset.deviceGroup);
   const nav = useNavigation();
   const [dateRecieved, setDateRecieved] = useState(new Date(1598051730000));
   const [show, setShow] = useState(false);
   const [show1, setShow1] = useState(false);
-  const { setAsset, asset, setAssets, assets } = useContext(UserContext);
 
   const handleEdit = async () => {
-    Alert.alert('handle edit.');
-    // TODO: needs handle
-    // delete asset then add again
-  }
+
+    const res = await deleteStuff('/asset', asset.id);
+    const nAsset = new Asset(
+      'asset',
+      asset.id,
+      assetName,
+      AssetTag,
+      groupName,
+      model,
+      facultyStaff,
+      String(dateRecieved),
+      String(dateDecomissioned),
+      department,
+      OSType,
+      room,
+      make
+    );
+    const res2 = await addAsset(nAsset);
+    Alert.alert('Update Success!');
+  };
 
   const handleDateRecived = (event:any, selectedDate:Date) => {
     const currentDate = selectedDate || dateRecieved;
@@ -101,6 +116,11 @@ const EditAssetScreen: React.FC<unknown> = (props) => {
             style={styles.textInput1}
             placeholder={asset.roomNumber}
             onChangeText={text => setRoom(text)}
+          />
+          <TextInput
+            style={styles.textInput1}
+            placeholder={asset.make}
+            onChangeText={text => setMake(text)}
           />
           <View>
               <Button onPress={showMode} title="Date Recieved" />
