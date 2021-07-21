@@ -83,9 +83,7 @@ const chartConfig =  {
             map.set(list[i].typeOS,map.get(list[i].typeOS)+1);
 
             break;
-          case 'make':
-            map.set(list[i].model,map.get(list[i].model)+1);
-            break;      
+      
     }
   }
     const newMap = [...map]
