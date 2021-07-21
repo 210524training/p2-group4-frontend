@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import { styles } from '../../styles';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import uuid from 'react-native-uuid';
-import Asset from '../../models/asset';
+import Asset, { deviceGroup, typeOS } from '../../models/asset';
 import { addAsset, getAsset } from '../../remote/backend.api';
 import UserContext from '../../hooks/context/UserContext';
 import {Picker} from '@react-native-community/picker';
@@ -75,8 +75,18 @@ const AddAssetScreen: React.FC<unknown> = (props) => {
             />
             <TextInput
               style={styles.textInput1}
+              placeholder="Group Name"
+              onChangeText={text => setGroupName(text)}
+            />
+            <TextInput
+              style={styles.textInput1}
               placeholder="Asset Tag"
               onChangeText={text => setAssetTag(text)}
+            />
+            <TextInput
+              style={styles.textInput1}
+              placeholder="Type of OS"
+              onChangeText={text => setOSType(text)}
             />
             <TextInput
               style={styles.textInput1}

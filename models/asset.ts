@@ -1,5 +1,6 @@
 /* eslint-disable */
 export default class Asset {
+  // public make:make
   constructor(
       public category = 'asset',
       public id: string,

@@ -9,6 +9,7 @@ import { styles } from '../../styles';
 import { CognitoUserAttribute } from 'amazon-cognito-identity-js';
 // import { AccountContext } from '../../cognito/attributes/components/Accounts';
 import { useEffect } from 'react';
+import axios from 'axios';
 
 
 const LoginScreen: React.FC<unknown> = () => {
@@ -23,7 +24,7 @@ const LoginScreen: React.FC<unknown> = () => {
 // const url = "https://1u0w2v288k.execute-api.us-east-1.amazonaws.com/dev/user"
 
   const handleLogin = async () => {
-    // const response = axios
+    const response = axios
     // sessionStorage.setItem('user', JSON.stringify(response));
     // if statement to verify
     setAuthenticated(true);

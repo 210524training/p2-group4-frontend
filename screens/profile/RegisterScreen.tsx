@@ -40,7 +40,7 @@ const RegisterScreen: React.FC<unknown> = (props) => {
   //     console.log(data)
   //   });
   // };
-
+  
   // const Upload = () => {
   //   const pickFile = useCallback(async () => {
   //       const res = await DocumentPicker.pick( {
@@ -55,7 +55,7 @@ const RegisterScreen: React.FC<unknown> = (props) => {
   //           </View>
   //     )
   // };
-  
+
   return (
     <View style={styles.container}>
         <>
@@ -124,6 +124,6 @@ const RegisterScreen: React.FC<unknown> = (props) => {
         </>
     </View >
   );
-}
+            }
 
 export default RegisterScreen;
