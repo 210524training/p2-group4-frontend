@@ -8,11 +8,12 @@ import { styles } from '../../styles';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import UserContext from '../../hooks/context/UserContext';
 import Asset from '../../models/asset';
-import { addAsset, deleteStuff } from '../../remote/backend.api';
+import { addAsset, deleteStuff, getAsset } from '../../remote/backend.api';
+import uuid from 'react-native-uuid';
 
 const EditAssetScreen: React.FC<unknown> = (props) => {
 
-  const { asset } = useContext(UserContext);
+  const { asset, setAsset, setAssets } = useContext(UserContext);
   const [make, setMake] = useState<string>(asset.make);
   const [model, setModel] = useState<string>(asset.model);
   const [facultyStaff, setFacultyStaff] = useState<string>(asset.assignee);
@@ -30,10 +31,10 @@ const EditAssetScreen: React.FC<unknown> = (props) => {
 
   const handleEdit = async () => {
 
-    const res = await deleteStuff('/asset', asset.id);
+    const res = await deleteStuff('/dasset', asset.id);
     const nAsset = new Asset(
       'asset',
-      asset.id,
+      String(uuid.v4()),
       assetName,
       AssetTag,
       groupName,
@@ -47,6 +48,9 @@ const EditAssetScreen: React.FC<unknown> = (props) => {
       make
     );
     const res2 = await addAsset(nAsset);
+    setAsset(nAsset);
+    const res3 = await getAsset();
+    setAssets(res3);
     Alert.alert('Update Success!');
   };
 
@@ -77,11 +81,6 @@ const EditAssetScreen: React.FC<unknown> = (props) => {
       </Text>
       <View style={styles.separatorS} lightColor="blue" darkColor="rgba(255,255,255,0.1)" />
         <View style={{ width: '100%', padding: 30, }}>
-          <TextInput
-            style={styles.textInput1}
-            placeholder={asset.assetName}
-            onChangeText={text => setAssetName(text)}
-          />
           <TextInput
             style={styles.textInput1}
             placeholder={asset.deviceGroup}
@@ -117,36 +116,6 @@ const EditAssetScreen: React.FC<unknown> = (props) => {
             placeholder={asset.roomNumber}
             onChangeText={text => setRoom(text)}
           />
-          <TextInput
-            style={styles.textInput1}
-            placeholder={asset.make}
-            onChangeText={text => setMake(text)}
-          />
-          <View>
-              <Button onPress={showMode} title="Date Recieved" />
-          </View>
-          {show && (
-              <DateTimePicker
-              testID="dateTimePicker"
-              value={dateRecieved}
-              is24Hour={true}
-              display="default"
-              onChange={ () => handleDateRecived } 
-              />
-          )}
-          <View style={styles.break} />
-          <View>
-              <Button onPress={showMode1} title="Date Decomissioned" />
-          </View>
-          {show1 && (
-              <DateTimePicker
-              testID="dateTimePicker"
-              value={dateDecomissioned}
-              is24Hour={true}
-              display="default"
-              onChange={ () => handleDateDecomissioned } 
-              />
-          )}
           <View style={styles.break} />
           <Button
             onPress={() => handleEdit()}

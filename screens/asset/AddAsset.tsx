@@ -75,18 +75,8 @@ const AddAssetScreen: React.FC<unknown> = (props) => {
             />
             <TextInput
               style={styles.textInput1}
-              placeholder="Group Name"
-              onChangeText={text => setGroupName(text)}
-            />
-            <TextInput
-              style={styles.textInput1}
               placeholder="Asset Tag"
               onChangeText={text => setAssetTag(text)}
-            />
-            <TextInput
-              style={styles.textInput1}
-              placeholder="Type of OS"
-              onChangeText={text => setOSType(text)}
             />
             <TextInput
               style={styles.textInput1}
@@ -152,19 +142,7 @@ const AddAssetScreen: React.FC<unknown> = (props) => {
                 onChange={ () => handleDateRecived } 
                 />
             )}
-            <View style={styles.break} />
-            <View>
-                <Button onPress={showMode1} title="Date Decomissioned" />
-            </View>
-            {show1 && (
-                <DateTimePicker
-                testID="dateTimePicker"
-                value={dateDecomissioned}
-                is24Hour={true}
-                display="default"
-                onChange={ () => handleDateDecomissioned } 
-                />
-            )}
+
             <View style={styles.break} />
             <Button
               onPress={() => handleSubmit()}

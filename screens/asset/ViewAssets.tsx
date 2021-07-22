@@ -84,10 +84,10 @@ export const ViewAssetScreen: React.FC<unknown> = () => {
     );
     const Item = ({asset}:{asset:Asset}) => (
         <View style={styles2.asset}>
-            <Text style={styles2.title}>{asset.assetName}</Text>
-            <Text style={styles2.txt}>[Asset Tag]:   {asset.asset_tag}</Text>
-            <Text style={styles2.txt}>[Asset Name]:   {asset.assetName}</Text>
-            <Text style={styles2.txt}>[Modeln]:   {asset.model}</Text>
+            <Text style={styles2.title}>{asset.asset_tag}</Text>
+            <Text style={styles2.txt}>[Device Group]:   {asset.deviceGroup}</Text>
+            <Text style={styles2.txt}>[Model]:   {asset.model}</Text>
+            <Text style={styles2.txt}>[Assignee]:   {asset.assignee}</Text>
             <Button onPress={()=>viewDetail(asset)} title="View Detail" />
         </View>
     )

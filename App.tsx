@@ -14,7 +14,7 @@ import Memo from './models/memo';
 import Log from './models/log';
 import { getAsset } from './remote/backend.api';
 // import { withAuthenticator } from 'aws-amplify-react-native';
-import config from './src/aws-exports'
+import config from './src/aws-exports.js'
 
 
 Amplify.configure({

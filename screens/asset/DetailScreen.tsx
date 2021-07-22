@@ -49,11 +49,13 @@ const DetailScreen: React.FC<unknown> = () => {
     const Item = ({data}:{data:Asset}) => (
         <View style={styles2.item}>
             <Text style={styles2.title}>[AssetTag]:  {data.asset_tag}</Text>
-            <Text style={styles2.txt}>[Asset Name]:  {data.assetName}</Text>
             <Text style={styles2.txt}>[Device Group]:  {data.deviceGroup}</Text>
             <Text style={styles2.txt}>[Model]:  {data.model}</Text>
-            <Text style={styles2.txt}>[Date Recieved]:  {data.date_issued}</Text>
+            <Text style={styles2.txt}>[OS Type]:  {data.typeOS}</Text>
             <Text style={styles2.txt}>[Assignee]:  {data.assignee}</Text>
+            <Text style={styles2.txt}>[Department]:  {data.department}</Text>
+            <Text style={styles2.txt}>[Room Number]:  {data.roomNumber}</Text>
+            <Text style={styles2.txt}>[Date Recieved]:  {data.date_issued}</Text>
         </View>
     );
       
@@ -87,15 +89,19 @@ const DetailScreen: React.FC<unknown> = () => {
           </View>
         </Modal>
         <View style={styles.container}>
-        <View style={styles.break}></View>
-        <Text style={styles.title}>
+          <View style={styles.break}></View>
+          <Text style={styles.title}>
             Asset Detail
-        </Text>
+          </Text>
         <View style={styles.separatorS} lightColor="blue" darkColor="rgba(255,255,255,0.1)" />
+            <View style={styles.break} />
+            <View style={styles.break} />
             <SafeAreaView style={styles.container}>
                 <Item data={asset as Asset}/>
             </SafeAreaView>
             <View style={styles.break} />
+            <View style={styles.break} />
+
             <View style={styles.row}>
                 <Button onPress={editDetail} title="  Edit  " />
                 <View style={styles.break} />
@@ -118,8 +124,8 @@ const styles2 = StyleSheet.create({
     item: {
       backgroundColor: '#B0C4DE',
       padding: 10,
-      marginVertical: 5,
-      marginHorizontal: 5,
+      marginVertical: 7,
+      marginHorizontal: 30,
     },
     title: {
       fontSize: 15,
