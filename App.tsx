@@ -6,12 +6,13 @@ import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 import UserContext from "./hooks/context/UserContext";
 import Tickets from './models/tickets';
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import Amplify, {Auth} from 'aws-amplify';
 import Register from './models/register';
 import Asset from './models/asset';
 import Memo from './models/memo';
 import Log from './models/log';
+import { getAsset } from './remote/backend.api';
 // import { withAuthenticator } from 'aws-amplify-react-native';
 import config from './src/aws-exports'
 
@@ -30,7 +31,7 @@ export default function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const [user, setUser] = useState('');
   const [role, setRole] = useState('');
-  const as = new Asset('asset', '', '', '', 'IO Device', '', '', '' , '', '', 'iOS', '');
+  const as = new Asset('asset', '', '', '', 'IO Device', '', '', '' , '', '', 'iOS', '','');
   const [asset, setAsset] = useState(as);
   const [tickets, setTickets] = useState<Tickets[] | null>(null);
   const [registers, setRegisters] = useState<Register[] | null>(null);
@@ -40,7 +41,15 @@ export default function App() {
   const [memo, setMemo] = useState<Memo>(me);
   const [logs, setLogs] = useState<Log[] | null>(null);
   const [picked, setPicked] = useState('');
+  const onScreenLoad = async () => {
+    const res = await getAsset();
+    setAssets(res);
+    console.log(res);
+  }
 
+  useEffect(() => {
+    onScreenLoad();
+  }, [])
   if (!isLoadingComplete) {
     return null;
   } else {

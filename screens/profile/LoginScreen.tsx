@@ -3,14 +3,12 @@ import UserContext from '../../hooks/context/UserContext';
 import { Button, ImageBackground, StyleSheet, TextInput } from 'react-native';
 import { Text, View } from '../../components/Themed';
 import { useNavigation } from '@react-navigation/native';
-import { login, logout, UserState, selectUser } from '../../hooks/slices/userSlice';
 import User from '../../models/user';
 import { styles } from '../../styles';
 import { CognitoUserAttribute } from 'amazon-cognito-identity-js';
 import { useEffect } from 'react';
 import { Auth } from 'aws-amplify';
 import { getAllUsers } from '../../remote/backend.api';
-
 
 const LoginScreen: React.FC<unknown> = () => {
   
@@ -25,7 +23,6 @@ const LoginScreen: React.FC<unknown> = () => {
 // const url = "https://1u0w2v288k.execute-api.us-east-1.amazonaws.com/dev/user"
 
   const handleLogin = async () => {
-    // const response = axios
     // sessionStorage.setItem('user', JSON.stringify(response));
     // if statement to verify
     // setAuthenticated(true);

@@ -11,11 +11,10 @@ import { getAsset } from "../../remote/backend.api";
 
 interface Props {
   category:string,
-  assets: Asset[],
 };
 export type chartType =  
 {  
-  category: string,//The sub-types of the sorted category
+  name: string,//The sub-types of the sorted category
   count: number, //Total amount of single sub-types should be here
   color: string,
   legendFontColor: string,
@@ -43,11 +42,17 @@ const chartConfig =  {
     barPercentage: 0.5,
     useShadowColorFromDataset: false // optional
   };
-  const findNumber= ():any[] => {
-    const list:Array<Asset> = assets as Array<Asset>;
-    console.log(assets);
+  let res;
+  const findNumber=  ():chartType[] => {
+     res = async() => {
+      const a = await getAsset()
+      return a as Asset[];
+    } 
+    
+    const list:Array<Asset>= assets as Asset[];
+    
     let deviceGroup:deviceGroup[] = ['Computing Device','IO Device'];
-    let typeOS:typeOS[] = ['iOS','Windows 10','Windows 7','Windows 8','Linux'];
+    let ptypeOS:typeOS[] | string[] = ['iOS','Windows 10','Windows 7','Windows 8','Linux', 'Other'];
     let make:make[] = ['Dell','HP','Acer'];
     const map=new Map();
 
@@ -58,8 +63,8 @@ const chartConfig =  {
         }
         break;
       case 'typeOS':
-        for (let i=0; i<typeOS.length; i++){
-          map.set(typeOS[i],0);
+        for (let i=0; i<ptypeOS.length; i++){
+          map.set(ptypeOS[i],0);
        }
         break;
       case 'make':
@@ -74,27 +79,32 @@ const chartConfig =  {
           map.set(list[i].deviceGroup,map.get(list[i].deviceGroup)+1);
           break;
           case 'typeOS':
-            map.set(list[i].deviceGroup,map.get(list[i].typeOS)+1);
+
+            map.set(list[i].typeOS,map.get(list[i].typeOS)+1);
+
             break;
-          case 'make':
-            map.set(list[i].model,map.get(list[i].model)+1);
-            break;      
+      
     }
   }
     const newMap = [...map]
     const mylist:chartType[] = []
     for (let i=0; i<map.size;i++){
+      let num =Math.floor(Math.random() * 255);
+      let num2=Math.floor(Math.random() * 255);
+      let num3=Math.floor(Math.random() * 255)
+      let num4=Math.floor(Math.random() * 255);
+      const ccolor:string = `rgba(${num}, ${num2}, ${num3}, ${num4})`
       mylist[i] = {
-        category: newMap[i][0],//The sub-types of the sorted category
+        name: newMap[i][0],//The sub-types of the sorted category
         count: newMap[i][1], //Total amount of single sub-types should be here
-        color: "blue",
-        legendFontColor: "grey",
+        color: ccolor,
+        legendFontColor: "#7F7F7F",
         legendFontSize: 15,
 
       }
     }
-     
-  return mylist as any[];
+     console.log(mylist);
+  return mylist ;
 
   }
   useEffect(() => {

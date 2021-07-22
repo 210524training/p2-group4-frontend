@@ -93,7 +93,7 @@ const RegisterScreen: React.FC<unknown> = (props) => {
   //           </View>
   //     )
   // };
-  
+
   return (
     <View style={styles.container}>
         <>
@@ -162,6 +162,6 @@ const RegisterScreen: React.FC<unknown> = (props) => {
         </>
     </View >
   );
-}
+            }
 
 export default RegisterScreen;

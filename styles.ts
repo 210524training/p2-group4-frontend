@@ -14,6 +14,12 @@ export const styles = StyleSheet.create({
       flexWrap: "wrap",
       justifyContent: 'flex-end',
     },
+    row2: {
+      flexDirection: "row",
+      flexWrap: "wrap",
+      justifyContent: 'flex-end',
+      height:10,
+    },
     title: {
       fontSize: 20,
       fontWeight: 'bold',
@@ -33,6 +39,12 @@ export const styles = StyleSheet.create({
       margin: 10,
       backgroundColor: '#F0F8FF',
       padding: 3,
+    },
+    textInput2: {
+      fontSize: 16, 
+      margin: 10,
+      backgroundColor: '#F0F8FF',
+      padding: 1,
     },
     break: {
       margin:5,

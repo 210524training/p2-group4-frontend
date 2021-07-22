@@ -11,7 +11,7 @@ export default function NHomeScreen() {
   return (
     <ImageBackground source={require('../../assets/images/pic5.jpg')} style={styles.image}>
       <View style={styles.container}>
-        <Text style={styles.title}>Inventory System</Text>
+        <Text style={styles.title}>iManage</Text>
         <View style={styles.separator} lightColor="blue" darkColor="rgba(255,255,255,0.1)" />
         <Button onPress={viewDirectory} title="Directory" />
       </View>
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   title: {
-    fontSize: 20,
+    fontSize: 30,
     fontWeight: 'bold',
   },
   separator: {

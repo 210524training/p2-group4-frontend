@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useContext, useEffect, useState } from "react";
 import { Dimensions, View, Text, ScrollView } from "react-native";
 import {
   LineChart,
@@ -12,24 +12,23 @@ import MyPieChart from "./MyPieChart";
 import { styles } from "../../styles";
 import Asset from "../../models/asset";
 import { getAsset } from "../../remote/backend.api";
+import UserContext from "../../hooks/context/UserContext";
 
 export const ChartScreen: React.FC<unknown>= () => {
-//   const DATA = [
-//     {assetName:'Bobby-CM',assetTag:'1516541',deviceGroup:'Computing Device',model:'Dell', assignee:'Larry', date_issued:''},
-//     {assetName:'Bobby-CM',assetTag:'1516542',deviceGroup:'Computing Device',model:'Dell', assignee:'Larry', date_issued:''},
-//     {assetName:'Bobby-CM',assetTag:'1516543',deviceGroup:'Computing Device',model:'Dell', assignee:'Larry', date_issued:''},
-//     {assetName:'Bobby-CM',assetTag:'1516544',deviceGroup:'IO Device',model:'Dell', assignee:'Larry', date_issued:''},
-//     {assetName:'Bobby-CM',assetTag:'1516545',deviceGroup:'Computing Device',model:'Dell', assignee:'Larry', date_issued:''},
-//     {assetName:'Bobby-CM',assetTag:'1516546',deviceGroup:'Computing Device',model:'Dell', assignee:'Larry', date_issued:''},
-//     {assetName:'Bobby-CM',assetTag:'1516547',deviceGroup:'Computing Device',model:'Dell', assignee:'Larry', date_issued:''},
-//     {assetName:'Bobby-CM',assetTag:'1516548',deviceGroup:'Computing Device',model:'Dell', assignee:'Larry', date_issued:''}
-// ];
+  const { setAssets } = useContext(UserContext)
+
   const [data, setData] = useState<Asset[]>();
   const handle = async() =>  {
-
      setData(await getAsset() as Asset[]);
   }
-
+  const onScreenLoad = async () => {
+    const res = await getAsset();
+    setAssets(res);
+    console.log(res);
+  }
+  useEffect(() => {
+    onScreenLoad();
+  }, [])
 // const screenwidth = ;
 // const screenheight = Dimensions.get('window').height;
 
@@ -39,10 +38,11 @@ return (
     <>
     <ScrollView>
       <View>
-      <MyPieChart assets={data as Asset[]} category='devicegroup'/>
-      <MyPieChart assets={data as Asset[]} category='make'/>
-      <MyPieChart assets={data as Asset[]} category='typeOS'/>
-
+      <Text style={styles.title}>Device Group</Text>
+      <MyPieChart  category='deviceGroup'/>
+      {/* <MyPieChart  category='make'/> */}
+      <Text style={styles.title}>Type of OS</Text>
+      <MyPieChart  category='typeOS'/>
       </View>
     </ScrollView>
     </>  

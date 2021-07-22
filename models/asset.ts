@@ -1,5 +1,6 @@
 /* eslint-disable */
 export default class Asset {
+  // public make:make
   constructor(
       public category = 'asset',
       public id: string,
@@ -13,6 +14,10 @@ export default class Asset {
       public department: string,
       public typeOS: string,
       public roomNumber: string,
+<<<<<<< HEAD
+=======
+      public make:string,
+>>>>>>> e2e4861eb870e3ae34d32a0a0acce321d13accbf
   ) {}
 }
 
