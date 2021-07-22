@@ -1,13 +1,15 @@
 // import { Component, View, Text, TouchableOpacity } from 'react-native'
-// import React from 'react'
+// import React, { useContext } from 'react'
 // import ModalFilterPicker from 'react-native-modal-filter-picker'
 // import StyleSheet from 'react-native'
 // import { useState } from 'react'
- 
+// import { makeStyles } from 'react-native-elements'
+// import UserContext from '../../hooks/context/UserContext'
+
 // const Picker = () => {
   
 //   const [visible, setVisibility] = useState<boolean>(false);
-//   const [picked, setPicked] = useState<string>('');
+//   const { picked, setPicked } = useContext(UserContext);
 
 //   const options = [
 //     {
@@ -19,11 +21,11 @@
 //       label: 'Asset Name',
 //     },
 //     {
-//       key: 'make',
+//       key: 'Make',
 //       label: 'Make',
 //     },
 //     {
-//       key: 'model',
+//       key: 'Model',
 //       label: 'Model',
 //     },
 //     {
@@ -56,25 +58,27 @@
 //     },
 //   ];
 
-//   function handleVisibility() {
-//     setVisibility(true)
-//   };
+// //   function handleVisibility() {
+// //     setVisibility(true)
+// //   };
 
-//   function handleSelect(picked: string) {
-//     setPicked(picked)
-//     setVisibility(false)
-//   };
+// //   function handleSelect(picked: string) {
+// //     setPicked(picked)
+// //     setVisibility(false)
+// //   };
 
-//   function handleCancel() {
-//     setVisibility(false)
-//   };
+// //   function handleCancel() {
+// //     setVisibility(false)
+// //   };
+
+
 
 //   return (
 //     <View style={styles.container}>
 //       <TouchableOpacity style={styles.buttonContainer} onPress={handleVisibility}>
 //         <Text>Select...</Text>
 //       </TouchableOpacity>      
-//       <Text style={appStyles.label}>Selected:</Text>
+//       <Text style={styles.label}>Selected:</Text>
 //       <Text>{picked}</Text>
 //       <ModalFilterPicker
 //         visible={visible}
@@ -85,15 +89,18 @@
 //     </View>
 //   );
 
-// }
+// // }
 
-// const styles = StyleSheet.create({
-//     container: {
+// // const styles = StyleSheet.create({
+// //     container: {
+
+// //     },
+// //     buttonContainer: {
 
 //     },
-//     buttonContainer: {
+//     label: {
 
-//     },
+//     }
 // })
 
-// export default Picker
+// // export default Picker

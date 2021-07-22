@@ -7,8 +7,11 @@ import { useNavigation } from '@react-navigation/native';
 import NativeUploady, { UploadyContext } from "@rpldy/native-uploady";
 // import DocumentPicker from 'react-native-document-picker';
 import { styles } from '../../styles';
-// import UserPool from '../../cognito/attributes/UserPool';
-// import { CognitoUserAttribute } from "amazon-cognito-identity-js";
+import UserPool from '../../cognito/attributes/UserPool';
+import { CognitoUserAttribute } from "amazon-cognito-identity-js";
+import Auth from '@aws-amplify/auth';
+import User from '../../models/user';
+import { register, registerUser } from '../../remote/backend.api';
 
 const RegisterScreen: React.FC<unknown> = (props) => {
 
@@ -17,29 +20,64 @@ const RegisterScreen: React.FC<unknown> = (props) => {
   const [phoneNumber, setPhoneNumber] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [role, setRole] = useState<string>('');
-  const [Name, setName] = useState<string>('');
+  const [name, setName] = useState<string>('');
   const [experience, setExperience] = useState<number>(0);
+  const [invalidMessage, setInvalidMessage] = useState<string>('')
+
   const uploadyContext = useContext(UploadyContext);
   const nav = useNavigation();
 
   // let attributeList: CognitoUserAttribute[] = [];
 
-  let userRole = {
-    Name: 'custom:role',
-    Value: role
-  };
+  // let userRole = {
+  //   Name: 'custom:role',
+  //   Value: role
+  // };
 
   // let roleAttribute = new CognitoUserAttribute(userRole);
   // attributeList.push(roleAttribute);
+  
 
-  // const handleRegister = async () => {
-  //   Alert.alert('handle register.');
-  //   // needs handle
-  //   UserPool.signUp(username, password, attributeList, null, (err, data) => {
-  //     if(err) console.log(err);
-  //     console.log(data)
-  //   });
-  // };
+  const handleRegister = async () => {
+    Alert.alert('handle register.');
+    // needs handle
+    // UserPool.signUp(username, password, attributeList, null, (err, data) => {
+    //   if(err) console.log(err);
+    //   console.log(data)
+    // });
+
+   
+    
+
+    Auth.signUp({
+      username, 
+      password,
+      //add attributes optional
+      attributes: {
+        email,
+        name,
+      },
+      validationData: [],
+    })
+      .then(async () => {
+         //create user and send to dynamo table
+        const id = username;
+        const newUser = new User(id, role)
+        const result = await registerUser(id, role);
+        if (result) {
+        console.log('successfully created account')
+      } else {
+        console.log('unable to register')
+      }
+      
+      })
+      .then(/*navigate to home */)
+      .catch((err) => {
+        if (err.message) {
+          setInvalidMessage(err.message)
+        }
+      })
+  };
 
   // const Upload = () => {
   //   const pickFile = useCallback(async () => {
@@ -105,11 +143,11 @@ const RegisterScreen: React.FC<unknown> = (props) => {
                 {/* <Upload/>            */}
             </NativeUploady>
             <View style={styles.break} />
-            {/* <Button
-              //onPress={() => handleRegister()}
+             <Button
+              onPress={() => handleRegister()}
               title="Register"
               color="blue"
-            /> */}
+            /> 
             <Text
               style={{
                 color: 'blue',

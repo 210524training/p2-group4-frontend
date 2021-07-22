@@ -7,17 +7,19 @@ import { login, logout, UserState, selectUser } from '../../hooks/slices/userSli
 import User from '../../models/user';
 import { styles } from '../../styles';
 import { CognitoUserAttribute } from 'amazon-cognito-identity-js';
-// import { AccountContext } from '../../cognito/attributes/components/Accounts';
 import { useEffect } from 'react';
+import { Auth } from 'aws-amplify';
+import { getAllUsers } from '../../remote/backend.api';
 
 
 const LoginScreen: React.FC<unknown> = () => {
+  
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-
+ 
   // const { authenticate } = useContext(AccountContext);
   
-  const { setAuthenticated, setRole, setUser, user, authenticated } = useContext(UserContext);
+  const { setAuthenticated, setRole, setUser, user, authenticated, role } = useContext(UserContext);
   const nav = useNavigation();
 
 // const url = "https://1u0w2v288k.execute-api.us-east-1.amazonaws.com/dev/user"
@@ -26,9 +28,9 @@ const LoginScreen: React.FC<unknown> = () => {
     // const response = axios
     // sessionStorage.setItem('user', JSON.stringify(response));
     // if statement to verify
-    setAuthenticated(true);
-    setUser(username);
-    nav.navigate('Home');
+    // setAuthenticated(true);
+    // setUser(username);
+    // nav.navigate('Home');
     // authenticate(username, password)
     //   .then(data => {
     //     console.log('Logged in', data);
@@ -36,15 +38,68 @@ const LoginScreen: React.FC<unknown> = () => {
     //   .catch(err => {
     //     console.error('Failed to Login', err)
     //   })
+    console.log('right before auth');
+    await Auth.signIn(username, password);
+    console.log('right after auth');
+    const userID = username;
+    console.log(userID);
+    //navigate home
+    const res = await getAllUsers();
+    console.log(res.data);
+    await filterUsers(res.data, userID);
+    nav.navigate('Home');
+    // let user1;
+    // for(let i=0; i<res.length; i++){
+    //   if(res[i].id === userID){
+    //     user1=res[i];
+    //     console.log('inside the for loop')
+    //     setRole(user1.role);
+    //     setUser(user1.id);
+    //     setAuthenticated(true);
+    //     nav.navigate('Home');
+    //     break;
+    //   }
+    // }
+   console.log('outside the for loop')
+   console.log(role)
+   console.log(user)
   };
+  
+  function filterUsers(arr: User[], person: string) {
+    console.log('inside the filter func');
+    for(let i=0; i<arr.length; i++){
+      if(arr[i].id === person){
+        let user1=arr[i];
+        console.log('inside the for loop')
+        setRole(user1.role);
+        setUser(user1.id);
+        setAuthenticated(true);
+        nav.navigate('Home');
+        break;
+      }
+    }
+  }
 
   const handleLogout = async () => {
     // const response = axios
-    setAuthenticated(false);
-    setUser('');
-    setRole('');
+    await Auth.signOut()
+      .catch((err) => {
+        console.log('ERROR: ', err);
+      });
+      setAuthenticated(false);
+    //set context authenticated to false
     nav.navigate('Home');
     }
+
+  // function getDynamoUser() {
+  //   //set id = username
+  //   const userID = user.username
+  //   //get user from db table with id 
+  //   await getUser()
+  //   //save role of user to context 
+    
+  // }
+
 
   return (
     <ImageBackground source={require('../../assets/images/pic7.jpg')} style={styles1.image}>
@@ -79,11 +134,6 @@ const LoginScreen: React.FC<unknown> = () => {
                 placeholder="Password"
                 onChangeText={text => setPassword(text)}
                 defaultValue={password}
-                />
-                <TextInput
-                style={styles.textInput1}
-                placeholder="role"
-                onChangeText={text => setRole(text)}
                 />
                 <View style={styles.break} />
                 <Button

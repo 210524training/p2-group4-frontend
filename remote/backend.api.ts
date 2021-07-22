@@ -31,10 +31,27 @@ export const sendLogin = async (username: string, password: string): Promise<Use
   return user;
 }
 
-export const getAllUsers = async (): Promise<User[]> => {
-  const { data: users } = await backClient.get<User[]>('/api/v1/users');
-  return users;
+export const getAllUsers = async () => {
+  const { data:user  } = await backClient.get('/user');
+  return user;
 
+}
+
+// export const getUser = async (id:string): Promise<User> => {
+//   const response = await backClient.get('/user', {id});
+//   return response.data as User;
+// }
+
+
+export const registerUser = async(id:string, role:string): Promise<boolean> => {
+  const response = await backClient.put('/user/register', {id, role});
+
+  if(response) {
+    console.log(response)
+    return true;
+  }
+    console.log(response)
+  return false;
 }
 
 export const register = async (): Promise<String> => {

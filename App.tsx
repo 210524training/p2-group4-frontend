@@ -13,15 +13,15 @@ import Asset from './models/asset';
 import Memo from './models/memo';
 import Log from './models/log';
 // import { withAuthenticator } from 'aws-amplify-react-native';
-// import config from './src/aws-exports'
+import config from './src/aws-exports'
 
 
-// Amplify.configure({
-//   ...config,
-//   Analytics: {
-//     disabled: true,
-//   },
-// });
+Amplify.configure({
+  ...config,
+  Analytics: {
+    disabled: true,
+  },
+});
 
 //export default withAuthenticator(App)
 export default function App() {
@@ -39,6 +39,7 @@ export default function App() {
   const me = new Memo('memo', '', '', '', '');
   const [memo, setMemo] = useState<Memo>(me);
   const [logs, setLogs] = useState<Log[] | null>(null);
+  const [picked, setPicked] = useState('');
 
   if (!isLoadingComplete) {
     return null;
@@ -63,7 +64,9 @@ export default function App() {
               role, 
               setRole,
               registers,
-              setRegisters}}>
+              setRegisters,
+              picked,
+              setPicked}}>
         <SafeAreaProvider>
           <Navigation colorScheme={colorScheme} />
           <StatusBar />

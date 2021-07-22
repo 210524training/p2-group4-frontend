@@ -14,6 +14,12 @@
     "categories": {
       "auth": {
         "p2group4frontend9a92373e": {}
+      },
+      "function": {
+        "p2group4frontend9a92373ePostConfirmation": {
+          "deploymentBucketName": "amplify-p2group4frontend-dev-153754-deployment",
+          "s3Key": "amplify-builds/p2group4frontend9a92373ePostConfirmation-746153304c4a52514a56-build.zip"
+        }
       }
     }
   }

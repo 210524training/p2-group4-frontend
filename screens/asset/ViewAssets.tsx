@@ -7,10 +7,14 @@ import UserContext from '../../hooks/context/UserContext';
 import Asset from '../../models/asset';
 import { styles } from '../../styles';
 import { getAsset } from '../../remote/backend.api';
+import { SearchBar } from 'react-native-elements';
+import Searchbar from '../../components/searchbar/Searchbar';
 export const ViewAssetScreen: React.FC<unknown> = () => {
 
-    const { setAsset, setAssets, assets } = useContext(UserContext);
+    const { setAsset, setAssets, assets, picked } = useContext(UserContext);
     const nav = useNavigation();
+
+    const [filtered, setFiltered] = useState<Asset[]|null>(null);
 
     const viewDetail = (asset1:Asset) => {
       setAsset(asset1);
@@ -22,6 +26,49 @@ export const ViewAssetScreen: React.FC<unknown> = () => {
         const res = await getAsset();
         setAssets(res);
         console.log(res);
+      }
+
+      function filterResults() {
+        const arr = [];
+        if(assets){      
+          for(let i=0; i<assets.length; i++) {
+            if(assets[i].asset_tag === picked) {
+              arr.push(assets[i]);
+            }
+            if(assets[i].category === picked) {
+              arr.push(assets[i]);
+            }
+            if(assets[i].model === picked) {
+              arr.push(assets[i]);
+            }
+            if(assets[i].typeOS === picked) {
+              arr.push(assets[i]);
+            }
+            if(assets[i].deviceGroup === picked) {
+              arr.push(assets[i]);
+            }
+            if(assets[i].assignee === picked) {
+              arr.push(assets[i]);
+            }
+          }
+          setFiltered(arr);
+        }
+          // if (search == asset) {
+          //     console.log(asset)
+          //     //store assets in a new Array
+  
+          //     //render list 
+          //     arr.map((item, index) => (
+          //       //dynamically render 
+          //       <tr key= {index}>
+          //         <td>{item.id}</td>
+          //         <td>{item.category}</td>
+          //         { /* etc */}
+          //       </tr>
+          //     ))
+          // }
+        // })
+        return filtered;
       }
   
       useEffect(() => {
@@ -45,8 +92,9 @@ export const ViewAssetScreen: React.FC<unknown> = () => {
 
         return (
           <SafeAreaView style={styles.container}>
+            <Searchbar />
             <FlatList
-              data={assets} // change this to filtered asset array
+              data={filterResults()} // change this to filtered asset array
               initialNumToRender={4}
               renderItem={renderItem}
               keyExtractor={item => item.id}

@@ -27,6 +27,8 @@ const UserContext = React.createContext({
     setTickets: (value:Array<Tickets> | null) => {},
     registers: [] as Register[] | null,
     setRegisters: (value:Array<Register> | null) => {},
+    picked: '',
+    setPicked: (p: string) => {},
   });
 
   export default UserContext;
