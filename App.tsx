@@ -31,7 +31,7 @@ export default function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const [user, setUser] = useState('');
   const [role, setRole] = useState('');
-  const as = new Asset('asset', '', '', '', 'IO Device', '', '', '' , '', '', 'iOS', '');
+  const as = new Asset('asset', '', '', '', 'IO Device', '', '', '' , '', '', 'iOS', '','');
   const [asset, setAsset] = useState(as);
   const [tickets, setTickets] = useState<Tickets[] | null>(null);
   const [registers, setRegisters] = useState<Register[] | null>(null);
