@@ -123,8 +123,8 @@ const AddAssetScreen: React.FC<unknown> = (props) => {
             style={{ height: 30, width: '100%', margin:5 }}
             onValueChange={(itemValue) => setOSType(itemValue as string)}
             >
-              <Picker.Item label="iOS" value="Computing Device" />
-              <Picker.Item label="Linux" value="IO Device" />
+              <Picker.Item label="iOS" value="iOS" />
+              <Picker.Item label="Linux" value="Linux" />
               <Picker.Item label="Windows 7" value="Windows 7" />
               <Picker.Item label="Windows 8" value="Windows 8" />
               <Picker.Item label="Windows 10" value="Windows 10" />
