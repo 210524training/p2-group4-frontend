@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
 import { useState } from 'react';
 import { Button, StyleSheet, TextInput, Platform, ScrollView } from 'react-native';
 import { Text, View } from '../../components/Themed';
@@ -57,6 +57,11 @@ const AddAssetScreen: React.FC<unknown> = (props) => {
   const showMode1 = () => {
     setShow1(true);
   };
+
+  useEffect(() => {
+    setShow1(false);
+    setShow(false);
+}, [])
 
   return (
     <View style={styles.container}>
