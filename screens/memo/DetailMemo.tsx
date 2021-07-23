@@ -29,7 +29,6 @@ const DetailMemoScreen: React.FC<unknown> = () => {
       const newC = new Commentx('comment', String(uuid.v4()), memo.id, today.toLocaleDateString(), user, comment);
       const res = await addComment(newC);
       setComments();
-      Alert.alert('Success!');
     }
 
     const onScreenLoad = () => {
