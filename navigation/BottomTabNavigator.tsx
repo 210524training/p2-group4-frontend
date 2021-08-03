@@ -29,7 +29,7 @@ const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 export default function BottomTabNavigator() {
   const colorScheme = useColorScheme();
-  const { user, authenticated, role } = useContext(UserContext);
+  const { user, authenticated, role, setRole } = useContext(UserContext);
 
   return (
     <BottomTab.Navigator
